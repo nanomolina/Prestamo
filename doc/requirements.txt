@@ -1,0 +1,9 @@
+Django==1.9.8
+django-rest-auth==0.7.0
+djangorestframework==3.4.0
+oauthlib==1.1.2
+pkg-resources==0.0.0
+python-openid==2.2.5
+requests==2.10.0
+requests-oauthlib==0.6.2
+six==1.10.0
