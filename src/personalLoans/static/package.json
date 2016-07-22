@@ -1,5 +1,5 @@
 {
-  "name": "personalLoans",
+  "name": "personal-loans",
   "version": "1.0.0",
   "dependencies": {
     "graceful-fs": "^4.1.4",

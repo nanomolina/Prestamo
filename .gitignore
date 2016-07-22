@@ -21,6 +21,8 @@ lib64/
 parts/
 sdist/
 var/
+bower_components/
+node_modules/
 *.egg-info/
 .installed.cfg
 *.egg
