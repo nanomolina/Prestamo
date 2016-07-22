@@ -9,30 +9,10 @@ def home(request):
         RequestContext(request)
     )
 
-def main(request):
+def render_partial(request, template_name):
+    template = 'app/views/%s' % (template_name)
     return TemplateResponse(
         request,
-        'views/main.html',
-        {}
-    )
-
-def login(request):
-    return TemplateResponse(
-        request,
-        'views/login.html',
-        {}
-    )
-
-def logout(request):
-    return TemplateResponse(
-        request,
-        'views/logout.html',
-        {}
-    )
-
-def register(request):
-    return TemplateResponse(
-        request,
-        'views/register.html',
+        template,
         {}
     )

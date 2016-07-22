@@ -5,11 +5,12 @@ angular.module('angularDjangoRegistrationAuthApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngMaterial',
 ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'main/',
+        templateUrl: 'rendered-partials/main.html',
         controller: 'MainCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
@@ -18,7 +19,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/login', {
-        templateUrl: 'login/',
+        templateUrl: 'rendered-partials/login.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -26,7 +27,15 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/logout', {
-        templateUrl: 'logout/',
+        templateUrl: 'rendered-partials/logout.html',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus();
+          }],
+        }
+      })
+      .when('/input', {
+        templateUrl: 'rendered-partials/input.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -34,7 +43,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/register', {
-        templateUrl: 'register/',
+        templateUrl: 'rendered-partials/register.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -42,7 +51,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/passwordReset', {
-        templateUrl: 'views/passwordreset.html',
+        templateUrl: 'rendered-partials/passwordreset.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -50,7 +59,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/passwordResetConfirm/:firstToken/:passwordResetToken', {
-        templateUrl: 'views/passwordresetconfirm.html',
+        templateUrl: 'rendered-partials/passwordresetconfirm.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -58,7 +67,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/verifyEmail/:emailVerificationToken', {
-        templateUrl: 'views/verifyemail.html',
+        templateUrl: 'rendered-partials/verifyemail.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -66,7 +75,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/userProfile', {
-        templateUrl: 'views/userprofile.html',
+        templateUrl: 'rendered-partials/userprofile.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -74,7 +83,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/passwordChange', {
-        templateUrl: 'views/passwordchange.html',
+        templateUrl: 'rendered-partials/passwordchange.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -82,7 +91,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/restricted', {
-        templateUrl: 'views/restricted.html',
+        templateUrl: 'rendered-partials/restricted.html',
         controller: 'RestrictedCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
@@ -91,7 +100,7 @@ angular.module('angularDjangoRegistrationAuthApp', [
         }
       })
       .when('/authRequired', {
-        templateUrl: 'views/authrequired.html',
+        templateUrl: 'rendered-partials/authrequired.html',
         controller: 'AuthrequiredCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
