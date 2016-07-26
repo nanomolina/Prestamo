@@ -4,10 +4,10 @@ angular.module('angularDjangoRegistrationAuthApp')
   .service('Validate', function Validate() {
     return {
         'message': {
-            'minlength': 'This value is not long enough.',
-            'maxlength': 'This value is too long.',
-            'email': 'A properly formatted email address is required.',
-            'required': 'This field is required.'
+            'minlength': 'Este valor no es lo suficientemente largo .',
+            'maxlength': 'Este valor es demasiado largo .',
+            'email': 'Se requiere una dirección de correo electrónico con el formato correcto.',
+            'required': 'Este campo es requerido.'
         },
         'more_messages': {
             'demo': {
