@@ -1,0 +1,51 @@
+<style media="screen">
+.md-button {
+  margin: 6px 0px 6px 0px;
+}
+</style>
+<div layout="column">
+  <div flex-offset="40">
+    <h1 class="md-display-3">PrestaSoft</h1>
+  </div>
+  <div flex>
+    <div layout="row">
+      <div id="login_view" ng-controller="LoginCtrl" flex-offset="33" flex="33">
+        <form role="form" ng-submit="login(loginForm)" name="loginForm" layout="column" novalidate>
+          <md-input-container>
+            <label for="id_username">Username</label>
+            <input name="username" id="id_username" type="text" ng-model="model.username" required>
+            <div ng-messages="projectForm.clientEmail.$error" role="alert">
+              <div ng-repeat="error in errors.username">
+                <div ng-message-exp="error">{% verbatim %}{{ error }}{% endverbatim %}</div>
+              </div>
+            </div>
+            <div ng-messages="projectForm.clientEmail.$error" role="alert">
+              <div ng-repeat="error in errors.non_field_errors">
+                <div ng-message-exp="error">El usuario que especificaste no es correcto.</div>
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label for="id_password">Contraseña</label>
+            <input  name="password" id="id_password" type="password" ng-model="model.password" required>
+            <div ng-messages="projectForm.clientEmail.$error" role="alert">
+              <div ng-repeat="error in errors.password">
+                <div ng-message-exp="error">{% verbatim %}{{ error }}{% endverbatim %}</div>
+              </div>
+            </div>
+            <div ng-messages="projectForm.clientEmail.$error" role="alert">
+              <div ng-repeat="error in errors.non_field_errors">
+                <div ng-message-exp="error">La contraseña que especificaste no es correcta.</div>
+              </div>
+            </div>
+          </md-input-container>
+          <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary">
+              Mantener la sesión iniciada.
+          </md-checkbox>
+
+          <md-button type="submit" class="md-raised md-primary">Iniciar Sesión</md-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
