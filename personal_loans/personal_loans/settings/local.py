@@ -12,6 +12,6 @@ INSTALLED_APPS = INSTALLED_APPS + [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'personal_loans',
+        'NAME': os.path.join(BASE_DIR, '../personal_loans.sqlite3'),
     }
 }
