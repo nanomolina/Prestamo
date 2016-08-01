@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^$', views.home, name='home'),
-    url(r'^rendered-partials/(?P<template_name>.*)$', views.render_partial),
+    url(r'^rendered-partials/(?P<app_name>\w+)/(?P<template_name>.*)$', views.render_partial),
 ]

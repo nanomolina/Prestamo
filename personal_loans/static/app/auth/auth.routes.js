@@ -8,7 +8,7 @@ angular
 function routes($routeProvider) {
   $routeProvider
   .when('/login', {
-    templateUrl: 'rendered-partials/login.html',
+    templateUrl: 'rendered-partials/auth/login.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -16,7 +16,7 @@ function routes($routeProvider) {
     }
   })
   .when('/logout', {
-    templateUrl: 'rendered-partials/logout.html',
+    templateUrl: 'rendered-partials/auth/logout.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -24,7 +24,7 @@ function routes($routeProvider) {
     }
   })
   .when('/input', {
-    templateUrl: 'rendered-partials/input.html',
+    templateUrl: 'rendered-partials/auth/input.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -32,7 +32,7 @@ function routes($routeProvider) {
     }
   })
   .when('/register', {
-    templateUrl: 'rendered-partials/register.html',
+    templateUrl: 'rendered-partials/auth/register.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -40,7 +40,7 @@ function routes($routeProvider) {
     }
   })
   .when('/passwordReset', {
-    templateUrl: 'rendered-partials/passwordreset.html',
+    templateUrl: 'rendered-partials/auth/passwordreset.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -48,7 +48,7 @@ function routes($routeProvider) {
     }
   })
   .when('/passwordResetConfirm/:firstToken/:passwordResetToken', {
-    templateUrl: 'rendered-partials/passwordresetconfirm.html',
+    templateUrl: 'rendered-partials/auth/passwordresetconfirm.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -56,7 +56,7 @@ function routes($routeProvider) {
     }
   })
   .when('/verifyEmail/:emailVerificationToken', {
-    templateUrl: 'rendered-partials/verifyemail.html',
+    templateUrl: 'rendered-partials/auth/verifyemail.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -64,7 +64,7 @@ function routes($routeProvider) {
     }
   })
   .when('/userProfile', {
-    templateUrl: 'rendered-partials/userprofile.html',
+    templateUrl: 'rendered-partials/auth/userprofile.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -72,7 +72,7 @@ function routes($routeProvider) {
     }
   })
   .when('/passwordChange', {
-    templateUrl: 'rendered-partials/passwordchange.html',
+    templateUrl: 'rendered-partials/auth/passwordchange.html',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
         return djangoAuth.authenticationStatus();
@@ -80,7 +80,7 @@ function routes($routeProvider) {
     }
   })
   .when('/restricted', {
-    templateUrl: 'rendered-partials/restricted.html',
+    templateUrl: 'rendered-partials/auth/restricted.html',
     controller: 'RestrictedCtrl',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){
@@ -89,7 +89,7 @@ function routes($routeProvider) {
     }
   })
   .when('/authRequired', {
-    templateUrl: 'rendered-partials/authrequired.html',
+    templateUrl: 'rendered-partials/auth/authrequired.html',
     controller: 'AuthrequiredCtrl',
     resolve: {
       authenticated: ['djangoAuth', function(djangoAuth){

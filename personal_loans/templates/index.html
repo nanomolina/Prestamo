@@ -10,7 +10,7 @@
 
   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="{% static 'libs/bower_components/angular-material/angular-material.min.css' %}">
-  <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+  <link rel="stylesheet" href="{% static 'content/css/main.css' %}">
   </head>
   <body ng-app="angularDjangoRegistrationAuthApp" ng-controller="MasterCtrl" style="padding: 0">
   <!--[if lt IE 7]>
@@ -54,7 +54,6 @@
   <script src="{% static 'app/auth/validate.service.js' %}"></script>
   {# auth/controllers #}
     <script src="{% static 'app/auth/controllers/master.js' %}"></script>
-    {# <script src="{% static 'app/auth/controllers/main.js' %}"></script> #}
     <script src="{% static 'app/auth/controllers/register.js' %}"></script>
     <script src="{% static 'app/auth/controllers/passwordreset.js' %}"></script>
     <script src="{% static 'app/auth/controllers/passwordresetconfirm.js' %}"></script>
