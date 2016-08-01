@@ -3,7 +3,7 @@
 
   <md-toolbar class="md-hue-2">
     <div class="md-toolbar-tools">
-      <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+      <md-button class="md-icon-button" aria-label="Settings" ng-click="openLeftMenu()">
         <i class="material-icons">menu</i>
       </md-button>
       <h2>
@@ -19,25 +19,10 @@
     </div>
   </md-toolbar>
 
-  <div flex layout="row">
-    <md-sidenav
-        class="md-sidenav-left"
-        md-component-id="left"
-        md-is-locked-open="$mdMedia('gt-md')"
-        md-whiteframe="4">
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Sidenav Left</h1>
-      </md-toolbar>
-      <md-content layout-padding ng-controller="LeftCtrl">
-        <md-button ng-click="close()" class="md-primary" hide-gt-md>
-          Close Sidenav Left
-        </md-button>
-        <p hide show-gt-md>
-          This sidenav is locked open on your device. To go back to the default behavior,
-          narrow your display.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        </p>
-      </md-content>
+    <md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left">
+        Left Nav!
     </md-sidenav>
+
     <div layout="column" flex>
       <div flex="70">
         70
@@ -49,8 +34,6 @@
         20
       </div>
     </div>
-
-  </div>
 
 </div>
 <div ng-if="!logged" class="alert alert-info">You have to logged in.</div>
