@@ -1,24 +1,6 @@
 
 <div ng-if="logged" layout="column">
 
-  <md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools">
-      <md-button class="md-icon-button" aria-label="Settings" ng-click="openLeftMenu()">
-        <i class="material-icons">menu</i>
-      </md-button>
-      <h2>
-        <span>Toolbar with Disabled/Enabled Icon Buttons</span>
-      </h2>
-      <span flex></span>
-      <md-button class="md-icon-button" aria-label="Favorite">
-        <i class="material-icons">favorite</i>
-      </md-button>
-      <md-button class="md-icon-button" aria-label="More">
-        <i class="material-icons">more_vert</i>
-      </md-button>
-    </div>
-  </md-toolbar>
-
     <style media="screen">
       .material-icons.md-48 { font-size: 48px; }
     </style>
@@ -35,32 +17,35 @@
               </div>
             </md-toolbar>
             <md-list>
-            <md-item ng-repeat="item in menu">
-              <a>
-                <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                  <div class="inset">
-                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                  </div>
-                  <div class="inset">{{item.title}}
-                  </div>
-                </md-item-content>
-              </a>
-            </md-item>
-            <md-divider></md-divider>
-            <md-subheader>Management</md-subheader>
-            <md-item ng-repeat="item in admin">
-              <a>
-                <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                  <div class="inset">
-                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                  </div>
-                  <div class="inset">{{item.title}}
-                  </div>
-                </md-item-content>
-              </a>
-            </md-item>
-          </md-list>
+              {% verbatim %}
+              <md-list-item ng-repeat="item in menu" md-ink-ripple>
+                    <div class="inset">
+                      <i class="material-icons">{{item.icon}}</i>
+                    </div>
+                    <div class="inset">{{item.title}}
+                    </div>
+              </md-list-item>
+              {% endverbatim %}
+            </md-list>
     </md-sidenav>
+
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="openLeftMenu()">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <h2>
+          <span>Consola Principal</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <i class="material-icons">favorite</i>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+          <i class="material-icons">more_vert</i>
+        </md-button>
+      </div>
+    </md-toolbar>
 
     <div layout="column" flex>
       <div flex="70">

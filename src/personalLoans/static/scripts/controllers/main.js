@@ -82,5 +82,17 @@ angular.module('angularDjangoRegistrationAuthApp')
       $mdSidenav('left').toggle();
     };
 
+    $scope.menu = [
+      {
+        link : '',
+        title: 'Consola Principal',
+        icon: 'dashboard'
+      },
+      {
+        link : '',
+        title: 'Grupo de inversores',
+        icon: 'group'
+      },
+    ];
 
   });
