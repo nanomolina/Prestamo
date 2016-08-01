@@ -82,8 +82,5 @@ angular.module('angularDjangoRegistrationAuthApp')
       $mdSidenav('left').toggle();
     };
 
-    $scope.$watch('isSidenavOpen', function(isSidenavOpen) {
-        alert('sidenav is ' + (isSidenavOpen ? 'open' : 'closed'));
-    });
 
   });

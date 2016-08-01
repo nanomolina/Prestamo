@@ -19,8 +19,47 @@
     </div>
   </md-toolbar>
 
-    <md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left">
-        Left Nav!
+    <style media="screen">
+      .material-icons.md-48 { font-size: 48px; }
+    </style>
+    <md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left" layout="column">
+            <md-toolbar class="md-tall md-hue-2">
+              <div layout="column" class="md-toolbar-tools-bottom inset">
+                <md-card-avatar>
+                  <i class="material-icons md-48">account_circle</i>
+                </md-card-avatar>
+                <md-card-header-text>
+                  <span class="md-title">{{request.user.get_full_name}}</span>
+                  <span class="md-subhead">{{request.user.email}}</span>
+                </md-card-header-text>
+              </div>
+            </md-toolbar>
+            <md-list>
+            <md-item ng-repeat="item in menu">
+              <a>
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                  <div class="inset">
+                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                  </div>
+                  <div class="inset">{{item.title}}
+                  </div>
+                </md-item-content>
+              </a>
+            </md-item>
+            <md-divider></md-divider>
+            <md-subheader>Management</md-subheader>
+            <md-item ng-repeat="item in admin">
+              <a>
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                  <div class="inset">
+                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                  </div>
+                  <div class="inset">{{item.title}}
+                  </div>
+                </md-item-content>
+              </a>
+            </md-item>
+          </md-list>
     </md-sidenav>
 
     <div layout="column" flex>
