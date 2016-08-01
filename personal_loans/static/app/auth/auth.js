@@ -1,2 +1,5 @@
 angular
-  .module('angularDjangoRegistrationAuthApp', []);
+  .module('angularDjangoRegistrationAuthApp', [
+    'ngRoute', 
+    'ngCookies'
+  ]);
