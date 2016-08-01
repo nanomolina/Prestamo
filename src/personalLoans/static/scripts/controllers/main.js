@@ -90,8 +90,15 @@ angular.module('angularDjangoRegistrationAuthApp')
       },
       {
         link : '',
-        title: 'Grupo de inversores',
+        title: 'Grupo de Inversores',
         icon: 'group'
+      },
+    ];
+    $scope.admin = [
+      {
+        link: '#/logout',
+        title: 'Cerrar Sesión',
+        icon: 'exit_to_app'
       },
     ];
 

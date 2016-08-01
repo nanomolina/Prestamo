@@ -27,6 +27,18 @@
               </md-list-item>
               {% endverbatim %}
             </md-list>
+            <md-divider></md-divider>
+            <md-list>
+              {% verbatim %}
+              <md-list-item ng-repeat="item in admin" md-ink-ripple ng-href="{{item.link}}">
+                <div class="inset">
+                  <i class="material-icons">{{item.icon}}</i>
+                </div>
+                <div class="inset">{{item.title}}
+                </div>
+              </md-list-item>
+              {% endverbatim %}
+            </md-list>
     </md-sidenav>
 
     <md-toolbar class="md-hue-2">
