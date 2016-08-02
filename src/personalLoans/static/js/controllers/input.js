@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('DemoCtrl', function($scope) {
+app.controller('DemoCtrl', function($scope) {
     $scope.user = {
       name: 'John Doe',
       email: '',

@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('PasswordresetconfirmCtrl', function ($scope, $routeParams, djangoAuth, Validate) {
+app.controller('PasswordresetconfirmCtrl', function ($scope, $routeParams, djangoAuth, Validate) {
     $scope.model = {'new_password1':'','new_password2':''};
   	$scope.complete = false;
     $scope.confirmReset = function(formData){

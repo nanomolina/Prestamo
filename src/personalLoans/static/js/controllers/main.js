@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('MainCtrl', function ($scope, $cookies, $location, djangoAuth, $mdSidenav) {
+app.controller('MainCtrl', function ($scope, $cookies, $location, djangoAuth, $mdSidenav) {
 
     $scope.login = function(){
       djangoAuth.login(prompt('Username'),prompt('password'))

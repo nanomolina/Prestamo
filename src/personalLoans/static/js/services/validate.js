@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .service('Validate', function Validate() {
+app.service('Validate', function Validate() {
     return {
         'message': {
             'minlength': 'Este valor no es lo suficientemente largo .',

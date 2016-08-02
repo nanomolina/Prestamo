@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('RegisterCtrl', function ($scope, djangoAuth, Validate) {
+app.controller('RegisterCtrl', function ($scope, djangoAuth, Validate) {
   	$scope.model = {'username':'','password':'','email':''};
   	$scope.complete = false;
     $scope.register = function(formData){

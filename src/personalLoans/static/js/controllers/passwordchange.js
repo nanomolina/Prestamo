@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('PasswordchangeCtrl', function ($scope, djangoAuth, Validate) {
+app.controller('PasswordchangeCtrl', function ($scope, djangoAuth, Validate) {
     $scope.model = {'new_password1':'','new_password2':''};
   	$scope.complete = false;
     $scope.changePassword = function(formData){
