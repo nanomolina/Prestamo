@@ -1,14 +1,7 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute',
-  'ngMaterial',
-])
-  .config(function ($routeProvider) {
-    $routeProvider
+app.config(function ($routeProvider) {
+  $routeProvider
       .when('/', {
         templateUrl: 'rendered-partials/main.html',
         controller: 'MainCtrl',
@@ -111,7 +104,4 @@ angular.module('angularDjangoRegistrationAuthApp', [
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .run(function(djangoAuth){
-    djangoAuth.initialize('//127.0.0.1:8000/rest-auth', false);
-  });
+});
