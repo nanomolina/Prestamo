@@ -32,7 +32,7 @@ angular.module('angularDjangoRegistrationAuthApp')
                 url: url,
                 withCredentials: this.use_session,
                 method: method.toUpperCase(),
-                headers: {'X-CSRFToken': $cookies['csrftoken']},
+                headers: {'X-CSRFToken': $cookies.get('csrftoken')},
                 params: params,
                 data: data
             })
