@@ -1,10 +1,18 @@
 from __future__ import unicode_literals
-
+from django.contrib.auth.models import User
 from django.db import models
+
+
+class Association(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
 
 class Investor(models.Model):
     user = models.OneToOneField(User)
-    associations = models.ManyToManyField(InvestorAssociation)
+    associations = models.ManyToManyField(Association)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
@@ -14,7 +22,7 @@ class Investor(models.Model):
 
 class Investment(models.Model):
     investor = models.ForeignKey(Investor)
-    association = models.ForeignKey(InvestorAssociation)
+    association = models.ForeignKey(Association)
     date = models.DateField()
     money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
@@ -27,7 +35,7 @@ class Investment(models.Model):
 
 class Revenue(models.Model):
     investor = models.ForeignKey(Investor)
-    association = models.ForeignKey(InvestorAssociation)
+    association = models.ForeignKey(Association)
     date = models.DateField()
     money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
@@ -36,13 +44,6 @@ class Revenue(models.Model):
 
     def __unicode__(self):
         return "%s" % (self.investor)
-
-
-class InvestorAssociation(models.Model):
-    name = models.CharField(max_length=250)
-
-    def __unicode__(self):
-        return "%s" % (self.name)
 
 
 class Moneylender(models.Model):
