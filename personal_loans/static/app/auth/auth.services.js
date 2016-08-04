@@ -2,7 +2,25 @@
 
 angular
   .module('angularDjangoRegistrationAuthApp')
-  .service('djangoAuth', djangoAuth);
+  .service('djangoAuth', djangoAuth)
+  .service('User', User);
+
+function User() {
+  var service = {
+    get: get,
+    set: set
+  };
+  return service;
+  /* Functions */
+  function get() {
+    var user window.localStorage.setItem('user');
+    return user;
+  }
+  function set() {
+    var user = window.localStorage.getItem('user');
+    return user;
+  }
+}
 
 function djangoAuth($q, $http, $cookies, $rootScope) {
   // AngularJS will instantiate a singleton by calling "new" on this function

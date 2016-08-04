@@ -2,7 +2,7 @@
 
 angular.module('angularDjangoRegistrationAuthApp')
   .controller('MainCtrl', function ($scope, $cookies, $location, djangoAuth) {
-
+    
     $scope.login = function(){
       djangoAuth.login(prompt('Username'),prompt('password'))
       .then(function(data){
