@@ -88,7 +88,37 @@ app.controller('MainCtrl', function ($scope, $cookies, $location, djangoAuth, $m
         icon: 'dashboard'
       },
       {
-        link : '',
+        link : '/#/investors',
+        title: 'Grupo de Inversores',
+        icon: 'group'
+      },
+    ];
+    $scope.admin = [
+      {
+        link: '#/logout',
+        title: 'Cerrar Sesión',
+        icon: 'exit_to_app'
+      },
+    ];
+
+  });
+
+
+  app.controller('PrincipalCtrl', function ($scope, $mdSidenav) {
+    $scope.isSidenavOpen = false;
+
+    $scope.openLeftMenu = function() {
+      $mdSidenav('left').toggle();
+    };
+
+    $scope.menu = [
+      {
+        link : '#/',
+        title: 'Consola Principal',
+        icon: 'dashboard'
+      },
+      {
+        link : '#/investors',
         title: 'Grupo de Inversores',
         icon: 'group'
       },

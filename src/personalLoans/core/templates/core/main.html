@@ -1,63 +1,6 @@
 
 <div ng-if="logged" layout="column">
-
-    <style media="screen">
-      .material-icons.md-48 { font-size: 48px; }
-    </style>
-    <md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left" layout="column">
-            <md-toolbar class="md-tall md-hue-2">
-              <div layout="column" class="md-toolbar-tools-bottom inset">
-                <md-card-avatar>
-                  <i class="material-icons md-48">account_circle</i>
-                </md-card-avatar>
-                <md-card-header-text>
-                  <span class="md-title">{{request.user.get_full_name}}</span>
-                  <span class="md-subhead">{{request.user.email}}</span>
-                </md-card-header-text>
-              </div>
-            </md-toolbar>
-            <md-list>
-              {% verbatim %}
-              <md-list-item ng-repeat="item in menu" md-ink-ripple>
-                    <div class="inset">
-                      <i class="material-icons">{{item.icon}}</i>
-                    </div>
-                    <div class="inset">{{item.title}}
-                    </div>
-              </md-list-item>
-              {% endverbatim %}
-            </md-list>
-            <md-divider></md-divider>
-            <md-list>
-              {% verbatim %}
-              <md-list-item ng-repeat="item in admin" md-ink-ripple ng-href="{{item.link}}">
-                <div class="inset">
-                  <i class="material-icons">{{item.icon}}</i>
-                </div>
-                <div class="inset">{{item.title}}
-                </div>
-              </md-list-item>
-              {% endverbatim %}
-            </md-list>
-    </md-sidenav>
-
-    <md-toolbar class="md-hue-2">
-      <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Settings" ng-click="openLeftMenu()">
-          <i class="material-icons">menu</i>
-        </md-button>
-        <h2>
-          <span>Consola Principal</span>
-        </h2>
-        <span flex></span>
-        <md-button class="md-icon-button" aria-label="Favorite">
-          <i class="material-icons">favorite</i>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="More">
-          <i class="material-icons">more_vert</i>
-        </md-button>
-      </div>
-    </md-toolbar>
+    {% include "core/principal.html" %}
 
     <div layout="column" flex>
       <div flex="70">
