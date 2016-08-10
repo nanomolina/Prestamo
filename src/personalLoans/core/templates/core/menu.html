@@ -9,8 +9,10 @@
           <i class="material-icons md-48">account_circle</i>
         </md-card-avatar>
         <md-card-header-text>
-          <span class="md-title">{{request.user.get_full_name}}</span>
-          <span class="md-subhead">{{request.user.email}}</span>
+          {% verbatim %}
+          <span class="md-title">{{profile.username}}</span>
+          <span class="md-subhead">{{profile.email}}</span>
+          {% endverbatim %}
         </md-card-header-text>
       </div>
     </md-toolbar>
