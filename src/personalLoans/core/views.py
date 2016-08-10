@@ -10,7 +10,7 @@ def home(request):
     )
 
 def render_partial(request, template_name):
-    template = 'app/views/%s' % (template_name)
+    template = 'core/%s' % (template_name)
     return TemplateResponse(
         request,
         template,

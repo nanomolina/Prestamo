@@ -27,46 +27,46 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/input', {
-        templateUrl: 'rendered-partials/input.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
-      .when('/register', {
-        templateUrl: 'rendered-partials/register.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
-      .when('/passwordReset', {
-        templateUrl: 'rendered-partials/passwordreset.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
-      .when('/passwordResetConfirm/:firstToken/:passwordResetToken', {
-        templateUrl: 'rendered-partials/passwordresetconfirm.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
-      .when('/verifyEmail/:emailVerificationToken', {
-        templateUrl: 'rendered-partials/verifyemail.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
+      // .when('/input', {
+      //   templateUrl: 'rendered-partials/input.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
+      // .when('/register', {
+      //   templateUrl: 'rendered-partials/register.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
+      // .when('/passwordReset', {
+      //   templateUrl: 'rendered-partials/passwordreset.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
+      // .when('/passwordResetConfirm/:firstToken/:passwordResetToken', {
+      //   templateUrl: 'rendered-partials/passwordresetconfirm.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
+      // .when('/verifyEmail/:emailVerificationToken', {
+      //   templateUrl: 'rendered-partials/verifyemail.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
       .when('/userProfile', {
         templateUrl: 'rendered-partials/userprofile.html',
         resolve: {
@@ -75,14 +75,14 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/passwordChange', {
-        templateUrl: 'rendered-partials/passwordchange.html',
-        resolve: {
-          authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
-          }],
-        }
-      })
+      // .when('/passwordChange', {
+      //   templateUrl: 'rendered-partials/passwordchange.html',
+      //   resolve: {
+      //     authenticated: ['djangoAuth', function(djangoAuth){
+      //       return djangoAuth.authenticationStatus();
+      //     }],
+      //   }
+      // })
       .when('/restricted', {
         templateUrl: 'rendered-partials/restricted.html',
         controller: 'RestrictedCtrl',
@@ -95,6 +95,16 @@ app.config(function ($routeProvider) {
       .when('/authRequired', {
         templateUrl: 'rendered-partials/authrequired.html',
         controller: 'AuthrequiredCtrl',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
+      // ENTITY
+      .when('/investors', {
+        templateUrl: 'entity/investors/',
+        controller: 'InvestorCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);

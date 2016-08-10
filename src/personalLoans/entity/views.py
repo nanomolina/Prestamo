@@ -1,6 +1,16 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from entity.models import Association
+from django.template.response import TemplateResponse
+
+
+def investors_list(request):
+    template = 'entity/investors.html'
+    return TemplateResponse(
+        request,
+        template,
+        {}
+    )
 
 @api_view()
 def association_list(request):
