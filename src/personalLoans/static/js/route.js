@@ -3,7 +3,7 @@
 app.config(function ($routeProvider) {
   $routeProvider
       .when('/', {
-        templateUrl: 'rendered-partials/main.html',
+        templateUrl: 'core/main.html',
         controller: 'MainCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
         }
       })
       .when('/login', {
-        templateUrl: 'rendered-partials/login.html',
+        templateUrl: 'core/login.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -20,7 +20,7 @@ app.config(function ($routeProvider) {
         }
       })
       .when('/logout', {
-        templateUrl: 'rendered-partials/logout.html',
+        templateUrl: 'core/logout.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -28,7 +28,7 @@ app.config(function ($routeProvider) {
         }
       })
       // .when('/input', {
-      //   templateUrl: 'rendered-partials/input.html',
+      //   templateUrl: 'core/input.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -36,7 +36,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       // .when('/register', {
-      //   templateUrl: 'rendered-partials/register.html',
+      //   templateUrl: 'core/register.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -44,7 +44,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       // .when('/passwordReset', {
-      //   templateUrl: 'rendered-partials/passwordreset.html',
+      //   templateUrl: 'core/passwordreset.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -52,7 +52,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       // .when('/passwordResetConfirm/:firstToken/:passwordResetToken', {
-      //   templateUrl: 'rendered-partials/passwordresetconfirm.html',
+      //   templateUrl: 'core/passwordresetconfirm.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -60,7 +60,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       // .when('/verifyEmail/:emailVerificationToken', {
-      //   templateUrl: 'rendered-partials/verifyemail.html',
+      //   templateUrl: 'core/verifyemail.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -68,7 +68,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       .when('/userProfile', {
-        templateUrl: 'rendered-partials/userprofile.html',
+        templateUrl: 'core/userprofile.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus();
@@ -76,7 +76,7 @@ app.config(function ($routeProvider) {
         }
       })
       // .when('/passwordChange', {
-      //   templateUrl: 'rendered-partials/passwordchange.html',
+      //   templateUrl: 'core/passwordchange.html',
       //   resolve: {
       //     authenticated: ['djangoAuth', function(djangoAuth){
       //       return djangoAuth.authenticationStatus();
@@ -84,7 +84,7 @@ app.config(function ($routeProvider) {
       //   }
       // })
       .when('/restricted', {
-        templateUrl: 'rendered-partials/restricted.html',
+        templateUrl: 'core/restricted.html',
         controller: 'RestrictedCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
@@ -93,7 +93,7 @@ app.config(function ($routeProvider) {
         }
       })
       .when('/authRequired', {
-        templateUrl: 'rendered-partials/authrequired.html',
+        templateUrl: 'core/authrequired.html',
         controller: 'AuthrequiredCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){

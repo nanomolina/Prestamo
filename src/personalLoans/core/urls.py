@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^rendered-partials/(?P<template_name>.*)$', views.render_partial),
+    url(r'^core/(?P<template_name>.*)$', views.render_partial),
 ]
