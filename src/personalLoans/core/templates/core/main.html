@@ -1,20 +1,19 @@
-<div ng-if="logged" layout="column">
-    {% include "core/principal.html" %}
+{% load static %}
 
-    <div layout="column" flex>
-      <div flex="70">
-        70
-      </div>
-      <div flex="10">
-        10
-      </div>
-      <div flex="20">
-        20
-      </div>
-    </div>
+<link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
+{% include "core/principal.html" %}
 
+<div layout="column" flex>
+  <div flex="70">
+    70
+  </div>
+  <div flex="10">
+    10
+  </div>
+  <div flex="20">
+    20
+  </div>
 </div>
-<div ng-if="!logged" class="alert alert-info">You have to logged in.</div>
 
 
 

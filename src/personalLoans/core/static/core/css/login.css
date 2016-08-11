@@ -1,0 +1,16 @@
+body {
+  background-color: #B39DDB;
+}
+
+#login-tmp {
+  min-height: 500px;
+}
+
+.loginBox {
+  max-width:  90%;
+  width: 500px
+}
+
+.stretch input  {
+  width: 100%
+}

@@ -1,18 +1,15 @@
-<style media="screen">
-.md-button {
-  margin: 6px 0px 6px 0px;
-}
-</style>
-<div layout="column" layout-align="center center">
-  <div flex="33">
-    <!-- Gestión de Prestamos -->
-    <h1 class="md-display-3">gp</h1>
-  </div>
-  <div flex>
-      <div id="login_view" ng-controller="LoginCtrl">
-        <form role="form" ng-submit="login(loginForm)" name="loginForm" layout="column" novalidate>
+{% load static %}
+<link rel="stylesheet" href="{% static 'core/css/login.css' %}" media="screen" charset="utf-8">
+
+<div id="login-tmp" ng-controller="LoginCtrl" layout="row" layout-align="center center" layout-fill>
+  <div class="loginBox md-whiteframe-z1">
+    <md-toolbar>
+      <h2 class="md-toolbar-tools"><span>Iniciar Sesión - Prestamos Personales</span></h2>
+    </md-toolbar>
+    <md-content class="md-padding">
+      <form role="form" ng-submit="login(loginForm)" name="loginForm" layout="column" novalidate>
           <md-input-container>
-            <label for="id_username">Username</label>
+            <label for="id_username">Usuario</label>
             <input name="username" id="id_username" type="text" ng-model="model.username" required>
             <div ng-messages="projectForm.clientEmail.$error" role="alert">
               <div ng-repeat="error in errors.username">
@@ -39,12 +36,12 @@
               </div>
             </div>
           </md-input-container>
-          <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="data.cb5" class="md-primary">
-              Mantener la sesión iniciada.
-          </md-checkbox>
-
-          <md-button type="submit" class="md-raised md-primary">Iniciar Sesión</md-button>
-        </form>
-      </div>
+          <div layout="row" layout-align="center center" style="padding-top:20px;">
+            <md-button class="md-raised md-primary" type="submit">Iniciar</md-button>
+            <div flex="flex"></div>
+            <md-button href="" md-no-ink="md-no-ink">Olvidé mi contraseña</md-button>
+          </div>
+      </form>
+    </md-content>
   </div>
 </div>

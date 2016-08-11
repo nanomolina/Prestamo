@@ -7,7 +7,7 @@ app.config(function ($routeProvider) {
         controller: 'MainCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
-            return djangoAuth.authenticationStatus();
+            return djangoAuth.authenticationStatus(true);
           }],
         }
       })
