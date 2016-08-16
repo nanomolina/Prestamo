@@ -1,11 +1,16 @@
 'use strict';
 
 app.controller('InvestorCtrl', function($scope) {
-    $scope.user = {
-      name: 'John Doe',
-      email: '',
-      phone: '',
-      address: 'Mountain View, CA',
-      donation: 19.99
+    $scope.view = {
+      link: '#/investors',
+      title: 'Grupo de Inversores',
+      icon: 'group'
     };
+
+    $scope.investor_group = [{
+        who: 'nano',
+        what: 'algo',
+        notes: 'notes',
+    }];
+
   });
