@@ -1,36 +1,21 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from entity.models import Association
+from entity.serializers import AssociationSerializer
 from django.template.response import TemplateResponse
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
 
 
 def render_partial(request, template_name):
     template = 'entity/%s' % (template_name)
     return TemplateResponse(
-        request,
-        template,
-        {}
+        request, template, {}
     )
 
-def investors_list(request):
-    template = 'entity/investors.html'
-    return TemplateResponse(
-        request,
-        template,
-        {}
-    )
 
-@api_view()
-def association_list(request):
-    if request.method == 'GET':
-        associations = Association.objects.all()
-        names = [association.name for association in associations]
-        return Response(names)
+class AssociationList(ListCreateAPIView):
+    queryset =  Association.objects.all()
+    serializer_class = AssociationSerializer
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = AssociationSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
+
+class AssociationDetail(RetrieveUpdateAPIView):
+    queryset = Association.objects.all()
+    serializer_class = AssociationSerializer
