@@ -4,7 +4,7 @@ from entity.models import Association, Investor
 
 
 class AssociationAdmin(admin.ModelAdmin):
-    fields = ('name',)
+    fields = ('name', 'description')
 admin.site.register(Association, AssociationAdmin)
 
 

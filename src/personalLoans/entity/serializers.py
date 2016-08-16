@@ -5,7 +5,7 @@ from entity.models import Investor, Investment, Revenue, Association
 class AssociationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Association
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'description')
 
 
 class InvestorSerializer(serializers.ModelSerializer):

@@ -11,11 +11,11 @@
         <div flex="20"></div>
         <div flex="60">
           <!-- Start content -->
-          <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+          <md-card ng-repeat="assoc in associations" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
             <md-card-title>
               <md-card-title-text>
-                <span class="md-headline">Card with image</span>
-                <span class="md-subhead">Large</span>
+                <span class="md-headline">{{assoc.name}}</span>
+                <span class="md-subhead">{{assoc.description}}</span>
               </md-card-title-text>
               <md-card-title-media>
                 <div class="md-media-lg card-media">

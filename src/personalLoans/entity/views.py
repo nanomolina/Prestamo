@@ -12,7 +12,6 @@ def render_partial(request, template_name):
 
 
 class AssociationList(ListCreateAPIView):
-    # queryset =  Association.objects.all()
     serializer_class = AssociationSerializer
 
     def get_queryset(self):

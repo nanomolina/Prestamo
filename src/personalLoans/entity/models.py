@@ -5,6 +5,7 @@ from django.db import models
 
 class Association(models.Model):
     name = models.CharField(max_length=250)
+    description = models.CharField(max_length=250, null=True, blank=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
