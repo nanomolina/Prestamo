@@ -12,10 +12,17 @@ def render_partial(request, template_name):
 
 
 class AssociationList(ListCreateAPIView):
-    queryset =  Association.objects.all()
+    # queryset =  Association.objects.all()
     serializer_class = AssociationSerializer
+
+    def get_queryset(self):
+        investor = self.request.user.investor
+        return investor.associations.all()
 
 
 class AssociationDetail(RetrieveUpdateAPIView):
-    queryset = Association.objects.all()
     serializer_class = AssociationSerializer
+
+    def get_queryset(self):
+        investor = self.request.user.investor
+        return investor.associations.all()
