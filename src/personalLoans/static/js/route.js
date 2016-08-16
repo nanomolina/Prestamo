@@ -103,8 +103,17 @@ app.config(function ($routeProvider) {
       })
       // ENTITY
       .when('/investors', {
-        templateUrl: 'entity/investors/',
+        templateUrl: 'entity/investors.html',
         controller: 'InvestorCtrl',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
+      .when('/association', {
+        templateUrl: 'entity/association.html',
+        controller: 'AssociationCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);

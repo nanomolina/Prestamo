@@ -4,6 +4,14 @@ from entity.models import Association
 from django.template.response import TemplateResponse
 
 
+def render_partial(request, template_name):
+    template = 'entity/%s' % (template_name)
+    return TemplateResponse(
+        request,
+        template,
+        {}
+    )
+
 def investors_list(request):
     template = 'entity/investors.html'
     return TemplateResponse(

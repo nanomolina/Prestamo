@@ -28,6 +28,11 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
         icon: 'dashboard'
       },
       {
+        link : '#/association',
+        title: 'Asociaciones',
+        icon: 'business'
+      },
+      {
         link : '#/investors',
         title: 'Grupo de Inversores',
         icon: 'group'
