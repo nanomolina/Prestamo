@@ -2,6 +2,8 @@
   {% include "core/menu.html" %}
   <div layout="column" class="relative" layout-fill>
     {% include "core/toolbar.html" %}
+    <md-content layout-wrap style="background-color: #eee;">
     {% block content %}{% endblock content %}
+    </md-content>
   </div>
 </div>
