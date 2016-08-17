@@ -5,24 +5,24 @@
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
   {% verbatim %}
-  <div ng-controller="AssociationCtrl" ng-cloak>
+  <div ng-controller="AssociationCtrl as vm" ng-cloak>
       <div layout="row">
         <div flex="90">
           <!-- Start content -->
           <div layout="column" class="md-whiteframe-z1" layout-fill>
             <md-toolbar class="md-hue-1">
               <div class="md-toolbar-tools">
-                <h2 class="md-flex">{{view.title}}</h2>
+                <h2 class="md-flex">{{vm.view.title}}</h2>
                 <span flex></span>
-                <i class="material-icons">{{view.icon}}</i>
+                <i class="material-icons">{{vm.view.icon}}</i>
               </div>
             </md-toolbar>
             <md-content layout-padding>
-              <md-card ng-repeat="assoc in associations" md-theme-watch flex>
+              <md-card ng-repeat="assoc in vm.associations" md-theme-watch flex>
                 <md-card-title>
                   <md-card-title-text>
-                    <span class="md-headline">{{assoc.name}}</span>
-                    <span class="md-subhead">{{assoc.description}}</span>
+                    <span class="md-headline">{{vm.assoc.name}}</span>
+                    <span class="md-subhead">{{vm.assoc.description}}</span>
                   </md-card-title-text>
                   <md-card-title-media>
                     <div class="md-media-lg card-media">
