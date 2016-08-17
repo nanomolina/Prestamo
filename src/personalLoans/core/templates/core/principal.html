@@ -1,4 +1,7 @@
-<div ng-controller="PrincipalCtrl">
+<div ng-controller="PrincipalCtrl" layout="row" layout-fill>
   {% include "core/menu.html" %}
-  {% include "core/toolbar.html" %}
+  <div layout="column" class="relative" layout-fill>
+    {% include "core/toolbar.html" %}
+    {% block content %}{% endblock content %}
+  </div>
 </div>

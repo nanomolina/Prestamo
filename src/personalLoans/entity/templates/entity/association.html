@@ -1,17 +1,22 @@
+{% extends "core/principal.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'entity/css/investors.css' %}" media="screen" charset="utf-8">
 
-{% include "core/principal.html" %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
-{% verbatim %}
-<div layout="column" layout-fill layout-padding ng-controller="AssociationCtrl">
-    <div flex="20"></div>
-    <div flex="80">
-      <div layout="row" flex>
-        <div flex="20"></div>
-        <div flex="60">
-          <!-- Start content -->
-          <md-card ng-repeat="assoc in associations" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+  {% verbatim %}
+  <div ng-controller="AssociationCtrl" ng-cloak>
+      <!-- Start content -->
+      <div layout="column" class="md-whiteframe-z1" layout-fill>
+        <md-toolbar class="md-hue-1">
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">{{view.title}}</h2>
+            <span flex></span>
+            <i class="material-icons">{{view.icon}}</i>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding>
+          <md-card ng-repeat="assoc in associations" md-theme="dark-blue" md-theme-watch flex="50">
             <md-card-title>
               <md-card-title-text>
                 <span class="md-headline">{{assoc.name}}</span>
@@ -28,10 +33,12 @@
               <md-button>Action 2</md-button>
             </md-card-actions>
           </md-card>
-          <!-- End content -->
-        </div>
-        <div flex="20"></div>
+        </md-content>
       </div>
-    </div>
-</div>
-{% endverbatim %}
+      <!-- End content -->
+      <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+        <md-icon><i class="material-icons">add</i></md-icon>
+      </md-button>
+  </div>
+  {% endverbatim %}
+{% endblock content %}

@@ -21,9 +21,9 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="main-content">
+    <div class="main-content" layout-fill>
         <!-- Add your site or application content here -->
-        <div ng-view=""></div>
+        <div ng-view="" layout-fill></div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -58,6 +58,7 @@
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/route.js' %}"></script>
     <script src="{% static 'js/run.js' %}"></script>
+    <script src="{% static 'js/config.js' %}"></script>
     <script src="{% static 'core/js/controllers/main.js' %}"></script>
     <script src="{% static 'core/js/controllers/register.js' %}"></script>
     <script src="{% static 'core/js/controllers/passwordreset.js' %}"></script>

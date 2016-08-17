@@ -1,40 +1,30 @@
+{% extends "core/principal.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'entity/css/investors.css' %}" media="screen" charset="utf-8">
 
-{% include "core/principal.html" %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
-{% verbatim %}
-<div layout="column" layout-fill layout-padding ng-controller="InvestorCtrl">
-    <div flex="20"></div>
-    <div flex="80">
-
-      <div layout="row" flex>
-        <div flex="20"></div>
-        <div flex="60">
-          <div layout="column" ng-cloak class="md-whiteframe-z1">
-            <md-toolbar class="md-warn">
-              <div class="md-toolbar-tools">
-                <h2 class="md-flex">{{view.title}}</h2>
-                <span flex></span>
-                <i class="material-icons">{{view.icon}}</i>
-              </div>
-            </md-toolbar>
-            <md-content flex layout-padding>
-              <md-list>
-                <md-list-item class="md-3-line" ng-click="null" ng-repeat="item in investor_group">
-                    <i class="material-icons md-48">face</i>
-                    <div class="md-list-item-text" layout="column" layout-padding>
-                      <h3>{{ item.who }}</h3>
-                    </div>
-                </md-list-item>
-              </md-list>
-            </md-content>
+  {% verbatim %}
+  <div ng-controller="InvestorCtrl">
+      <div layout="column" ng-cloak class="md-whiteframe-z1">
+        <md-toolbar class="md-warn">
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">{{view.title}}</h2>
+            <span flex></span>
+            <i class="material-icons">{{view.icon}}</i>
           </div>
-        </div>
-        <div flex="20"></div>
+        </md-toolbar>
+        <md-content flex layout-padding>
+          <md-list>
+            <md-list-item class="md-3-line" ng-click="null" ng-repeat="item in investor_group">
+                <i class="material-icons md-48">face</i>
+                <div class="md-list-item-text" layout="column" layout-padding>
+                  <h3>{{ item.who }}</h3>
+                </div>
+            </md-list-item>
+          </md-list>
+        </md-content>
       </div>
-
-
-    </div>
-</div>
-{% endverbatim %}
+  </div>
+  {% endverbatim %}
+{% endblock %}
