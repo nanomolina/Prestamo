@@ -6,17 +6,22 @@ associationService.$inject = ['$http'];
 
 function associationService($http) {
   var service = {
-    list: list,
+    getList: getList,
   }
   return service
   ////////////
 
-  function list() {
-    $http.get("entity/associations/")
-    .then(function(response) {
-        return response.data
-    }).catch(function(error) {
-        return error
-    });
+  function getList() {
+    return $http.get("entity/associations/")
+      .then(getListComplete)
+      .catch(getListFailed);
+  }
+
+  function getListComplete(response) {
+    return response.data
+  }
+
+  function getListFailed(error) {
+    console.error('getAssociations failed: ' + error);
   }
 }
