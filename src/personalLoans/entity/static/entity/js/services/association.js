@@ -8,10 +8,13 @@ function associationService($http, $cookies) {
   var service = {
     getList: getList,
     remove: remove,
+    create: create,
   }
+
   return service
   ////////////
 
+  // GET
   function getList() {
     return $http.get("entity/associations/")
       .then(getListComplete)
@@ -27,6 +30,7 @@ function associationService($http, $cookies) {
     return error
   }
 
+  // DELETE
   function remove(id) {
     return $http.delete(
       "entity/associations/"+id+"/",
@@ -46,6 +50,30 @@ function associationService($http, $cookies) {
 
   function removeFailed(error) {
     console.error('removeAssociation failed');
+    return error
+  }
+
+  // POST
+  function create(id, data) {
+    return $http.post(
+      "entity/associations/"+id+"/",
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+        data: data,
+      }
+    )
+    .then(createComplete)
+    .catch(createFailed);
+  }
+
+  function createComplete(response) {
+    console.log('createAssociation success');
+    return response
+  }
+
+  function createFailed(error) {
+    console.error('createAssociation failed');
     return error
   }
 }
