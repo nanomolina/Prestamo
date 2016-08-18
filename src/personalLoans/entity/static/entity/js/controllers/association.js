@@ -14,6 +14,7 @@ function AssociationCtrl(associationService) {
     };
     vm.accent = 'purple';
     vm.associations;
+    vm.removeAssociation = removeAssociation;
 
     getAssociations();
 
@@ -21,6 +22,13 @@ function AssociationCtrl(associationService) {
       associationService.getList()
       .then(function(data) {
           vm.associations = data;
+      });
+    }
+
+    function removeAssociation(id) {
+      associationService.remove(id)
+      .then(function(response) {
+        getAssociations();
       });
     }
 
