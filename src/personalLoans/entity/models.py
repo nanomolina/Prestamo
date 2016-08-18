@@ -6,7 +6,7 @@ from django.db import models
 class Association(models.Model):
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=250, null=True, blank=True)
-    founder = models.ForeignKey(User, null=True, blank=True)
+    founder = models.ForeignKey('Investor', null=True, blank=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -19,7 +19,7 @@ class Investor(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "%s" % (self.user)
+        return "%s" % (self.user.get_full_name())
 
 
 class Investment(models.Model):

@@ -3,6 +3,7 @@ from entity.models import Investor, Investment, Revenue, Association
 
 
 class AssociationSerializer(serializers.ModelSerializer):
+    founder = serializers.ReadOnlyField(source='founder.user.get_full_name')
     class Meta:
         model = Association
         fields = ('id', 'name', 'description', 'founder')

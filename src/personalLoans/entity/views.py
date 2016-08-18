@@ -1,7 +1,7 @@
 from entity.models import Association
 from entity.serializers import AssociationSerializer
 from django.template.response import TemplateResponse
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 
 def render_partial(request, template_name):
@@ -27,7 +27,7 @@ class AssociationList(ListCreateAPIView):
         return response
 
 
-class AssociationDetail(RetrieveUpdateAPIView):
+class AssociationDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = AssociationSerializer
 
     def get_queryset(self):
