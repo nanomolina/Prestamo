@@ -54,13 +54,13 @@ function associationService($http, $cookies) {
   }
 
   // POST
-  function create(id, data) {
+  function create(data) {
     return $http.post(
-      "entity/associations/"+id+"/",
+      "entity/associations/",
+      data,
       {
         withCredentials: true,
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},
-        data: data,
       }
     )
     .then(createComplete)

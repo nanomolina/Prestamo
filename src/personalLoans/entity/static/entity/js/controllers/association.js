@@ -2,9 +2,9 @@
 
 app.controller('AssociationCtrl', AssociationCtrl);
 
-AssociationCtrl.$inject = ['associationService', '$mdDialog'];
+AssociationCtrl.$inject = ['associationService', '$mdDialog', '$scope'];
 
-function AssociationCtrl(associationService, $mdDialog) {
+function AssociationCtrl(associationService, $mdDialog, $scope) {
     var vm = this;
 
     vm.view = {
@@ -14,10 +14,11 @@ function AssociationCtrl(associationService, $mdDialog) {
     };
     vm.name;
     vm.description;
-    vm.associations;
+    vm.associations = [];
     vm.removeAssociation = removeAssociation;
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
+    vm.hideDialogCreate = hideDialogCreate;
 
     getAssociations();
 
@@ -37,32 +38,25 @@ function AssociationCtrl(associationService, $mdDialog) {
       });
     }
 
-    function createAssociation(id) {
+    function createAssociation() {
       var data = {name: vm.name, description: vm.description};
-      associationService.create(id, data)
+      associationService.create(data)
       .then(function(response) {
-        getAssociations();
+        vm.associations.push(response.data);
+        hideDialogCreate();
       });
     }
 
     function showDialogCreate($event) {
       $mdDialog.show({
         targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
         templateUrl: 'entity/_add_association.html',
-        locals: {
-          name: vm.name,
-          description: vm.description,
-          createAssociation: vm.createAssociation,
-        },
-        controller: DialogController
       });
-      function DialogController($mdDialog, name, description, createAssociation) {
-        vm.name = name;
-        vm.description = description;
-        vm.createAssociation = createAssociation;
-        vm.closeDialog = function() {
-          $mdDialog.hide();
-        }
-      }
+    }
+
+    function hideDialogCreate() {
+        $mdDialog.hide();
     }
 }
