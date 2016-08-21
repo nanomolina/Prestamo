@@ -2,9 +2,9 @@
 
 app.controller('AssociationCtrl', AssociationCtrl);
 
-AssociationCtrl.$inject = ['associationService', '$mdDialog', '$scope'];
+AssociationCtrl.$inject = ['associationService', '$mdDialog', '$scope', '$mdToast'];
 
-function AssociationCtrl(associationService, $mdDialog, $scope) {
+function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -45,6 +45,7 @@ function AssociationCtrl(associationService, $mdDialog, $scope) {
       .then(function(response) {
         vm.associations.push(response.data);
         hideDialogCreate();
+        showToastCreate();
       });
     }
 
@@ -60,6 +61,10 @@ function AssociationCtrl(associationService, $mdDialog, $scope) {
     function hideDialogCreate() {
         $mdDialog.hide();
     }
+
+    function showToastCreate($event) {
+      $mdToast.showSimple('Asociación ' + vm.name + ' creada exitosamente!');
+    };
 
     function showDialogRemove($event, id) {
       var dialogR = $mdDialog.confirm()
