@@ -19,6 +19,7 @@ function AssociationCtrl(associationService, $mdDialog, $scope) {
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
+    vm.showDialogRemove = showDialogRemove;
 
     getAssociations();
 
@@ -59,4 +60,17 @@ function AssociationCtrl(associationService, $mdDialog, $scope) {
     function hideDialogCreate() {
         $mdDialog.hide();
     }
+
+    function showDialogRemove($event, id) {
+      var dialogR = $mdDialog.confirm()
+          .title('Borrar Asociación')
+          .textContent('Estás seguro de querer borrar ésta asociación?')
+          .ariaLabel('Lucky day')
+          .targetEvent($event)
+          .ok('Borrar')
+          .cancel('Cancelar');
+      $mdDialog.show(dialogR).then(function() {
+        removeAssociation(id);
+      });
+    };
 }
