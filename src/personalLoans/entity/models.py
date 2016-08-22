@@ -8,6 +8,9 @@ class Association(models.Model):
     description = models.CharField(max_length=250, null=True, blank=True)
     founder = models.ForeignKey('Investor', null=True, blank=True)
 
+    date_created = models.DateField(auto_now_add=True, null=True, blank=True)
+    date_modified = models.DateField(auto_now=True, null=True, blank=True)
+
     def __unicode__(self):
         return "%s" % (self.name)
 

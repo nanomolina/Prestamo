@@ -7,7 +7,7 @@
   {% verbatim %}
   <div ng-controller="AssociationCtrl as vm" ng-cloak>
       <div layout="row">
-        <div flex-offset-lg="5" flex-offset-lg="5" flex-md="85" flex-lg="85">
+        <div flex-md="90" flex-lg="90">
           <!-- Start content -->
           <div layout="column" class="md-whiteframe-z1" layout-fill>
             <md-toolbar class="md-hue-1">
@@ -27,6 +27,9 @@
                         {{association.description}}
                         <p>
                           Founder: <b>{{association.founder}}</b>
+                        </p>
+                        <p>
+                          {{association.date_created}}
                         </p>
                       </span>
                     </md-card-title-text>
