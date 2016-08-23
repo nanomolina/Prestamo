@@ -19,12 +19,10 @@ class AssociationList(ListCreateAPIView):
         return investor.associations.all()
 
     def post(self, request, *args, **kwargs):
+        request.data['founder'] = request.user.investor.id
         response = self.create(request, *args, **kwargs)
-        new_association = Association.objects.get(id=response.data['id'])
         investor = request.user.investor
-        new_association.founder = investor
-        new_association.save()
-        investor.associations.add(new_association)
+        investor.associations.add(response.data['id'])
         return response
 
 
