@@ -15,6 +15,7 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     vm.name;
     vm.description;
     vm.associations = [];
+    vm.getTotalAssociations = getTotalAssociations;
     vm.removeAssociation = removeAssociation;
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
@@ -30,6 +31,10 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
       .then(function(data) {
           vm.associations = data;
       });
+    }
+
+    function getTotalAssociations() {
+      return vm.associations.length
     }
 
     function removeAssociation(id) {

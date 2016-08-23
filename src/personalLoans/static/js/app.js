@@ -7,4 +7,5 @@ var app = angular.module('angularDjangoRegistrationAuthApp',
     'ngSanitize',
     'ngRoute',
     'ngMaterial',
+    'ngMessages',
   ]);

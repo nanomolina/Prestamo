@@ -5,9 +5,9 @@
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
   {% verbatim %}
-  <div ng-controller="AssociationCtrl as vm" ng-cloak>
+  <div id="inner-content" ng-controller="AssociationCtrl as vm" ng-cloak>
       <div layout="row">
-        <div flex-md="90" flex-lg="90">
+        <div flex-md="90" flex-lg="90" style="min-width: 100%;">
           <!-- Start content -->
           <div layout="column" class="md-whiteframe-z1" layout-fill>
             <md-toolbar class="md-hue-1">
@@ -17,7 +17,12 @@
                 <i class="material-icons">{{vm.view.icon}}</i>
               </div>
             </md-toolbar>
-            <md-content>
+            <md-content style="background-color: #eee;">
+              <div layout-padding>
+                <h4>
+                  Posee {{vm.getTotalAssociations()}} asociaciones
+                </h4>
+              </div>
               <div layout="row" layout-wrap layout-padding>
                 <md-card ng-repeat="association in vm.associations" md-theme-watch flex="29">
                   <md-card-title>
@@ -26,10 +31,10 @@
                       <span class="md-subhead">
                         {{association.description}}
                         <p>
-                          Founder: <b>{{association.founder}}</b>
+                          Founder: <b>{{association.founder_name}}</b>
                         </p>
                         <p>
-                          {{association.date_created}}
+                          {{association.date_created | date : 'dd/MM/yyyy'}}
                         </p>
                       </span>
                     </md-card-title-text>
@@ -39,8 +44,8 @@
                       </div>
                     </md-card-title-media>
                   </md-card-title>
-                  <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-raised">Editar</md-button>
+                  <md-card-actions layout="row" layout-align="left center">
+                    <md-button class="md-raised">VER</md-button>
                     <md-button class="md-warn" ng-click="vm.showDialogRemove($event, association.id)">Borrar</md-button>
                   </md-card-actions>
                 </md-card>
@@ -52,7 +57,7 @@
           <!-- End content -->
         </div>
       </div>
-      <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.showDialogCreate($event)">
+      <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.showDialogCreate($event)" style="position:fixed !important;">
         <md-icon><i class="material-icons">add</i></md-icon>
       </md-button>
   </div>

@@ -2,3 +2,7 @@ body {
   background-color: #eee;
   min-height: 600px;
 }
+
+#inner-content {
+  min-height: 525px;
+}
