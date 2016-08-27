@@ -20,7 +20,9 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
+    vm.clearDialogCreate = clearDialogCreate;
     vm.showDialogRemove = showDialogRemove;
+
 
     getAssociations();
 
@@ -45,13 +47,17 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     }
 
     function createAssociation() {
-      var data = {name: vm.name, description: vm.description};
-      associationService.create(data)
-      .then(function(response) {
-        vm.associations.push(response.data);
-        hideDialogCreate();
-        showToastCreate();
-      });
+      if ($scope.associationForm.$valid) {
+        var data = {name: vm.name, description: vm.description};
+        associationService.create(data)
+        .then(function(response) {
+          vm.associations.push(response.data);
+          hideDialogCreate();
+          showToastCreate();
+        }).catch(function(response) {
+          $mdToast.showSimple('Error al crear asociación!');
+        });
+      }
     }
 
     function showDialogCreate($event) {
@@ -64,8 +70,15 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     }
 
     function hideDialogCreate() {
-        $mdDialog.hide();
+      $mdDialog.hide();
     }
+
+    function clearDialogCreate() {
+      vm.name = '';
+      vm.description = '';
+    }
+
+
 
     function showToastCreate($event) {
       $mdToast.showSimple('Asociación ' + vm.name + ' creada exitosamente!');

@@ -63,17 +63,6 @@ function associationService($http, $cookies) {
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},
       }
     )
-    .then(createComplete)
-    .catch(createFailed);
   }
 
-  function createComplete(response) {
-    console.log('createAssociation success');
-    return response
-  }
-
-  function createFailed(error) {
-    console.error('createAssociation failed');
-    return error
-  }
 }
