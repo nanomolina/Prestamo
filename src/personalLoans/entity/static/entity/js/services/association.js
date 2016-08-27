@@ -9,6 +9,7 @@ function associationService($http, $cookies) {
     getList: getList,
     create: create,
     remove: remove,
+    get: get,
   }
 
   return service

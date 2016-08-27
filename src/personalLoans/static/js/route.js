@@ -120,6 +120,15 @@ app.config(function ($routeProvider) {
           }],
         }
       })
+      .when('/association/:associationId', {
+        templateUrl: 'entity/association_item.html',
+        controller: 'AssociationItemCtrl',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });

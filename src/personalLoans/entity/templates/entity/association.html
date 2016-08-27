@@ -29,7 +29,6 @@
                     <md-card-title-text>
                       <span class="md-headline">{{association.name}}</span>
                       <span class="md-subhead">
-                        {{association.description}}
                         <p>
                           Founder: <b>{{association.founder_name}}</b>
                         </p>
@@ -45,7 +44,7 @@
                     </md-card-title-media>
                   </md-card-title>
                   <md-card-actions layout="row" layout-align="left center">
-                    <md-button class="md-raised">VER</md-button>
+                    <md-button class="md-raised" ng-click="vm.goToAssociationItem(association.id)">VER</md-button>
                     <md-button class="md-warn" ng-click="vm.showDialogRemove($event, association.id)">Borrar</md-button>
                   </md-card-actions>
                 </md-card>

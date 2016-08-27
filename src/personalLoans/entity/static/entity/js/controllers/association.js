@@ -2,9 +2,9 @@
 
 app.controller('AssociationCtrl', AssociationCtrl);
 
-AssociationCtrl.$inject = ['associationService', '$mdDialog', '$scope', '$mdToast'];
+AssociationCtrl.$inject = ['associationService', '$location', '$mdDialog', '$scope', '$mdToast'];
 
-function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
+function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -16,6 +16,7 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
     vm.description;
     vm.associations = [];
     vm.getTotalAssociations = getTotalAssociations;
+    vm.goToAssociationItem = goToAssociationItem;
     vm.removeAssociation = removeAssociation;
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
@@ -37,6 +38,10 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
 
     function getTotalAssociations() {
       return vm.associations.length
+    }
+
+    function goToAssociationItem(id) {
+      $location.path('/association/' + id);
     }
 
     function removeAssociation(id) {
@@ -96,4 +101,36 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
         removeAssociation(id);
       });
     };
+}
+
+
+
+app.controller('AssociationItemCtrl', AssociationItemCtrl);
+
+AssociationItemCtrl.$inject = ['associationService' , '$scope', '$routeParams', '$mdToast'];
+
+function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast) {
+    var vm = this;
+
+    $scope.params = $routeParams;
+    vm.view = {
+      link: '',
+      title: 'Detalle de Asociación',
+      icon: 'business'
+    };
+    vm.association = {};
+
+    getAssociationItem();
+
+    // FUNCTIONS
+    function getAssociationItem() {
+      var id = $scope.params.associationId;
+      associationService.get(id)
+      .then(function(response) {
+        vm.association = response.data;
+      })
+      .catch(function(error) {
+        $mdToast.showSimple('Error al buscar asociación!');
+      })
+    }
 }
