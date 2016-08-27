@@ -30,8 +30,8 @@ function AssociationCtrl(associationService, $mdDialog, $scope, $mdToast) {
 
     function getAssociations() {
       associationService.getList()
-      .then(function(data) {
-          vm.associations = data;
+      .then(function(response) {
+          vm.associations = response.data;
       });
     }
 

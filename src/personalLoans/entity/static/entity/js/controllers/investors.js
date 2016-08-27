@@ -1,16 +1,20 @@
 'use strict';
 
-app.controller('InvestorCtrl', function($scope) {
-    $scope.view = {
+app.controller('InvestorCtrl', InvestorCtrl);
+
+InvestorCtrl.$inject = ['associationService', '$mdDialog', '$scope', '$mdToast'];
+
+function InvestorCtrl(associationService) {
+    var vm = this;
+
+    vm.view = {
       link: '#/investors',
       title: 'Grupo de Inversores',
       icon: 'group'
     };
+    vm.investors = [];
 
-    $scope.investor_group = [{
-        who: 'nano',
-        what: 'algo',
-        notes: 'notes',
-    }];
 
-  });
+    // FUNCTIONS
+
+}

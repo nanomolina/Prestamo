@@ -7,57 +7,43 @@ associationService.$inject = ['$http', '$cookies'];
 function associationService($http, $cookies) {
   var service = {
     getList: getList,
-    remove: remove,
     create: create,
+    remove: remove,
   }
 
   return service
   ////////////
 
-  // GET
+  // GET - LIST
   function getList() {
-    return $http.get("entity/associations/")
-      .then(getListComplete)
-      .catch(getListFailed);
+    return $http.get(
+      "entity/associations/"
+    )
   }
 
-  function getListComplete(response) {
-    return response.data
-  }
-
-  function getListFailed(error) {
-    console.error('getAssociations failed');
-    return error
-  }
-
-  // DELETE
-  function remove(id) {
-    return $http.delete(
-      "entity/associations/"+id+"/",
+  // POST - CREATE
+  function create(data) {
+    return $http.post(
+      "entity/associations/",
+      data,
       {
         withCredentials: true,
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},
       }
     )
-    .then(removeComplete)
-    .catch(removeFailed);
   }
 
-  function removeComplete(response) {
-    console.log('removeAssociation success');
-    return response
+  //  GET - RETRIEVE
+  function get(id) {
+    return $http.get(
+      "entity/associations/"+id+"/"
+    )
   }
 
-  function removeFailed(error) {
-    console.error('removeAssociation failed');
-    return error
-  }
-
-  // POST
-  function create(data) {
-    return $http.post(
-      "entity/associations/",
-      data,
+  // DELETE - DESTROY
+  function remove(id) {
+    return $http.delete(
+      "entity/associations/"+id+"/",
       {
         withCredentials: true,
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},
