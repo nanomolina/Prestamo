@@ -7,7 +7,7 @@
   {% verbatim %}
   <div id="inner-content" ng-controller="AssociationItemCtrl as vm" ng-cloak>
       <div layout="row">
-        <div flex-md="90" flex-lg="90" style="min-width: 100%;">
+        <div style="min-width: 100%;">
           <!-- Start content -->
           <div layout="column" class="md-whiteframe-z1" layout-fill>
             <md-toolbar class="md-hue-1">
@@ -20,34 +20,52 @@
             <md-content style="background-color: #eee;">
               <div layout-padding>
                 <md-card>
-                        <md-card-title>
-                          <md-card-title-text>
-                            <span class="md-headline">{{vm.association.name}}</span>
-                            <span class="md-subhead">
-                              <p>
-                                Fundador: {{vm.association.founder_name}}
-                              </p>
-                              <p>
-                                Fecha: {{vm.association.date_created}}
-                              </p>
-                              <p>
-                                {{vm.association.description}}
-                              </p>
-                            </span>
-                          </md-card-title-text>
-                          <md-card-title-media>
-                            <div class="md-media-lg card-media">
-                              <img src="http://apocova.com/_jl/images/la_asociacion/juntadirectiva.jpg" class="md-media-lg card-media hide-xs" />
-                            </div>
-                          </md-card-title-media>
-                        </md-card-title>
-                        <md-card-actions layout="row" layout-align="start center">
-                          <md-button class="md-raised">Editar</md-button>
-                          <md-button class="md-raised md-warn">Borrar</md-button>
-                        </md-card-actions>
-                      </md-card>
+                  <md-card-title>
+                    <md-card-title-text>
+                      <span class="md-headline">{{vm.association.name}}</span>
+                      <span class="md-subhead">
+                        <p>Fundador: {{vm.association.founder_name}}</p>
+                        <p>Fecha: {{vm.association.date_created}}</p>
+                        <p>{{vm.association.description}}</p>
+                      </span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                      <div class="md-media-lg card-media">
+                        <img src="static/img/business/diagram-1.svg" class="md-media-lg card-media hide-xs" />
+                      </div>
+                    </md-card-title-media>
+                  </md-card-title>
+                  <md-card-actions layout="row" layout-align="start center">
+                    <md-button class="md-raised">Editar</md-button>
+                    <md-button class="md-raised md-warn">Borrar</md-button>
+                  </md-card-actions>
+                </md-card>
               </div>
             </md-content>
+
+            <div layout-padding>
+              <p class="md-title">Inversores</p>
+              <md-content layout-margin class="md-whiteframe-2dp">
+                <md-list flex>
+                  <md-list-item class="md-3-line" ng-click="null">
+                    <img ng-src="static/img/avatars/man-1.svg" class="md-avatar" alt="{{item.who}}" />
+                    <div class="md-list-item-text" layout="column">
+                      <h3>as</h3>
+                      <h4>asd</h4>
+                      <p>asdf</p>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="md-3-line" ng-click="null">
+                    <img ng-src="static/img/avatars/man-14.svg" class="md-avatar" alt="{{item.who}}" />
+                    <div class="md-list-item-text" layout="column">
+                      <h3>as</h3>
+                      <h4>asd</h4>
+                      <p>asdf</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-content>
+            </div>
           </div>
           <!-- End content -->
         </div>
