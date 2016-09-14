@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+
 class Association(models.Model):
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=250, null=True, blank=True)
-    founder = models.ForeignKey('Investor', null=True, blank=True)
+    founder = models.ForeignKey(User, null=True, blank=True, related_name="association_founder_set")
+    partners = models.ManyToManyField(User, related_name="association_partner_set")
 
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     date_modified = models.DateField(auto_now=True, null=True, blank=True)
@@ -16,8 +18,11 @@ class Association(models.Model):
 
 
 class Investor(models.Model):
-    user = models.OneToOneField(User)
-    associations = models.ManyToManyField(Association)
+    association = models.ForeignKey(Association, null=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    image_url = models.URLField(null=True, blank=True)
+
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
@@ -27,7 +32,6 @@ class Investor(models.Model):
 
 class Investment(models.Model):
     investor = models.ForeignKey(Investor)
-    association = models.ForeignKey(Association)
     date = models.DateField()
     money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
@@ -40,7 +44,6 @@ class Investment(models.Model):
 
 class Revenue(models.Model):
     investor = models.ForeignKey(Investor)
-    association = models.ForeignKey(Association)
     date = models.DateField()
     money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 

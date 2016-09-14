@@ -1,5 +1,5 @@
-from entity.models import Association
-from entity.serializers import AssociationSerializer
+from entity.models import Association, Investor
+from entity.serializers import AssociationSerializer, InvestorSerializer
 from django.template.response import TemplateResponse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -15,14 +15,13 @@ class AssociationList(ListCreateAPIView):
     serializer_class = AssociationSerializer
 
     def get_queryset(self):
-        investor = self.request.user.investor
-        return investor.associations.all()
+        return self.request.user.association_partner_set.all()
 
     def post(self, request, *args, **kwargs):
-        request.data['founder'] = request.user.investor.id
+        request.data['founder'] = request.user.id
         response = self.create(request, *args, **kwargs)
-        investor = request.user.investor
-        investor.associations.add(response.data['id'])
+        new_association = Association.objects.get(id=response.data['id'])
+        new_association.partners.add(request.user)
         return response
 
 
@@ -30,5 +29,12 @@ class AssociationDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = AssociationSerializer
 
     def get_queryset(self):
-        investor = self.request.user.investor
-        return investor.associations.all()
+        return self.request.user.association_partner_set.all()
+
+
+class InvestorList(ListCreateAPIView):
+    serializer_class = InvestorSerializer
+
+    def get_queryset(self):
+        id_assoc = self.kwargs['id_assoc']
+        return Investor.objects.filter(associations=id_assoc)
