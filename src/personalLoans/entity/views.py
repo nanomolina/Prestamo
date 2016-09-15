@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from entity.models import Association, Investor
 from entity.serializers import AssociationSerializer, InvestorSerializer
 from django.template.response import TemplateResponse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from django.http import JsonResponse
 
 
 def render_partial(request, template_name):
@@ -44,3 +48,17 @@ class InvestorList(ListCreateAPIView):
         request.data['association'] = assoc_id
         response = self.create(request, *args, **kwargs)
         return response
+
+def get_avatars(request):
+    from entity.functions import filter_files
+    from os.path import join
+    from django.conf import settings
+
+    import ipdb; ipdb.set_trace()
+    url_men = join(settings.STATIC_ROOT, 'img/avatars/men/')
+    url_women = join(settings.STATIC_ROOT, 'img/avatars/women/')
+    men_avatars = filter_files(url_men, '.svg')
+    women_avatars = filter_files(url_women, '.svg')
+    return JsonResponse(
+        {'men_avatars': men_avatars, 'women_avatars': women_avatars}
+    )

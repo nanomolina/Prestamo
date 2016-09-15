@@ -8,6 +8,7 @@ function investorService($http, $cookies) {
   var service = {
     getList: getList,
     create: create,
+    getAvatars: getAvatars,
   }
 
   return service
@@ -17,6 +18,13 @@ function investorService($http, $cookies) {
   function getList(id) {
     return $http.get(
       "entity/associations/"+id+"/investors/"
+    )
+  }
+
+  // GET - AVATARS
+  function getAvatars() {
+    return $http.get(
+      "entity/avatars/"
     )
   }
 

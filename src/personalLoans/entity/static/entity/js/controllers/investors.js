@@ -12,6 +12,8 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
     vm.gender = '1';
     vm.image_url;
     vm.investors = [];
+    vm.men_avatars;
+    vm.women_avatars;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -20,6 +22,7 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
 
     // INIT FUNCTIONS
     getInvestors();
+    getAvatars();
 
 
     // PUBLIC FUNCTIONS
@@ -67,6 +70,14 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
       investorService.getList(id)
       .then(function(response) {
           vm.investors = response.data;
+      });
+    }
+
+    function getAvatars() {
+      investorService.getAvatars()
+      .then(function(response) {
+          vm.men_avatars = response.data.men_avatars;
+          vm.women_avatars = response.data.women_avatars;
       });
     }
 
