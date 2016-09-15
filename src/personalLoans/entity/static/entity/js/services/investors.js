@@ -21,7 +21,7 @@ function investorService($http, $cookies) {
   }
 
   // POST - CREATE
-  function create(data) {
+  function create(id, data) {
     return $http.post(
       "entity/associations/"+id+"/investors/",
       data,
