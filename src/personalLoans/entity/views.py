@@ -36,5 +36,11 @@ class InvestorList(ListCreateAPIView):
     serializer_class = InvestorSerializer
 
     def get_queryset(self):
-        id_assoc = self.kwargs['id_assoc']
-        return Investor.objects.filter(associations=id_assoc)
+        assoc_id = self.kwargs['assoc_id']
+        return Investor.objects.filter(association__id=assoc_id)
+
+    def post(self, request, *args, **kwargs):
+        assoc_id = self.kwargs['assoc_id']
+        request.data['association'] = assoc_id
+        response = self.create(request, *args, **kwargs)
+        return response

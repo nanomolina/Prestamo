@@ -24,42 +24,48 @@
                     <md-card-title-text>
                       <span class="md-headline">{{vm.association.name}}</span>
                       <span class="md-subhead">
-                        <p>Fundador: {{vm.association.founder_name}}</p>
-                        <p>Fecha: {{vm.association.date_created}}</p>
-                        <p>{{vm.association.description}}</p>
+                        <ul>
+                          <li>
+                            <b>Fundador:</b> {{vm.association.founder_name}}
+                          </li>
+                          <li>
+                            <b>Fecha de creación:</b> {{vm.association.date_created | date : 'dd/MM/yyyy'}}
+                          </li>
+                          <li>
+                            <b>Descripción:</b> {{vm.association.description}}
+                          </li>
+                        </ul>
                       </span>
                     </md-card-title-text>
                     <md-card-title-media>
                       <div class="md-media-lg card-media">
-                        <img src="static/img/business/diagram-1.svg" class="md-media-lg card-media hide-xs" />
+                        <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
                       </div>
                     </md-card-title-media>
                   </md-card-title>
                   <md-card-actions layout="row" layout-align="start center">
-                    <md-button class="md-raised">Editar</md-button>
+                    <md-button class="md-raised" ng-click="vm.showDialogEdit($event)">Editar</md-button>
                   </md-card-actions>
                 </md-card>
               </div>
             </md-content>
 
-            <div layout-padding>
-              <p class="md-title">Grupo de Inversores</p>
+            <div layout-padding ng-controller="InvestorCtrl as vm2">
+              <md-divider></md-divider>
+              <div layout="row">
+                <p class="md-title">Grupo de Inversores</p>
+                <div flex></div>
+                <md-button class="md-fab" aria-label="Add" ng-click="vm2.showDialogCreate($event)">
+                  <md-icon><i class="material-icons">add</i></md-icon>
+                </md-button>
+              </div>
               <md-content layout-margin class="md-whiteframe-2dp">
                 <md-list flex>
-                  <md-list-item class="md-3-line" ng-click="null">
+                  <md-list-item class="md-3-line" ng-click="null" ng-repeat="inv in vm2.investors">
                     <img ng-src="static/img/avatars/man-1.svg" class="md-avatar" alt="{{item.who}}" />
                     <div class="md-list-item-text" layout="column">
-                      <h3>as</h3>
-                      <h4>asd</h4>
-                      <p>asdf</p>
-                    </div>
-                  </md-list-item>
-                  <md-list-item class="md-3-line" ng-click="null">
-                    <img ng-src="static/img/avatars/man-14.svg" class="md-avatar" alt="{{item.who}}" />
-                    <div class="md-list-item-text" layout="column">
-                      <h3>as</h3>
-                      <h4>asd</h4>
-                      <p>asdf</p>
+                      <h4>{{inv.first_name}} {{inv.last_name}}</h4>
+                      <p>{{inv.gender_display}}</p>
                     </div>
                   </md-list-item>
                 </md-list>

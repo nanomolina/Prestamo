@@ -18,16 +18,20 @@ class Association(models.Model):
 
 
 class Investor(models.Model):
+    GENDER = (
+        (1, 'Masculino'), (2, "Femenino")
+    )
     association = models.ForeignKey(Association, null=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
+    gender = models.SmallIntegerField(choices=GENDER, blank=True, null=True)
     image_url = models.URLField(null=True, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "%s" % (self.user.get_full_name())
+        return "%s - %s %s" % (self.association, self.first_name, self.last_name)
 
 
 class Investment(models.Model):

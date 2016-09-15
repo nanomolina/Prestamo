@@ -17,7 +17,6 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     vm.associations = [];
     vm.getTotalAssociations = getTotalAssociations;
     vm.goToAssociationItem = goToAssociationItem;
-    vm.removeAssociation = removeAssociation;
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
@@ -27,28 +26,13 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
 
     getAssociations();
 
-    // FUNCTIONS
-
-    function getAssociations() {
-      associationService.getList()
-      .then(function(response) {
-          vm.associations = response.data;
-      });
-    }
-
+    // PUBLIC FUNCTIONS
     function getTotalAssociations() {
       return vm.associations.length
     }
 
     function goToAssociationItem(id) {
       $location.path('/association/' + id);
-    }
-
-    function removeAssociation(id) {
-      associationService.remove(id)
-      .then(function(response) {
-        getAssociations();
-      });
     }
 
     function createAssociation() {
@@ -70,6 +54,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
         targetEvent: $event,
         scope: $scope,
         preserveScope: true,
+        clickOutsideToClose: true,
         templateUrl: 'entity/_add_association.html',
       });
     }
@@ -83,12 +68,6 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
       vm.description = '';
     }
 
-
-
-    function showToastCreate($event) {
-      $mdToast.showSimple('Asociación ' + vm.name + ' creada exitosamente!');
-    };
-
     function showDialogRemove($event, id) {
       var dialogR = $mdDialog.confirm()
           .title('Borrar Asociación')
@@ -96,10 +75,31 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
           .ariaLabel('Lucky day')
           .targetEvent($event)
           .ok('Borrar')
-          .cancel('Cancelar');
+          .cancel('Cancelar')
+          .clickOutsideToClose(true);
       $mdDialog.show(dialogR).then(function() {
         removeAssociation(id);
       });
+    };
+
+
+    // PRIVATE FUNCTIONS
+    function getAssociations() {
+      associationService.getList()
+      .then(function(response) {
+          vm.associations = response.data;
+      });
+    }
+
+    function removeAssociation(id) {
+      associationService.remove(id)
+      .then(function(response) {
+        getAssociations();
+      });
+    }
+
+    function showToastCreate($event) {
+      $mdToast.showSimple('Asociación ' + vm.name + ' creada exitosamente!');
     };
 }
 
@@ -107,9 +107,9 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
 
 app.controller('AssociationItemCtrl', AssociationItemCtrl);
 
-AssociationItemCtrl.$inject = ['associationService' , '$scope', '$routeParams', '$mdToast'];
+AssociationItemCtrl.$inject = ['associationService' , '$scope', '$routeParams', '$mdToast', '$mdDialog'];
 
-function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast) {
+function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast, $mdDialog) {
     var vm = this;
 
     $scope.params = $routeParams;
@@ -118,11 +118,55 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast)
       title: 'Detalle de Asociación',
       icon: 'business'
     };
+    vm.name;
+    vm.description;
     vm.association = {};
+    vm.showDialogEdit = showDialogEdit
+    vm.clearDialogEdit = clearDialogEdit;
+    vm.hideDialogCreate = hideDialogCreate;
+    vm.editAssociation = editAssociation;
 
     getAssociationItem();
 
-    // FUNCTIONS
+
+    // PUBLIC FUNCTIONS
+    function showDialogEdit($event) {
+      vm.name = vm.association.name;
+      vm.description = vm.association.description;
+      $mdDialog.show({
+        targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        templateUrl: 'entity/_edit_association.html',
+      });
+    }
+
+    function clearDialogEdit() {
+      vm.name = '';
+      vm.description = '';
+    }
+
+    function hideDialogCreate() {
+      $mdDialog.hide();
+    }
+
+    function editAssociation() {
+      if ($scope.associationForm.$valid) {
+        var id = $scope.params.associationId;
+        var data = {name: vm.name, description: vm.description};
+        associationService.update(id, data)
+        .then(function(response) {
+          vm.association = response.data;
+          hideDialogCreate();
+          showToastEdit();
+        }).catch(function(response) {
+          $mdToast.showSimple('Error al crear asociación!');
+        });
+      }
+    }
+
+    // PRIVATE FUNCTIONS
     function getAssociationItem() {
       var id = $scope.params.associationId;
       associationService.get(id)
@@ -133,4 +177,8 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast)
         $mdToast.showSimple('Error al buscar asociación!');
       })
     }
+
+    function showToastEdit($event) {
+      $mdToast.showSimple('Asociación editada exitosamente!');
+    };
 }

@@ -10,6 +10,7 @@ function associationService($http, $cookies) {
     create: create,
     remove: remove,
     get: get,
+    update: update,
   }
 
   return service
@@ -51,5 +52,18 @@ function associationService($http, $cookies) {
       }
     )
   }
+
+  // PUT - UPDATE
+  function update(id, data) {
+    return $http.put(
+      "entity/associations/"+id+"/",
+      data,
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
+  }
+
 
 }

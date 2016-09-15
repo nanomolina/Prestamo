@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^associations/$', views.AssociationList.as_view()),
     url(r'^associations/(?P<pk>[0-9]+)/$', views.AssociationDetail.as_view()),
-    url(r'^investors/(?P<id_assoc>[0-9]+)/$', views.InvestorList.as_view()),
+    url(r'^associations/(?P<assoc_id>[0-9]+)/investors/$', views.InvestorList.as_view()),
     url(r'^(?P<template_name>.*)$', views.render_partial),
 ]
 

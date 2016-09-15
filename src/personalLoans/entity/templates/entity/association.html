@@ -32,17 +32,19 @@
                     <md-card-title-text>
                       <span class="md-headline">{{association.name}}</span>
                       <span class="md-subhead">
-                        <p>
-                          Founder: <b>{{association.founder_name}}</b>
-                        </p>
-                        <p>
-                          {{association.date_created | date : 'dd/MM/yyyy'}}
-                        </p>
+                        <ul>
+                          <li>
+                            <b>Fundador:</b> {{association.founder_name}}
+                          </li>
+                          <li>
+                            <b>Fecha:</b> {{association.date_created | date : 'dd/MM/yyyy'}}
+                          </li>
+                        </ul>
                       </span>
                     </md-card-title-text>
                     <md-card-title-media>
                       <div class="md-media-lg card-media">
-                        <img src="http://apocova.com/_jl/images/la_asociacion/juntadirectiva.jpg" class="md-media-lg card-media hide-xs" />
+                        <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
                       </div>
                     </md-card-title-media>
                   </md-card-title>
