@@ -66,8 +66,7 @@
                     <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
                       <md-list flex>
                         <md-list-item class="md-3-line" ng-click="null" ng-repeat="inv in vm2.investors">
-                          <img ng-src="static/img/avatars/men/man-1.svg" class="md-avatar" ng-if="vm2.is_male(inv.gender)"/>
-                          <img ng-src="static/img/avatars/women/woman-1.svg" class="md-avatar" ng-if="vm2.is_female(inv.gender)"/>
+                          <img ng-src="{{inv.image_url}}" class="md-avatar"/>
                           <div class="md-list-item-text" layout="column">
                             <h4>{{inv.first_name}} {{inv.last_name}}</h4>
                             <p>{{inv.gender_display}}</p>
