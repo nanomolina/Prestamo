@@ -22,8 +22,9 @@ class InvestorSerializer(serializers.ModelSerializer):
         model = Investor
         fields = (
             'association', 'first_name', 'last_name',
-            'gender', 'image_url', 'date_created',
-            'gender_display'
+            'alias', 'dni', 'phone', 'email', 'birthdate',
+            'gender', 'image_url',
+            'date_created', 'gender_display'
         )
 
 

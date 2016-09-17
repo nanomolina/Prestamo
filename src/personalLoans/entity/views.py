@@ -54,7 +54,6 @@ def get_avatars(request):
     from os.path import join
     from django.conf import settings
 
-    import ipdb; ipdb.set_trace()
     url_men = join(settings.STATIC_ROOT, 'img/avatars/men/')
     url_women = join(settings.STATIC_ROOT, 'img/avatars/women/')
     men_avatars = filter_files(url_men, '.svg')

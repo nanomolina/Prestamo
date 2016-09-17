@@ -143,3 +143,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+DATE_INPUT_FORMATS = [
+    '%d/%m/%Y', '%d/%m/%y', # '25/10/2006', '25/10/06'
+]
