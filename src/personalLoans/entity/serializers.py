@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from entity.models import Investor, Investment, Revenue, Association
+from django.conf import settings
 
 
 class AssociationSerializer(serializers.ModelSerializer):
@@ -17,6 +18,9 @@ class AssociationSerializer(serializers.ModelSerializer):
 class InvestorSerializer(serializers.ModelSerializer):
     gender_display = serializers.ReadOnlyField(
         source='get_gender_display'
+    )
+    birthdate = serializers.DateField(
+        format=settings.DATE_FORMAT, input_formats=settings.DATE_INPUT_FORMATS
     )
     class Meta:
         model = Investor

@@ -144,6 +144,16 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+DATE_FORMAT = '%d/%m/%Y'
+DATETIME_FORMAT = '%d/%m/%Y %H:%M'
+
 DATE_INPUT_FORMATS = [
-    '%d/%m/%Y', '%d/%m/%y', # '25/10/2006', '25/10/06'
+    '%d/%m/%Y', '%d/%m/%y',
+]
+
+DATETIME_INPUT_FORMATS = [
+    '%d/%m/%Y %H:%M:%S',
+    '%d/%m/%Y %H:%M:%S.%f',
+    '%d/%m/%Y %H:%M',
+    '%d/%m/%Y',
 ]
