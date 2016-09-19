@@ -2,9 +2,9 @@
 
 app.controller('InvestorCtrl', InvestorCtrl);
 
-InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast', '$document'];
+InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast'];
 
-function InvestorCtrl(investorService, $scope, $mdToast, $document) {
+function InvestorCtrl(investorService, $scope, $mdToast) {
     var vm = this;
 
     vm.first_name;
@@ -37,8 +37,6 @@ function InvestorCtrl(investorService, $scope, $mdToast, $document) {
     // PUBLIC FUNCTIONS
     function showFormCreate() {
       vm.form_create = true;
-      // var new_investor = angular.element(document.getElementById('new-investor'));
-      // $document.scrollTop(0, 1000);
     }
 
     function hideFormCreate() {

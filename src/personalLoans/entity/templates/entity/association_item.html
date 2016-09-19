@@ -5,13 +5,16 @@
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
   {% verbatim %}
-  <div id="inner-content" ng-controller="AssociationItemCtrl as vm" ng-cloak>
+  <div id="inner-content" ng-controller="AssociationItemCtrl as vm" ng-cloak du-scroll-container>
       <div layout="row">
         <div style="min-width: 100%;">
           <!-- Start content -->
           <div layout="column" class="md-whiteframe-z1" layout-fill>
             <md-toolbar class="md-hue-1">
               <div class="md-toolbar-tools">
+                <md-button class="md-icon-button hide-gt-md" aria-label="Settings" ng-click="openLeftMenu()">
+                  <i class="material-icons">menu</i>
+                </md-button>
                 <h2 class="md-flex">{{vm.view.title}}</h2>
                 <span flex></span>
                 <i class="material-icons">{{vm.view.icon}}</i>
