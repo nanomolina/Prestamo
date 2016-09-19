@@ -52,16 +52,18 @@
 
             <div layout-padding ng-controller="InvestorCtrl as vm2">
               <md-divider></md-divider>
-              <div layout="row">
-                <p class="md-title">Grupo de Inversores</p>
-                <div flex></div>
-                <md-button class="md-fab" aria-label="Add" ng-click="vm2.showDialogCreate($event)">
-                  <md-icon><i class="material-icons">add</i></md-icon>
-                </md-button>
-              </div>
 
-              <div class="investor-list">
-                <md-content layout-margin class="md-whiteframe-2dp">
+              <div>
+                <md-content id="investor-list" class="md-whiteframe-2dp" ng-hide="vm2.form_create">
+                  <md-toolbar>
+                    <div class="md-toolbar-tools">
+                      <h2>Grupo de Inversores</h2>
+                      <span flex></span>
+                      <md-button class="md-fab md-mini" aria-label="Add" ng-click="vm2.showFormCreate()">
+                        <md-icon><i class="material-icons">add</i></md-icon>
+                      </md-button>
+                    </div>
+                  </md-toolbar>
                   <div layout="row">
                     <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
                       <md-list flex>
@@ -80,13 +82,13 @@
                   </div>
                 </md-content>
 
-                <md-content layout-margin class="md-whiteframe-2dp">
+                <md-content id="new-investor" class="md-whiteframe-2dp" ng-show="vm2.form_create">
                     <form name="investorForm">
                       <md-toolbar>
                         <div class="md-toolbar-tools">
                           <h2>Nuevo Inversor</h2>
                           <span flex></span>
-                          <md-button class="md-icon-button" ng-click="vm2.hideDialogCreate()">
+                          <md-button class="md-icon-button" ng-click="vm2.hideFormCreate()">
                             <i class="material-icons">close</i>
                           </md-button>
                         </div>
@@ -149,7 +151,7 @@
                         </md-grid-list>
                       </div>
                       <div layout-gt-sm="row">
-                        <md-button ng-click="vm2.clearDialogCreate()">Limpiar</md-button>
+                        <md-button ng-click="vm2.clearFormCreate()">Limpiar</md-button>
                         <span flex></span>
                         <div ng-if="investorForm.$valid">
                           <md-button class="md-raised md-primary" ng-click="vm2.createInvestor()">Guardar</md-button>

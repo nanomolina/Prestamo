@@ -2,9 +2,9 @@
 
 app.controller('InvestorCtrl', InvestorCtrl);
 
-InvestorCtrl.$inject = ['investorService', '$mdDialog', '$scope', '$mdToast'];
+InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast', '$document'];
 
-function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
+function InvestorCtrl(investorService, $scope, $mdToast, $document) {
     var vm = this;
 
     vm.first_name;
@@ -19,9 +19,10 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
     vm.investors = [];
     vm.men_avatars = [];
     vm.women_avatars = [];
-    vm.showDialogCreate = showDialogCreate;
-    vm.hideDialogCreate = hideDialogCreate;
-    vm.clearDialogCreate = clearDialogCreate;
+    vm.form_create = false;
+    vm.showFormCreate = showFormCreate;
+    vm.hideFormCreate = hideFormCreate;
+    vm.clearFormCreate = clearFormCreate;
     vm.createInvestor = createInvestor;
     vm.is_male = is_male;
     vm.is_female = is_female;
@@ -34,21 +35,17 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
 
 
     // PUBLIC FUNCTIONS
-    function showDialogCreate($event) {
-      $mdDialog.show({
-        targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
-        clickOutsideToClose: true,
-        templateUrl: 'entity/_add_investor.html',
-      });
+    function showFormCreate() {
+      vm.form_create = true;
+      // var new_investor = angular.element(document.getElementById('new-investor'));
+      // $document.scrollTop(0, 1000);
     }
 
-    function hideDialogCreate() {
-      $mdDialog.hide();
+    function hideFormCreate() {
+      vm.form_create = false;
     }
 
-    function clearDialogCreate() {
+    function clearFormCreate() {
       vm.first_name = '';
       vm.last_name = '';
       vm.alias = '';
@@ -76,7 +73,7 @@ function InvestorCtrl(investorService, $mdDialog, $scope, $mdToast) {
         investorService.create(id, data)
         .then(function(response) {
           vm.investors.push(response.data);
-          hideDialogCreate();
+          hideFormCreate();
           showToastCreate();
         }).catch(function(response) {
           $mdToast.showSimple('Error al añadir inversor.');
