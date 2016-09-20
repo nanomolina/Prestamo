@@ -19,6 +19,8 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
     vm.investors = [];
     vm.men_avatars = [];
     vm.women_avatars = [];
+    vm.is_selected_investor = false;
+    vm.selected_investor;
     vm.form_create = false;
     vm.showFormCreate = showFormCreate;
     vm.hideFormCreate = hideFormCreate;
@@ -27,6 +29,7 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
     vm.is_male = is_male;
     vm.is_female = is_female;
     vm.chooseAvatar = chooseAvatar;
+    vm.selectInvestor = selectInvestor;
 
 
     // INIT FUNCTIONS
@@ -93,6 +96,11 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
       } else {
         vm.image_url = vm.women_avatars[index];
       }
+    }
+
+    function selectInvestor(index) {
+      vm.selected_investor = vm.investors[index];
+      vm.is_selected_investor = true;
     }
 
     // PRIVATE FUNCTIONS

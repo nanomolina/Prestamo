@@ -70,7 +70,7 @@
                   <div layout="row">
                     <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
                       <md-list flex>
-                        <md-list-item class="md-3-line" ng-click="null" ng-repeat="inv in vm2.investors">
+                        <md-list-item class="md-3-line" ng-click="vm2.selectInvestor($index)" ng-repeat="inv in vm2.investors">
                           <img ng-src="{{inv.image_url}}" class="md-avatar"/>
                           <div class="md-list-item-text" layout="column">
                             <h4>{{inv.first_name}} {{inv.last_name}}</h4>
@@ -80,7 +80,17 @@
                       </md-list>
                     </div>
                     <div flex=50>
-                      No hay item asignado
+                      <div layout="column" ng-if="vm2.is_selected_investor">
+                        <div flex="30">
+                          <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%;"/>
+                        </div>
+                        <div flex="70">
+                          <ul>
+                            <li>first_name: {{vm2.selected_investor.first_name}}</li>
+                            <li>last_name: {{vm2.selected_investor.last_name}}</li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </md-content>
