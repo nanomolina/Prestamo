@@ -3,17 +3,22 @@
 
 {% block content %}
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
-    <div layout="column" flex>
-      <div flex="70">
-        70
-      </div>
-      <div flex="10">
-        10
-      </div>
-      <div flex="20">
-        20
-      </div>
+  {% verbatim %}
+  <div id="inner-content" ng-controller="AssociationCtrl as vm" ng-cloak>
+    <div layout="row">
+        <div flex="33">
+          <button type="button" class="md-button md-ink-ripple">1</button>
+        </div>
+        <div flex="33">
+          <button type="button" class="md-button md-ink-ripple">2</button>
+        </div>
+        <div flex="33">
+          <button type="button" class="md-button md-ink-ripple">3</button>
+        </div>
     </div>
+  </div>
+  {% endverbatim %}
+
 
 {% endblock %}
 

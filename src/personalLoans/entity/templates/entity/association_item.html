@@ -85,10 +85,38 @@
                           <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%;"/>
                         </div>
                         <div flex="70">
-                          <ul>
-                            <li>first_name: {{vm2.selected_investor.first_name}}</li>
-                            <li>last_name: {{vm2.selected_investor.last_name}}</li>
-                          </ul>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <th>Nombre:</th>
+                                <td>{{vm2.selected_investor.first_name}}</td>
+                              </tr>
+                              <tr>
+                                <th>Apellido:</th>
+                                <td>{{vm2.selected_investor.last_name}}</td>
+                              </tr>
+                              <tr>
+                                <th>Alias:</th>
+                                <td>{{vm2.selected_investor.alias}}</td>
+                              </tr>
+                              <tr>
+                                <th>Género:</th>
+                                <td>{{vm2.selected_investor.gender_display}}</td>
+                              </tr>
+                              <tr>
+                                <th>DNI:</th>
+                                <td>{{vm2.selected_investor.dni}}</td>
+                              </tr>
+                              <tr>
+                                <th>Email:</th>
+                                <td>{{vm2.selected_investor.email}}</td>
+                              </tr>
+                              <tr>
+                                <th>Cumpleaños:</th>
+                                <td>{{vm2.selected_investor.birthdate}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>

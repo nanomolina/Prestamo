@@ -29,7 +29,7 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
       },
       {
         link : '#/association',
-        title: 'Asociaciones',
+        title: 'Asociación',
         icon: 'business'
       },
       {
