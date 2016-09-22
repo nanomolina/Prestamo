@@ -78,6 +78,11 @@
                           </div>
                         </md-list-item>
                       </md-list>
+                      <div ng-if="vm2.investors.length === 0" style="min-height: 80px;">
+                        <div layout="row" layout-align="center center">
+                          <p class="md-subhead">No hay inversores</p>
+                        </div>
+                      </div>
                     </div>
                     <div flex=50>
                       <div layout="column" ng-if="vm2.is_selected_investor">
