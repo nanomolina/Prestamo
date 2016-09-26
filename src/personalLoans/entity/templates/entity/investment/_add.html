@@ -1,0 +1,54 @@
+<md-dialog aria-label="new investment" flex="50">
+  <form name="investmentForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nueva inversión</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="">
+          <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <div layout="column">
+        <md-input-container>
+          <label>Inversor</label>
+          <input ng-model="" name="investor" required>
+          <div ng-messages="associationForm.investor.$error">
+            <div ng-message="required">Se requiere inversor.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container>
+          <label>Enter date</label>
+          <md-datepicker ng-model=""></md-datepicker>
+        </md-input-container>
+
+        <md-input-container>
+          <label>Dinero (USD)</label>
+          <input required type="number" step="any" name="money" ng-model="" min="1"/>
+          <div ng-messages="investmentForm.money.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              You've got to charge something! You can't just <b>give away</b> a Missile Defense
+              System.
+            </div>
+            <div ng-message="min">
+              You should charge at least $800 an hour. This job is a big deal... if you mess up,
+              everyone dies!
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="">Limpiar</md-button>
+      <span flex></span>
+      <div ng-if="investmentForm.$valid">
+        <md-button class="md-raised md-primary" ng-click="">Guardar</md-button>
+      </div>
+      <div ng-if="investmentForm.$invalid">
+        <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
