@@ -3,12 +3,7 @@
 
 {% block content %}
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
-  <style media="screen">
-    .large-button {
-      width: 150px;
-      height: 150px;
-    }
-  </style>
+
   {% verbatim %}
   <div id="inner-content" ng-controller="ConsoleCtrl as vm" ng-cloak>
       <div layout="row">
@@ -28,20 +23,20 @@
             <md-content style="background-color: #eee;">
               <div layout="row">
                   <div flex="33">
-                    <a type="button" class="md-button md-ink-ripple large-button">
-                      <img src="static/img/business/record.svg" alt="" />
-                      <p>
-                        Detalle
-                      </p>
+                    <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToDetail()">
+                       <md-icon md-svg-icon="static/img/business/record.svg"></md-icon>
+                       Detalle
                     </a>
                   </div>
                   <div flex="33">
                     <button type="button" class="md-button md-ink-ripple">
+                      <md-icon md-svg-icon="static/img/business/piggy-bank.svg"></md-icon>
                       Inversiones
                     </button>
                   </div>
                   <div flex="33">
                     <button type="button" class="md-button md-ink-ripple">
+                      <md-icon md-svg-icon="static/img/business/get-money.svg"></md-icon>
                       Ganancias
                     </button>
                   </div>
