@@ -86,16 +86,19 @@
                     </div>
                     <div flex=50>
                       <div layout="column" ng-if="vm2.is_selected_investor">
-                        <div flex="30">
+                        <div flex="30" layout="row" layout-align="center center">
                           <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%;"/>
                         </div>
                         <div flex="70">
-                          <table>
+                          <table style="width: 100%;
+                                max-width: 100%;
+                                margin-bottom: 20px;">
                             <tbody>
                               <tr>
                                 <th>Nombre:</th>
                                 <td>{{vm2.selected_investor.first_name}}</td>
                               </tr>
+                              <md-divider ></md-divider>
                               <tr>
                                 <th>Apellido:</th>
                                 <td>{{vm2.selected_investor.last_name}}</td>

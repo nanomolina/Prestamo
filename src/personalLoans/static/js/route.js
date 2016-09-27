@@ -120,8 +120,17 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/association/:associationId', {
-        templateUrl: 'entity/association_item.html',
+      .when('/association/:associationId/console', {
+        templateUrl: 'entity/console.html',
+        controller: 'AssociationItemCtrl',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
+      .when('/association/:associationId/detail', {
+        templateUrl: 'entity/detail/association.html',
         controller: 'AssociationItemCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){

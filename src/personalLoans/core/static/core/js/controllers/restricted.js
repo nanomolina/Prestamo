@@ -9,6 +9,6 @@
  */
 app.controller('RestrictedCtrl', function ($scope, $location) {
     $scope.$on('djangoAuth.logged_in', function() {
-      $location.path('/');
+      $location.path('/association');
     });
   });

@@ -16,7 +16,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     vm.description;
     vm.associations = [];
     vm.getTotalAssociations = getTotalAssociations;
-    vm.goToAssociationItem = goToAssociationItem;
+    vm.goToConsole = goToConsole;
     vm.createAssociation = createAssociation;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
@@ -31,8 +31,8 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
       return vm.associations.length
     }
 
-    function goToAssociationItem(id) {
-      $location.path('/association/' + id);
+    function goToConsole(id) {
+      $location.path('/association/' + id + '/console');
     }
 
     function createAssociation() {
