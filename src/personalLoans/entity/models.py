@@ -43,9 +43,19 @@ class Investor(models.Model):
 
 
 class Investment(models.Model):
+    FEES = (
+        (0, 'None'), (1, '1'), (3, '3'), (6, '6'), (12, '12')
+    )
     investor = models.ForeignKey(Investor)
+    warrant = models.PositiveIntegerField('orden', unique=True, null=True)
+    authorization = models.PositiveIntegerField(unique=True, null=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    capital = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    final_capital = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    fee = models.SmallIntegerField(choices=FEES, default=0)
+    interests = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     date = models.DateField()
-    money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
