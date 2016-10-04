@@ -21,7 +21,7 @@
               </div>
             </md-toolbar>
             <md-content style="background-color: #eee;">
-              <div layout="row">
+              <div layout="column">
                 <md-toolbar class="md-table-toolbar md-default">
                   <div class="md-toolbar-tools">
                     <span>Nutrition</span>
@@ -31,34 +31,37 @@
                 <!-- exact table from live demo -->
                 <md-table-container>
                   <table md-table md-row-select multiple ng-model="vm.selected" md-progress="promise">
-                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.getDesserts">
+                    <thead md-head md-on-reorder="vm.getInvestments">
                       <tr md-row>
-                        <th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th>
-                        <th md-column md-numeric md-order-by="calories.value"><span>Calories</span></th>
-                        <th md-column md-numeric>Fat (g)</th>
-                        <th md-column md-numeric>Carbs (g)</th>
-                        <th md-column md-numeric>Protein (g)</th>
-                        <th md-column md-numeric>Sodium (mg)</th>
-                        <th md-column md-numeric>Calcium (%)</th>
-                        <th md-column md-numeric>Iron (%)</th>
+                        <th md-column><span>Inversor</span></th>
+                        <th md-column md-numeric md-order-by="warrant"><span>Orden N°</span></th>
+                        <th md-column md-numeric>Autorización N°</th>
+                        <th md-column>Nombre</th>
+                        <th md-column>Apellido</th>
+                        <th md-column md-numeric>Capital</th>
+                        <th md-column md-numeric>Capital final</th>
+                        <th md-column md-numeric>Cuotas</th>
+                        <th md-column md-numeric>Intereses</th>
+                        <th md-column>Fecha</th>
                       </tr>
                     </thead>
                     <tbody md-body>
-                      <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data">
-                        <td md-cell>{{dessert.name}}</td>
-                        <td md-cell>{{dessert.calories.value}}</td>
-                        <td md-cell>{{dessert.fat.value | number: 1}}</td>
-                        <td md-cell>{{dessert.carbs.value}}</td>
-                        <td md-cell>{{dessert.protein.value | number: 1}}</td>
-                        <td md-cell>{{dessert.sodium.value}}</td>
-                        <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
-                        <td md-cell>{{dessert.iron.value}}{{dessert.iron.unit}}</td>
+                      <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments">
+                        <td md-cell>{{investment.investor}}</td>
+                        <td md-cell>{{investment.warrant}}</td>
+                        <td md-cell>{{investment.authorization}}</td>
+                        <td md-cell>{{investment.first_name}}</td>
+                        <td md-cell>{{investment.last_name}}</td>
+                        <td md-cell>{{investment.capital}}</td>
+                        <td md-cell>{{investment.final_capital}}</td>
+                        <td md-cell>{{investment.fee}}</td>
+                        <td md-cell>{{investment.interests}}</td>
+                        <td md-cell>{{investment.date}}</td>
                       </tr>
                     </tbody>
                   </table>
                 </md-table-container>
-
-                <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+                <md-table-pagination md-limit="vm.query.limit" md-limit-options="[2, 10, 15]" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
               </div>
             </md-content>
           </div>

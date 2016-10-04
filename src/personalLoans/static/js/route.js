@@ -140,6 +140,7 @@ app.config(function ($routeProvider) {
       })
       .when('/association/:associationId/loans', {
         templateUrl: 'entity/loan/investments.html',
+        controller: 'InvestmentCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);

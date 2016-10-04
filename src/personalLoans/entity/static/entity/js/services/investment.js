@@ -13,9 +13,12 @@ function investmentService($http, $cookies) {
   ////////////
 
   // GET - LIST
-  function getList(id) {
+  function getList(id, query) {
     return $http.get(
-      "entity/associations/"+id+"/investments/"
+      "entity/associations/"+id+"/investments/",
+      {
+        params: query,
+      }
     )
   }
 

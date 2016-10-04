@@ -1,10 +1,10 @@
 'use strict';
 
-
 app.controller('InvestmentCtrl', InvestmentCtrl);
-InvestmentCtrl.$inject = ['$scope'];
 
-function InvestmentCtrl($scope) {
+InvestmentCtrl.$inject = ['investmentService', '$routeParams'];
+
+function InvestmentCtrl(investmentService, $routeParams) {
     var vm = this;
 
     vm.view = {
@@ -13,20 +13,21 @@ function InvestmentCtrl($scope) {
     };
     vm.selected = [];
     vm.query = {
-      order: 'name',
-      limit: 5,
-      page: 1
+       order: 'warrant',
+       limit: 5,
+       page: 1
     };
-    vm.success = success;
-    vm.getDesserts = getDesserts;
+    vm.investments = [];
+    vm.getInvestments = getInvestments;
 
-    function success(desserts) {
-      $scope.desserts = desserts;
-    }
-
-    function getDesserts() {
-      $scope.promise = $nutrition.desserts.get($scope.query, success).$promise;
-    };
+    getInvestments();
 
     // PRIVATE FUNCTIONS
+    function getInvestments() {
+      var id = $routeParams.associationId;
+      investmentService.getList(id, vm.query)
+      .then(function(response) {
+        vm.investments = response.data;
+      });
+    }
 }
