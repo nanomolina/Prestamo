@@ -5,6 +5,7 @@ from entity.models import Association, Investor, Investment
 from entity.serializers import AssociationSerializer, InvestorSerializer, InvestmentSerializer
 from django.template.response import TemplateResponse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.pagination import PageNumberPagination
 from django.http import JsonResponse
 
 
