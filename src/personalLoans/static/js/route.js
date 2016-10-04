@@ -138,6 +138,14 @@ app.config(function ($routeProvider) {
           }],
         }
       })
+      .when('/association/:associationId/loans', {
+        templateUrl: 'entity/loan/investments.html',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });

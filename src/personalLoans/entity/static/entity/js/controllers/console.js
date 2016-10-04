@@ -12,12 +12,18 @@ function ConsoleCtrl($scope, $location) {
       icon: 'view_list'
     };
     vm.goToDetail = goToDetail;
+    vm.goToLoans = goToLoans;
 
 
     // PUBLIC FUNCTIONS
     function goToDetail() {
       var id = $scope.params.associationId;
       $location.path('/association/' + id + '/detail');
+    }
+
+    function goToLoans() {
+      var id = $scope.params.associationId;
+      $location.path('/association/' + id + '/loans');
     }
 
     // PRIVATE FUNCTIONS

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from entity.models import Association, Investor
-from entity.serializers import AssociationSerializer, InvestorSerializer
+from entity.models import Association, Investor, Investment
+from entity.serializers import AssociationSerializer, InvestorSerializer, InvestmentSerializer
 from django.template.response import TemplateResponse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from django.http import JsonResponse
@@ -48,6 +48,15 @@ class InvestorList(ListCreateAPIView):
         request.data['association'] = assoc_id
         response = self.create(request, *args, **kwargs)
         return response
+
+
+class InvestmentList(ListCreateAPIView):
+    serializer_class = InvestmentSerializer
+
+    def get_queryset(self):
+        assoc_id = self.kwargs['assoc_id']
+        return Investment.objects.filter(investor__association__id=assoc_id)
+
 
 def get_avatars(request):
     from entity.functions import filter_files

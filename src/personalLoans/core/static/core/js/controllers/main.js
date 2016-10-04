@@ -32,11 +32,11 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
         title: 'Asociación',
         icon: 'business'
       },
-      {
-        link : '#/investors',
-        title: 'Grupo de Inversores',
-        icon: 'group'
-      },
+      // {
+      //   link : '#/investors',
+      //   title: 'Grupo de Inversores',
+      //   icon: 'group'
+      // },
     ];
 
     $scope.admin = [
