@@ -6,219 +6,215 @@
 
   {% verbatim %}
   <div id="inner-content" ng-controller="AssociationItemCtrl as vm" ng-cloak du-scroll-container>
-      <div layout="row">
-        <div style="min-width: 100%;">
-          <!-- Start content -->
-          <div layout="column" class="md-whiteframe-z1" layout-fill>
-            <md-toolbar class="md-hue-1">
+    <!-- Start content -->
+    <div layout="column" class="md-whiteframe-z1" layout-fill>
+      <md-toolbar class="md-hue-1">
+        <div class="md-toolbar-tools">
+          <md-button class="md-icon-button hide-gt-md" aria-label="Settings" ng-click="openLeftMenu()">
+            <i class="material-icons">menu</i>
+          </md-button>
+          <h2 class="md-flex">{{vm.view.title}}</h2>
+          <span flex></span>
+          <i class="material-icons">{{vm.view.icon}}</i>
+        </div>
+      </md-toolbar>
+      <md-content style="background-color: #eee;">
+        <div layout-padding>
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">{{vm.association.name}}</span>
+                <span class="md-subhead">
+                  <ul>
+                    <li>
+                      <b>Fundador:</b> {{vm.association.founder_name}}
+                    </li>
+                    <li>
+                      <b>Fecha de creación:</b> {{vm.association.date_created | date : 'dd/MM/yyyy'}}
+                    </li>
+                    <li>
+                      <b>Descripción:</b> {{vm.association.description}}
+                    </li>
+                  </ul>
+                </span>
+              </md-card-title-text>
+              <md-card-title-media>
+                <div class="md-media-lg card-media">
+                  <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
+                </div>
+              </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+              <md-button class="md-raised" ng-click="vm.showDialogEdit($event)">Editar</md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </md-content>
+
+      <div layout-padding ng-controller="InvestorCtrl as vm2">
+        <md-divider></md-divider>
+
+        <div>
+          <md-content id="investor-list" class="md-whiteframe-2dp" ng-hide="vm2.form_create">
+            <md-toolbar>
               <div class="md-toolbar-tools">
-                <md-button class="md-icon-button hide-gt-md" aria-label="Settings" ng-click="openLeftMenu()">
-                  <i class="material-icons">menu</i>
-                </md-button>
-                <h2 class="md-flex">{{vm.view.title}}</h2>
+                <h2>Grupo de Inversores</h2>
                 <span flex></span>
-                <i class="material-icons">{{vm.view.icon}}</i>
+                <md-button class="md-fab md-mini" aria-label="Add" ng-click="vm2.showFormCreate()">
+                  <md-icon><i class="material-icons">add</i></md-icon>
+                </md-button>
               </div>
             </md-toolbar>
-            <md-content style="background-color: #eee;">
-              <div layout-padding>
-                <md-card>
-                  <md-card-title>
-                    <md-card-title-text>
-                      <span class="md-headline">{{vm.association.name}}</span>
-                      <span class="md-subhead">
-                        <ul>
-                          <li>
-                            <b>Fundador:</b> {{vm.association.founder_name}}
-                          </li>
-                          <li>
-                            <b>Fecha de creación:</b> {{vm.association.date_created | date : 'dd/MM/yyyy'}}
-                          </li>
-                          <li>
-                            <b>Descripción:</b> {{vm.association.description}}
-                          </li>
-                        </ul>
-                      </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                      <div class="md-media-lg card-media">
-                        <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
-                      </div>
-                    </md-card-title-media>
-                  </md-card-title>
-                  <md-card-actions layout="row" layout-align="start center">
-                    <md-button class="md-raised" ng-click="vm.showDialogEdit($event)">Editar</md-button>
-                  </md-card-actions>
-                </md-card>
-              </div>
-            </md-content>
-
-            <div layout-padding ng-controller="InvestorCtrl as vm2">
-              <md-divider></md-divider>
-
-              <div>
-                <md-content id="investor-list" class="md-whiteframe-2dp" ng-hide="vm2.form_create">
-                  <md-toolbar>
-                    <div class="md-toolbar-tools">
-                      <h2>Grupo de Inversores</h2>
-                      <span flex></span>
-                      <md-button class="md-fab md-mini" aria-label="Add" ng-click="vm2.showFormCreate()">
-                        <md-icon><i class="material-icons">add</i></md-icon>
-                      </md-button>
+            <div layout="row">
+              <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
+                <md-list flex>
+                  <md-list-item class="md-3-line" ng-click="vm2.selectInvestor($index)" ng-repeat="inv in vm2.investors">
+                    <img ng-src="{{inv.image_url}}" class="md-avatar"/>
+                    <div class="md-list-item-text" layout="column">
+                      <h4>{{inv.first_name}} {{inv.last_name}}</h4>
+                      <p>{{inv.gender_display}}</p>
                     </div>
-                  </md-toolbar>
-                  <div layout="row">
-                    <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
-                      <md-list flex>
-                        <md-list-item class="md-3-line" ng-click="vm2.selectInvestor($index)" ng-repeat="inv in vm2.investors">
-                          <img ng-src="{{inv.image_url}}" class="md-avatar"/>
-                          <div class="md-list-item-text" layout="column">
-                            <h4>{{inv.first_name}} {{inv.last_name}}</h4>
-                            <p>{{inv.gender_display}}</p>
-                          </div>
-                        </md-list-item>
-                      </md-list>
-                      <div ng-if="vm2.investors.length === 0" style="min-height: 80px;">
-                        <div layout="row" layout-align="center center">
-                          <p class="md-subhead">No hay inversores</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div flex=50>
-                      <div layout="column" ng-if="vm2.is_selected_investor">
-                        <div flex="30" layout="row" layout-align="center center">
-                          <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%;"/>
-                        </div>
-                        <div flex="70">
-                          <table style="width: 100%;
-                                max-width: 100%;
-                                margin-bottom: 20px;">
-                            <tbody>
-                              <tr>
-                                <th>Nombre:</th>
-                                <td>{{vm2.selected_investor.first_name}}</td>
-                              </tr>
-                              <md-divider ></md-divider>
-                              <tr>
-                                <th>Apellido:</th>
-                                <td>{{vm2.selected_investor.last_name}}</td>
-                              </tr>
-                              <tr>
-                                <th>Alias:</th>
-                                <td>{{vm2.selected_investor.alias}}</td>
-                              </tr>
-                              <tr>
-                                <th>Género:</th>
-                                <td>{{vm2.selected_investor.gender_display}}</td>
-                              </tr>
-                              <tr>
-                                <th>DNI:</th>
-                                <td>{{vm2.selected_investor.dni}}</td>
-                              </tr>
-                              <tr>
-                                <th>Email:</th>
-                                <td>{{vm2.selected_investor.email}}</td>
-                              </tr>
-                              <tr>
-                                <th>Cumpleaños:</th>
-                                <td>{{vm2.selected_investor.birthdate}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                  </md-list-item>
+                </md-list>
+                <div ng-if="vm2.investors.length === 0" style="min-height: 80px;">
+                  <div layout="row" layout-align="center center">
+                    <p class="md-subhead">No hay inversores</p>
                   </div>
-                </md-content>
-
-                <md-content id="new-investor" class="md-whiteframe-2dp" ng-show="vm2.form_create">
-                    <form name="investorForm">
-                      <md-toolbar>
-                        <div class="md-toolbar-tools">
-                          <h2>Nuevo Inversor</h2>
-                          <span flex></span>
-                          <md-button class="md-icon-button" ng-click="vm2.hideFormCreate()">
-                            <i class="material-icons">close</i>
-                          </md-button>
-                        </div>
-                      </md-toolbar>
-                      <div layout-padding>
-                        <div layout-gt-sm="row">
-                          <md-input-container flex="33">
-                            <label>Nombre*</label>
-                            <input ng-model="vm2.first_name" name="first_name" required md-maxlength="30">
-                            <div ng-messages="investorForm.first_name.$error">
-                              <div ng-message="required">Se requiere el nombre.</div>
-                              <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
-                            </div>
-                          </md-input-container>
-                          <md-input-container flex="33">
-                            <label>Apellido*</label>
-                            <input ng-model="vm2.last_name" name="last_name" required md-maxlength="30">
-                            <div ng-messages="investorForm.last_name.$error">
-                              <div ng-message="required">Se requiere el apellido.</div>
-                              <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
-                            </div>
-                          </md-input-container>
-                          <md-input-container flex="33">
-                            <label>Alias</label>
-                            <input ng-model="vm2.alias" name="alias" md-maxlength="30">
-                            <div ng-messages="investorForm.alias.$error">
-                              <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
-                            </div>
-                          </md-input-container>
-                        </div>
-                        <div layout-gt-sm="row">
-                          <md-input-container flex="33">
-                            <label>DNI</label>
-                            <input ng-model="vm2.dni" name="dni" md-maxlength="8">
-                            <div ng-messages="investorForm.alias.$error">
-                              <div ng-message="md-maxlength">Debe tener menos de 8 caracteres.</div>
-                            </div>
-                          </md-input-container>
-                          <div flex="33" style="position: relative; top: 17px;">
-                            <md-datepicker ng-model="vm2.birthdate" md-placeholder="Cumpleaños"></md-datepicker>
-                          </div>
-                          <md-radio-group ng-model="vm2.gender" flex="33">
-                            <md-radio-button value="1" class="md-primary">Masculino</md-radio-button>
-                            <md-radio-button value="2">Femenino</md-radio-button>
-                          </md-radio-group>
-                        </div>
-                      </div>
-                      <md-divider></md-divider>
-                      <div layout-gt-sm="row">
-                        <md-grid-list
-                              md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
-                              md-row-height-gt-md="1:1" md-row-height="4:3"
-                              md-gutter="8px" md-gutter-gt-sm="4px">
-                          <a ng-repeat="man_avatar in vm2.men_avatars" class="md-button" ng-if="vm2.is_male(vm2.gender)" ng-click="vm2.chooseAvatar($index)">
-                            <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
-                          </a>
-                          <a ng-repeat="woman_avatar in vm2.women_avatars" class="md-button" ng-if="vm2.is_female(vm2.gender)" ng-click="vm2.chooseAvatar($index)">
-                            <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
-                          </a>
-                        </md-grid-list>
-                      </div>
-                      <div layout-gt-sm="row">
-                        <md-button ng-click="vm2.clearFormCreate()">Limpiar</md-button>
-                        <span flex></span>
-                        <div ng-if="investorForm.$valid">
-                          <md-button class="md-raised md-primary" ng-click="vm2.createInvestor()">Guardar</md-button>
-                        </div>
-                        <div ng-if="investorForm.$invalid">
-                          <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
-                        </div>
-                      </div>
-                    </form>
-                </md-content>
-
-
+                </div>
+              </div>
+              <div flex=50>
+                <div layout="column" ng-if="vm2.is_selected_investor">
+                  <div flex="30" layout="row" layout-align="center center">
+                    <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%;"/>
+                  </div>
+                  <div flex="70">
+                    <table style="width: 100%;
+                          max-width: 100%;
+                          margin-bottom: 20px;">
+                      <tbody>
+                        <tr>
+                          <th>Nombre:</th>
+                          <td>{{vm2.selected_investor.first_name}}</td>
+                        </tr>
+                        <md-divider ></md-divider>
+                        <tr>
+                          <th>Apellido:</th>
+                          <td>{{vm2.selected_investor.last_name}}</td>
+                        </tr>
+                        <tr>
+                          <th>Alias:</th>
+                          <td>{{vm2.selected_investor.alias}}</td>
+                        </tr>
+                        <tr>
+                          <th>Género:</th>
+                          <td>{{vm2.selected_investor.gender_display}}</td>
+                        </tr>
+                        <tr>
+                          <th>DNI:</th>
+                          <td>{{vm2.selected_investor.dni}}</td>
+                        </tr>
+                        <tr>
+                          <th>Email:</th>
+                          <td>{{vm2.selected_investor.email}}</td>
+                        </tr>
+                        <tr>
+                          <th>Cumpleaños:</th>
+                          <td>{{vm2.selected_investor.birthdate}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- End content -->
+          </md-content>
+
+          <md-content id="new-investor" class="md-whiteframe-2dp" ng-show="vm2.form_create">
+              <form name="investorForm">
+                <md-toolbar>
+                  <div class="md-toolbar-tools">
+                    <h2>Nuevo Inversor</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="vm2.hideFormCreate()">
+                      <i class="material-icons">close</i>
+                    </md-button>
+                  </div>
+                </md-toolbar>
+                <div layout-padding>
+                  <div layout-gt-sm="row">
+                    <md-input-container flex="33">
+                      <label>Nombre*</label>
+                      <input ng-model="vm2.first_name" name="first_name" required md-maxlength="30">
+                      <div ng-messages="investorForm.first_name.$error">
+                        <div ng-message="required">Se requiere el nombre.</div>
+                        <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="33">
+                      <label>Apellido*</label>
+                      <input ng-model="vm2.last_name" name="last_name" required md-maxlength="30">
+                      <div ng-messages="investorForm.last_name.$error">
+                        <div ng-message="required">Se requiere el apellido.</div>
+                        <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+                      </div>
+                    </md-input-container>
+                    <md-input-container flex="33">
+                      <label>Alias</label>
+                      <input ng-model="vm2.alias" name="alias" md-maxlength="30">
+                      <div ng-messages="investorForm.alias.$error">
+                        <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+                      </div>
+                    </md-input-container>
+                  </div>
+                  <div layout-gt-sm="row">
+                    <md-input-container flex="33">
+                      <label>DNI</label>
+                      <input ng-model="vm2.dni" name="dni" md-maxlength="8">
+                      <div ng-messages="investorForm.alias.$error">
+                        <div ng-message="md-maxlength">Debe tener menos de 8 caracteres.</div>
+                      </div>
+                    </md-input-container>
+                    <div flex="33" style="position: relative; top: 17px;">
+                      <md-datepicker ng-model="vm2.birthdate" md-placeholder="Cumpleaños"></md-datepicker>
+                    </div>
+                    <md-radio-group ng-model="vm2.gender" flex="33">
+                      <md-radio-button value="1" class="md-primary">Masculino</md-radio-button>
+                      <md-radio-button value="2">Femenino</md-radio-button>
+                    </md-radio-group>
+                  </div>
+                </div>
+                <md-divider></md-divider>
+                <div layout-gt-sm="row">
+                  <md-grid-list
+                        md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+                        md-row-height-gt-md="1:1" md-row-height="4:3"
+                        md-gutter="8px" md-gutter-gt-sm="4px">
+                    <a ng-repeat="man_avatar in vm2.men_avatars" class="md-button" ng-if="vm2.is_male(vm2.gender)" ng-click="vm2.chooseAvatar($index)">
+                      <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
+                    </a>
+                    <a ng-repeat="woman_avatar in vm2.women_avatars" class="md-button" ng-if="vm2.is_female(vm2.gender)" ng-click="vm2.chooseAvatar($index)">
+                      <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
+                    </a>
+                  </md-grid-list>
+                </div>
+                <div layout-gt-sm="row">
+                  <md-button ng-click="vm2.clearFormCreate()">Limpiar</md-button>
+                  <span flex></span>
+                  <div ng-if="investorForm.$valid">
+                    <md-button class="md-raised md-primary" ng-click="vm2.createInvestor()">Guardar</md-button>
+                  </div>
+                  <div ng-if="investorForm.$invalid">
+                    <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
+                  </div>
+                </div>
+              </form>
+          </md-content>
+
+
         </div>
       </div>
+    </div>
+    <!-- End content -->
   </div>
   {% endverbatim %}
 {% endblock content %}
