@@ -7,6 +7,8 @@ from django.template.response import TemplateResponse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
 from django.http import JsonResponse
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import filters
 
 
 def render_partial(request, template_name):
@@ -51,13 +53,11 @@ class InvestorList(ListCreateAPIView):
         return response
 
 
-from rest_framework.pagination import PageNumberPagination
 class SetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'limit'
 
 
-from rest_framework import filters
 class InvestmentList(ListCreateAPIView):
     serializer_class = InvestmentSerializer
     pagination_class = SetPagination
