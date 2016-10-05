@@ -13,7 +13,7 @@ function InvestmentCtrl(investmentService, $routeParams) {
     };
     vm.selected = [];
     vm.query = {
-       order: 'warrant',
+       ordering: '-date',
        limit: 5,
        page: 1
     };

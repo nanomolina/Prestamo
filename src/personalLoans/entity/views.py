@@ -57,9 +57,15 @@ class SetPagination(PageNumberPagination):
     page_size_query_param = 'limit'
 
 
+from rest_framework import filters
 class InvestmentList(ListCreateAPIView):
     serializer_class = InvestmentSerializer
     pagination_class = SetPagination
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = (
+        'date', 'investor', 'warrant', 'authorization', 'first_name',
+        'last_name', 'capital', 'final_capital', 'fee', 'interests'
+    )
 
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']
