@@ -31,8 +31,6 @@ function InvestmentCtrl(investmentService, $routeParams, $scope) {
     vm.showSearchFilter = showSearchFilter;
     vm.removeFilter = removeFilter;
 
-    getInvestments();
-
     // PUBLIC FUNCTIONS
     function getInvestments() {
       var id = $routeParams.associationId;
