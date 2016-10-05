@@ -51,8 +51,15 @@ class InvestorList(ListCreateAPIView):
         return response
 
 
+from rest_framework.pagination import PageNumberPagination
+class SetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'limit'
+
+
 class InvestmentList(ListCreateAPIView):
     serializer_class = InvestmentSerializer
+    pagination_class = SetPagination
 
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']

@@ -8,7 +8,7 @@ function InvestmentCtrl(investmentService, $routeParams) {
     var vm = this;
 
     vm.view = {
-      title: 'Console',
+      title: 'Prestamos',
       icon: 'view_list'
     };
     vm.selected = [];
@@ -19,13 +19,14 @@ function InvestmentCtrl(investmentService, $routeParams) {
     };
     vm.investments = [];
     vm.getInvestments = getInvestments;
+    vm.promise;
 
     getInvestments();
 
     // PRIVATE FUNCTIONS
     function getInvestments() {
       var id = $routeParams.associationId;
-      investmentService.getList(id, vm.query)
+      vm.promise = investmentService.getList(id, vm.query)
       .then(function(response) {
         vm.investments = response.data;
       });
