@@ -13,7 +13,7 @@ function InvestmentCtrl(investmentService, $routeParams, $scope) {
     };
     vm.selected = [];
     vm.query = {
-      filter: '',
+      search: '',
       ordering: '-date',
       limit: 5,
       page: 1
@@ -48,14 +48,14 @@ function InvestmentCtrl(investmentService, $routeParams, $scope) {
 
     function removeFilter() {
       vm.filter.show = false;
-      vm.query.filter = '';
+      vm.query.search = '';
       if(vm.filter.form.$dirty) {
         vm.filter.form.$setPristine();
       }
     }
 
     // PRIVATE FUNCTIONS
-    $scope.$watch('vm.query.filter', function (newValue, oldValue) {
+    $scope.$watch('vm.query.search', function (newValue, oldValue) {
       var bookmark = 1;
       if(!oldValue) {
         bookmark = vm.query.page;
