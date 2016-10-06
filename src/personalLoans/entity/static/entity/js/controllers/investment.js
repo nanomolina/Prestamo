@@ -66,4 +66,12 @@ function InvestmentCtrl(investmentService, $routeParams, $scope) {
       }
       vm.getInvestments();
     });
+
+    function getOptions() {
+      var id = $routeParams.associationId;
+      investmentService.getOptions(id)
+      .then(function(response) {
+        vm.options = response.data;
+      });
+    }
 }
