@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from entity.models import Association, Investor, Investment
-from entity.serializers import AssociationSerializer, InvestorSerializer, InvestmentSerializer
-from django.template.response import TemplateResponse
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.pagination import PageNumberPagination
 from django.http import JsonResponse
-from rest_framework.pagination import PageNumberPagination
+from django.template.response import TemplateResponse
 from rest_framework import filters
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.pagination import PageNumberPagination
+
+from entity.models import Association, Investment, Investor
+from entity.serializers import (AssociationSerializer, InvestmentSerializer,
+                                InvestorSerializer)
 
 
 def render_partial(request, template_name):

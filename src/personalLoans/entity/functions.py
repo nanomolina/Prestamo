@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+
 from django.conf import settings
+
 
 def filter_files(directory, extention):
     list_files = os.listdir(directory)

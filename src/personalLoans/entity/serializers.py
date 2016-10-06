@@ -1,6 +1,7 @@
-from rest_framework import serializers
-from entity.models import Investor, Investment, Revenue, Association
 from django.conf import settings
+from rest_framework import serializers
+
+from entity.models import Association, Investment, Investor, Revenue
 
 
 class AssociationSerializer(serializers.ModelSerializer):

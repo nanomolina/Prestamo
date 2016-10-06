@@ -1,6 +1,7 @@
 
 from django.contrib import admin
-from entity.models import Association, Investor, Investment
+
+from entity.models import Association, Investment, Investor
 
 
 class AssociationAdmin(admin.ModelAdmin):

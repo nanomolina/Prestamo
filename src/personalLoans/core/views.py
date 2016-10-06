@@ -1,7 +1,9 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.response import TemplateResponse
+
 from entity.models import Investor
+
 
 def home(request):
     return render_to_response(
