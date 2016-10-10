@@ -44,7 +44,7 @@ class Investor(models.Model):
 
 class Investment(models.Model):
     FEES = (
-        (0, 'None'), (1, '1'), (3, '3'), (6, '6'), (12, '12')
+        (1, '1'), (3, '3'), (6, '6'), (12, '12')
     )
     investor = models.ForeignKey(Investor, verbose_name="Inversor")
     warrant = models.PositiveIntegerField('N° Orden', unique=True, null=True)
@@ -63,6 +63,15 @@ class Investment(models.Model):
     def __unicode__(self):
         return "%s" % (self.investor)
 
+    @property
+    def investor_full_name(self):
+        name = ''
+        if self.investor.alias:
+            name += self.investor.alias
+        else:
+            name += self.investor.first_name
+        name += ' ' + self.investor.last_name
+        return name
 
 class Revenue(models.Model):
     investor = models.ForeignKey(Investor)

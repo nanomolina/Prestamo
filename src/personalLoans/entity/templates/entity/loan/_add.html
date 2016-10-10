@@ -1,42 +1,94 @@
-<md-dialog aria-label="new investment" flex="50">
+{% verbatim %}
+<md-dialog aria-label="new investment" flex="60">
   <form name="investmentForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Nueva inversión</h2>
+        <h2>Otorgar Prestamo</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="">
+        <md-button class="md-icon-button" ng-click="vm.hideDialogCreate()">
           <i class="material-icons">close</i>
         </md-button>
       </div>
     </md-toolbar>
     <md-dialog-content layout-padding>
-      <div layout="column">
-        <md-input-container>
-          <label>Inversor</label>
-          <input ng-model="" name="investor" required>
-          <div ng-messages="associationForm.investor.$error">
+      <h3 class="md-subhead">Prestamista</h3>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.investor.label}}*</label>
+          <md-select ng-model="vm.data.investor" name="investor" required />
+            <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
+              {{investor.first_name}} {{investor.last_name}}
+            </md-option>
+          </md-select>
+          <div ng-messages="investmentForm.investor.$error">
             <div ng-message="required">Se requiere inversor.</div>
           </div>
         </md-input-container>
 
-        <md-input-container>
-          <label>Enter date</label>
-          <md-datepicker ng-model=""></md-datepicker>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.warrant.label}}*</label>
+          <input type="number" name="warrant" ng-model="vm.data.warrant" required />
+          <div ng-messages="investmentForm.warrant.$error">
+            <div ng-message="required">Se requiere orden.</div>
+          </div>
         </md-input-container>
 
-        <md-input-container>
-          <label>Dinero (USD)</label>
-          <input required type="number" step="any" name="money" ng-model="" min="1"/>
-          <div ng-messages="investmentForm.money.$error" multiple md-auto-hide="true">
-            <div ng-message="required">
-              You've got to charge something! You can't just <b>give away</b> a Missile Defense
-              System.
-            </div>
-            <div ng-message="min">
-              You should charge at least $800 an hour. This job is a big deal... if you mess up,
-              everyone dies!
-            </div>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.authorization.label}}*</label>
+          <input type="number" name="authorization" ng-model="vm.data.authorization" required />
+          <div ng-messages="investmentForm.warrant.$error">
+            <div ng-message="required">Se requiere authorization.</div>
           </div>
+        </md-input-container>
+
+        <div class="datepicker md-block" flex-gt-sm>
+          <md-datepicker ng-model="vm.data.date_partial"></md-datepicker>
+        </div>
+      </div>
+      <h3 class="md-subhead">Prestatario</h3>
+      <div layout-gt-sm="row">
+        <md-input-container flex-sm>
+          <label>{{vm.options.first_name.label}}*</label>
+          <input type="text" name="first_name" ng-model="vm.data.first_name" md-maxlength="30" required/>
+          <div ng-messages="investmentForm.first_name.$error">
+            <div ng-message="required">Se requiere el Nombre.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container flex-sm>
+          <label>{{vm.options.last_name.label}}*</label>
+          <input type="text" name="last_name" ng-model="vm.data.last_name"  md-maxlength="30" required/>
+          <div ng-messages="investmentForm.last_name.$error">
+            <div ng-message="required">Se requiere el Apellido.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+      </div>
+      <h3 class="md-subhead">Detalles de Prestamo</h3>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.capital.label}}</label>
+          <input type="number" name="capital" ng-model="vm.data.capital" step="1.00">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.final_capital.label}}</label>
+          <input type="number" name="final_capital" ng-model="vm.data.final_capital" step="1.00">
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.fee.label}}</label>
+          <md-select ng-model="vm.data.fee">
+            <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
+              {{fee_choice.display_name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.interests.label}}</label>
+          <input type="number" name="interests" ng-model="vm.data.interests" step="0.10" max="100" min="0">
         </md-input-container>
       </div>
     </md-dialog-content>
@@ -44,7 +96,7 @@
       <md-button ng-click="">Limpiar</md-button>
       <span flex></span>
       <div ng-if="investmentForm.$valid">
-        <md-button class="md-raised md-primary" ng-click="">Guardar</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.createInvestment()">Guardar</md-button>
       </div>
       <div ng-if="investmentForm.$invalid">
         <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
@@ -52,3 +104,4 @@
     </md-dialog-actions>
   </form>
 </md-dialog>
+{% endverbatim %}

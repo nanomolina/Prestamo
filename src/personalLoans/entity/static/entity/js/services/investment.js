@@ -8,6 +8,7 @@ function investmentService($http, $cookies) {
   var service = {
     getList: getList,
     getOptions: getOptions,
+    create: create,
   }
 
   return service
@@ -23,9 +24,22 @@ function investmentService($http, $cookies) {
     )
   }
 
+  // OPTIONS
   function getOptions(id) {
-    return $http.options(
-      "entity/associations/"+id+"/investments/"
+    return $http(
+      {method: "OPTIONS", url: "entity/associations/"+id+"/investments/"}
+    )
+  }
+
+  // POST - CREATE
+  function create(id, data) {
+    return $http.post(
+      "entity/associations/"+id+"/investments/",
+      data,
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
     )
   }
 

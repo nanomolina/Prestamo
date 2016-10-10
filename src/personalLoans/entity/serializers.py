@@ -21,12 +21,13 @@ class InvestorSerializer(serializers.ModelSerializer):
         source='get_gender_display'
     )
     birthdate = serializers.DateField(
-        format=settings.DATE_FORMAT, input_formats=settings.DATE_INPUT_FORMATS
+        format=settings.DATE_FORMAT,
+        input_formats=settings.DATE_INPUT_FORMATS
     )
     class Meta:
         model = Investor
         fields = (
-            'association', 'first_name', 'last_name',
+            'association', 'id', 'first_name', 'last_name',
             'alias', 'dni', 'phone', 'email', 'birthdate',
             'gender', 'image_url',
             'date_created', 'gender_display'
@@ -34,10 +35,14 @@ class InvestorSerializer(serializers.ModelSerializer):
 
 
 class InvestmentSerializer(serializers.ModelSerializer):
+    date = serializers.DateField(
+        format=settings.DATE_FORMAT,
+        input_formats=settings.DATE_INPUT_FORMATS
+    )
     class Meta:
         model = Investment
         fields = (
-            'investor', 'warrant', 'authorization',
+            'investor', 'investor_full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
             'fee', 'interests', 'date'
         )

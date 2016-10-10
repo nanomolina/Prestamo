@@ -6,3 +6,8 @@ body {
 #inner-content {
   min-height: 525px;
 }
+
+.datepicker {
+  position: relative;
+  top: 17px;
+}

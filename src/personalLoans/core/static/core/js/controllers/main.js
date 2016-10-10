@@ -2,8 +2,7 @@
 
 app.controller('MainCtrl', function ($scope, $http, $cookies, $location, djangoAuth, $mdSidenav) {
 
-
-  });
+});
 
 
 app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
@@ -46,5 +45,11 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
         icon: 'exit_to_app'
       },
     ];
+    $scope.formatDate = formatDate;
+
+
+    function formatDate(date) {
+      return moment(date).format('DD/MM/YYYY');
+    }
 
   });
