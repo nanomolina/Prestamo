@@ -2,9 +2,9 @@
 
 app.controller('InvestmentCtrl', InvestmentCtrl);
 
-InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog'];
+InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog', '$q'];
 
-function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog) {
+function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $q) {
     var vm = this;
 
     vm.view = {
@@ -30,12 +30,16 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       authorization: undefined,
       first_name: undefined,
       last_name: undefined,
-      capital: undefined,
-      final_capital: undefined,
+      capital: 0,
+      final_capital: 0,
       fee: 1,
       interests: 12.00,
       date: undefined,
       date_partial: undefined,
+    }
+    vm.errors = {
+      warrant: [],
+      authorization: [],
     }
     vm.selected = [];
     vm.investments = [];
@@ -47,7 +51,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.removeFilter = removeFilter;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
-    // vm.clearDialogCreate = clearDialogCreate;
+    vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
 
     getOptions();
@@ -97,8 +101,31 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
           vm.getInvestments();
           vm.hideDialogCreate();
         }).catch(function(response) {
-          $scope.investmentForm.$error = response;
+          if (response.data.warrant) {
+            vm.errors.warrant.push(vm.data.warrant);
+            $scope.investmentForm.warrant.$setValidity('warrantexist', false)
+          }
+          if (response.data.authorization) {
+            vm.errors.authorization.push(vm.data.authorization);
+            $scope.investmentForm.authorization.$setValidity('authexist', false)
+          }
         });
+      }
+    }
+
+    function clearDialogCreate() {
+      vm.data = {
+        investor: undefined,
+        warrant: undefined,
+        authorization: undefined,
+        first_name: undefined,
+        last_name: undefined,
+        capital: 0,
+        final_capital: 0,
+        fee: 1,
+        interests: 12.00,
+        date: undefined,
+        date_partial: undefined,
       }
     }
 

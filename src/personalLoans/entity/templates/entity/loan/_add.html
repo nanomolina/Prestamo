@@ -27,17 +27,19 @@
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.warrant.label}}*</label>
-          <input type="number" name="warrant" ng-model="vm.data.warrant" required />
+          <input type="number" name="warrant" ng-model="vm.data.warrant" required warrantexist/>
           <div ng-messages="investmentForm.warrant.$error">
             <div ng-message="required">Se requiere orden.</div>
+            <div ng-message="warrantexist">Ya existe un Prestamo con este N° de Orden.</div>
           </div>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.authorization.label}}*</label>
-          <input type="number" name="authorization" ng-model="vm.data.authorization" required />
-          <div ng-messages="investmentForm.warrant.$error">
-            <div ng-message="required">Se requiere authorization.</div>
+          <input type="number" name="authorization" ng-model="vm.data.authorization" required authexist/>
+          <div ng-messages="investmentForm.authorization.$error">
+            <div ng-message="required">Se requiere authorización.</div>
+            <div ng-message="authexist">Ya existe un Prestamo con este N° de authorización.</div>
           </div>
         </md-input-container>
 
@@ -69,12 +71,18 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.capital.label}}</label>
-          <input type="number" name="capital" ng-model="vm.data.capital" step="1.00">
+          <input type="number" name="capital" ng-model="vm.data.capital" step="1.00" max="99999999.99">
+          <div ng-messages="investmentForm.capital.$error">
+            <div ng-message="max">El máximo permitido es 99999999.99.</div>
+          </div>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.final_capital.label}}</label>
-          <input type="number" name="final_capital" ng-model="vm.data.final_capital" step="1.00">
+          <input type="number" name="final_capital" ng-model="vm.data.final_capital" step="1.00" max="99999999.99">
+          <div ng-messages="investmentForm.final_capital.$error">
+            <div ng-message="max">El máximo permitido es 99999999.99.</div>
+          </div>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
@@ -88,12 +96,17 @@
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.interests.label}}</label>
-          <input type="number" name="interests" ng-model="vm.data.interests" step="0.10" max="100" min="0">
+          <input type="number" name="interests" ng-model="vm.data.interests" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.10" min="0" max="100">
+          <div ng-messages-multiple ng-messages="investmentForm.interests.$error">
+            <div ng-message="pattern">Sólo se permiten 2 digitos decimales.</div>
+            <div ng-message="min">El mínimo es 0.</div>
+            <div ng-message="max">El máximo es 100.</div>
+          </div>
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="">Limpiar</md-button>
+      <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
       <span flex></span>
       <div ng-if="investmentForm.$valid">
         <md-button class="md-raised md-primary" ng-click="vm.createInvestment()">Guardar</md-button>
