@@ -10,7 +10,7 @@
     <div class="md-whiteframe-z1" layout-fill>
       <md-toolbar class="md-hue-1">
         <div class="md-toolbar-tools">
-          <md-button class="md-icon-button hide-gt-md" aria-label="Settings" ng-click="openLeftMenu()">
+          <md-button class="md-icon-button" aria-label="Settings" ng-click="openLeftMenu()">
             <i class="material-icons">menu</i>
           </md-button>
           <h2 class="md-flex">{{vm.view.title}}</h2>
@@ -78,39 +78,41 @@
             </div>
           </md-toolbar>
           <!-- exact table from live demo -->
-          <md-table-container>
-            <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
-              <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
-                <tr md-row>
-                  <th md-column md-order-by="date">Creación</th>
-                  <th md-column md-order-by="investor"><span>Inversor</span></th>
-                  <th md-column md-numeric md-order-by="warrant"><span>Orden N°</span></th>
-                  <th md-column md-numeric md-order-by="authorization">Autorización N°</th>
-                  <th md-column md-order-by="first_name">Nombre</th>
-                  <th md-column md-order-by="last_name">Apellido</th>
-                  <th md-column md-numeric md-order-by="capital">Capital</th>
-                  <th md-column md-numeric md-order-by="final_capital">Capital final</th>
-                  <th md-column md-numeric md-order-by="fee">Cuotas</th>
-                  <th md-column md-numeric md-order-by="interests">Intereses</th>
-                </tr>
-              </thead>
-              <tbody md-body>
-                <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments.results">
-                  <td md-cell>{{investment.date | date :'dd/MM/yyyy'}}</td>
-                  <td md-cell>{{investment.investor_full_name}}</td>
-                  <td md-cell>{{investment.warrant}}</td>
-                  <td md-cell>{{investment.authorization}}</td>
-                  <td md-cell>{{investment.first_name}}</td>
-                  <td md-cell>{{investment.last_name}}</td>
-                  <td md-cell>${{investment.capital}}</td>
-                  <td md-cell>${{investment.final_capital}}</td>
-                  <td md-cell>{{investment.fee}}</td>
-                  <td md-cell>{{investment.interests}} %</td>
-                </tr>
-              </tbody>
-            </table>
-          </md-table-container>
-          <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
+          <md-content>
+            <md-table-container>
+              <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
+                  <tr md-row>
+                    <th md-column md-order-by="date">Creación</th>
+                    <th md-column md-order-by="investor"><span>Inversor</span></th>
+                    <th md-column md-numeric md-order-by="warrant"><span>Orden N°</span></th>
+                    <th md-column md-numeric md-order-by="authorization">Autorización N°</th>
+                    <th md-column md-order-by="first_name">Nombre</th>
+                    <th md-column md-order-by="last_name">Apellido</th>
+                    <th md-column md-numeric md-order-by="capital">Capital</th>
+                    <th md-column md-numeric md-order-by="final_capital">Capital final</th>
+                    <th md-column md-numeric md-order-by="fee">Cuotas</th>
+                    <th md-column md-numeric md-order-by="interests">Intereses</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments.results">
+                    <td md-cell>{{investment.date | date :'dd/MM/yyyy'}}</td>
+                    <td md-cell>{{investment.investor_full_name}}</td>
+                    <td md-cell>{{investment.warrant}}</td>
+                    <td md-cell>{{investment.authorization}}</td>
+                    <td md-cell>{{investment.first_name}}</td>
+                    <td md-cell>{{investment.last_name}}</td>
+                    <td md-cell>${{investment.capital}}</td>
+                    <td md-cell>${{investment.final_capital}}</td>
+                    <td md-cell>{{investment.fee}}</td>
+                    <td md-cell>{{investment.interests}} %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+            <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
+          </md-content>
       </md-content>
     </div>
   </div>
