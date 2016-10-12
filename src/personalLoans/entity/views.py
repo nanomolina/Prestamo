@@ -63,12 +63,14 @@ class SetPagination(PageNumberPagination):
 class InvestmentList(ListCreateAPIView):
     serializer_class = InvestmentSerializer
     pagination_class = SetPagination
-    filter_backends = (filters.OrderingFilter, filters.SearchFilter)
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter,
+        filters.DjangoFilterBackend)
     ordering_fields = (
         'date', 'investor', 'warrant', 'authorization', 'first_name',
         'last_name', 'capital', 'final_capital', 'fee', 'interests'
     )
     search_fields = ('first_name', 'last_name')
+    filter_fields = ('investor', 'fee')
 
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']

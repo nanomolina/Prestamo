@@ -66,10 +66,10 @@ class Investment(models.Model):
     @property
     def investor_full_name(self):
         name = ''
-        if self.investor.alias:
-            name += self.investor.alias
-        else:
-            name += self.investor.first_name
+        # if self.investor.alias:
+        #     name += self.investor.alias
+        # else:
+        name += self.investor.first_name
         name += ' ' + self.investor.last_name
         return name
 

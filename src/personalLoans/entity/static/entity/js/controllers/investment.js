@@ -2,9 +2,9 @@
 
 app.controller('InvestmentCtrl', InvestmentCtrl);
 
-InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog', '$q'];
+InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog', '$mdToast'];
 
-function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $q) {
+function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -12,9 +12,11 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       icon: 'view_list'
     };
     vm.query = {
+      investor: '',
+      fee: '',
       search: '',
       ordering: '-date',
-      limit: 5,
+      limit: 10,
       page: 1
     };
     vm.filter = {
@@ -47,8 +49,9 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.investors = [];
     vm.promise;
     vm.getInvestments = getInvestments;
-    vm.showSearchFilter = showSearchFilter;
-    vm.removeFilter = removeFilter;
+    vm.showFilterBar = showFilterBar;
+    vm.hideFilterBar = hideFilterBar;
+    vm.clearFilterBar = clearFilterBar;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -66,13 +69,18 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       });
     }
 
-    function showSearchFilter() {
+    function showFilterBar() {
       vm.filter.show = true;
     }
 
-    function removeFilter() {
+    function hideFilterBar() {
       vm.filter.show = false;
+    }
+
+    function clearFilterBar() {
       vm.query.search = '';
+      vm.query.investor = '';
+      vm.query.fee = '';
       if(vm.filter.form.$dirty) {
         vm.filter.form.$setPristine();
       }
@@ -100,6 +108,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         .then(function(response) {
           vm.getInvestments();
           vm.hideDialogCreate();
+          showToastCreate();
         }).catch(function(response) {
           if (response.data.warrant) {
             vm.errors.warrant.push(vm.data.warrant);
@@ -130,7 +139,15 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     }
 
     // PRIVATE FUNCTIONS
-    $scope.$watch('vm.query.search', function (newValue, oldValue) {
+    function getInvestors() {
+      var id = $routeParams.associationId;
+      investorService.getList(id)
+      .then(function(response) {
+          vm.investors = response.data;
+      });
+    }
+
+    $scope.$watchGroup(['vm.query.search', 'vm.query.investor', 'vm.query.fee'], function (newValue, oldValue) {
       var bookmark = 1;
       if(!oldValue) {
         bookmark = vm.query.page;
@@ -156,11 +173,8 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       return moment(date).format('DD/MM/YYYY');
     }
 
-    function getInvestors() {
-      var id = $routeParams.associationId;
-      investorService.getList(id)
-      .then(function(response) {
-          vm.investors = response.data;
-      });
-    }
+    function showToastCreate($event) {
+      $mdToast.showSimple('Nuevo prestamo añadido exitosamente!');
+    };
+
 }
