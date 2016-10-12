@@ -2,7 +2,7 @@
   .material-icons.md-48 { font-size: 48px; }
 </style>
 
-<md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left md-whiteframe-1dp" layout="column" >
+<md-sidenav md-component-id="left" md-is-open="principal.isSidenavOpen" class="md-sidenav-left md-whiteframe-1dp" layout="column" >
     <md-toolbar class="md-tall">
       <div layout="column" class="md-toolbar-tools-bottom inset" layout-fill>
         <md-card-avatar>
@@ -10,15 +10,15 @@
         </md-card-avatar>
         <md-card-header-text>
           {% verbatim %}
-          <span class="md-title">{{profile.username}}</span>
-          <span class="md-subhead">{{profile.email}}</span>
+          <span class="md-title">{{principal.profile.username}}</span>
+          <span class="md-subhead">{{principal.profile.email}}</span>
           {% endverbatim %}
         </md-card-header-text>
       </div>
     </md-toolbar>
     <md-list>
       {% verbatim %}
-      <md-list-item ng-repeat="item in menu" ng-href="{{item.link}}">
+      <md-list-item ng-repeat="item in principal.menu" ng-href="{{item.link}}">
             <div class="inset">
               <i class="material-icons">{{item.icon}}</i>
             </div>
@@ -29,7 +29,7 @@
     <md-divider></md-divider>
     <md-list>
       {% verbatim %}
-      <md-list-item ng-repeat="item in admin" md-ink-ripple ng-href="{{item.link}}">
+      <md-list-item ng-repeat="item in principal.admin" md-ink-ripple ng-href="{{item.link}}">
         <div class="inset">
           <i class="material-icons">{{item.icon}}</i>
         </div>

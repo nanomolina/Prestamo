@@ -6,21 +6,9 @@ app.controller('MainCtrl', function ($scope, $http, $cookies, $location, djangoA
 
 
 app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
+    var vm = this;
 
-    //=============================
-    $http.get("rest-auth/user")
-    .then(function(response) {
-        $scope.profile = response.data;
-    });
-    //=============================
-
-    $scope.isSidenavOpen = false;
-
-    $scope.openLeftMenu = function() {
-      $mdSidenav('left').toggle();
-    };
-
-    $scope.menu = [
+    vm.menu = [
       {
         link : '#/',
         title: 'Consola Principal',
@@ -28,28 +16,35 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
       },
       {
         link : '#/association',
-        title: 'Asociación',
+        title: 'Asociaciones',
         icon: 'business'
       },
-      // {
-      //   link : '#/investors',
-      //   title: 'Grupo de Inversores',
-      //   icon: 'group'
-      // },
     ];
-
-    $scope.admin = [
+    vm.admin = [
       {
         link: '#/logout',
         title: 'Cerrar Sesión',
         icon: 'exit_to_app'
       },
     ];
-    $scope.formatDate = formatDate;
+    vm.isSidenavOpen = false;
+    vm.openLeftMenu = openLeftMenu;
+    vm.profile = {};
 
+    // INIT
+    getUser();
 
-    function formatDate(date) {
-      return moment(date).format('DD/MM/YYYY');
+    // PUBLIC FUNCTIONS
+    function openLeftMenu() {
+      $mdSidenav('left').toggle();
+    }
+
+    // PRIVATE FUNCTIONS
+    function getUser() {
+      $http.get("rest-auth/user")
+      .then(function(response) {
+          vm.profile = response.data;
+      });
     }
 
   });
