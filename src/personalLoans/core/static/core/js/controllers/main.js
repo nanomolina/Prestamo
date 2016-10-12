@@ -5,7 +5,11 @@ app.controller('MainCtrl', function ($scope, $http, $cookies, $location, djangoA
 });
 
 
-app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
+app.controller('PrincipalCtrl', PrincipalCtrl);
+
+PrincipalCtrl.$inject = ['$scope', '$mdSidenav', '$http', '$location'];
+
+function PrincipalCtrl($scope, $mdSidenav, $http, $location) {
     var vm = this;
 
     vm.menu = [
@@ -47,4 +51,4 @@ app.controller('PrincipalCtrl', function ($scope, $mdSidenav, $http) {
       });
     }
 
-  });
+}

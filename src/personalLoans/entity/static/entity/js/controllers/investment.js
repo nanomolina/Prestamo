@@ -57,6 +57,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
 
+    getOptions();
     getInvestors();
 
     // PUBLIC FUNCTIONS

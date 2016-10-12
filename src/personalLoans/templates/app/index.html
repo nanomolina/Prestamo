@@ -22,7 +22,8 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="main-content" layout-fill>
+    <div ng-controller="PrincipalCtrl as principal" layout="row" layout-fill>
+        {% include "core/menu.html" %}
         <!-- Add your site or application content here -->
         <div ng-view="" layout-fill></div>
     </div>
