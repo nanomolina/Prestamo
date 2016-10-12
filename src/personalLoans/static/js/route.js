@@ -104,7 +104,6 @@ app.config(function ($routeProvider) {
       // ENTITY
       .when('/investors', {
         templateUrl: 'entity/investors.html',
-        controller: 'InvestorCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
@@ -113,7 +112,6 @@ app.config(function ($routeProvider) {
       })
       .when('/association', {
         templateUrl: 'entity/association.html',
-        controller: 'AssociationCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
@@ -122,7 +120,6 @@ app.config(function ($routeProvider) {
       })
       .when('/association/:associationId/console', {
         templateUrl: 'entity/console.html',
-        controller: 'AssociationItemCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
@@ -131,7 +128,6 @@ app.config(function ($routeProvider) {
       })
       .when('/association/:associationId/detail', {
         templateUrl: 'entity/detail/association.html',
-        controller: 'AssociationItemCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
@@ -140,7 +136,6 @@ app.config(function ($routeProvider) {
       })
       .when('/association/:associationId/loans', {
         templateUrl: 'entity/loan/investments.html',
-        controller: 'InvestmentCtrl',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
