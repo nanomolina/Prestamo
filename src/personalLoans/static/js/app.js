@@ -8,6 +8,5 @@ var app = angular.module('angularDjangoRegistrationAuthApp',
     'ngRoute',
     'ngMaterial',
     'ngMessages',
-    'duScroll',
     'md.data.table',
   ]);
