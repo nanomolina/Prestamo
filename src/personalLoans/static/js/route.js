@@ -142,6 +142,14 @@ app.config(function ($routeProvider) {
           }],
         }
       })
+      .when('/association/:associationId/monthly_resume', {
+        templateUrl: 'entity/loan/monthly_resume.html',
+        resolve: {
+          authenticated: ['djangoAuth', function(djangoAuth){
+            return djangoAuth.authenticationStatus(true);
+          }],
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -13,6 +13,7 @@ function ConsoleCtrl($routeParams, $location) {
     };
     vm.goToDetail = goToDetail;
     vm.goToLoans = goToLoans;
+    vm.goToMonthlyResume = goToMonthlyResume;
 
     // PUBLIC FUNCTIONS
     function goToDetail() {
@@ -23,6 +24,11 @@ function ConsoleCtrl($routeParams, $location) {
     function goToLoans() {
       var id = $routeParams.associationId;
       $location.path('/association/' + id + '/loans');
+    }
+
+    function goToMonthlyResume() {
+      var id = $routeParams.associationId;
+      $location.path('/association/' + id + '/monthly_resume');
     }
 
     // PRIVATE FUNCTIONS

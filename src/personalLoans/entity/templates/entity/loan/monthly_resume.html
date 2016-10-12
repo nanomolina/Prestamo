@@ -1,0 +1,95 @@
+{% extends "core/principal.html" %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
+
+  {% verbatim %}
+  <div id="inner-content" ng-controller="MonthlyResume as vm" ng-cloak>
+    <!-- Start content -->
+    <div class="md-whiteframe-z1" layout-fill>
+      <md-toolbar class="md-hue-1">
+        <div class="md-toolbar-tools">
+          <md-button class="md-icon-button" aria-label="Settings" ng-click="principal.openLeftMenu()()">
+            <i class="material-icons">menu</i>
+          </md-button>
+          <h2 class="md-flex">{{vm.view.title}}</h2>
+          <span flex></span>
+          <i class="material-icons">{{vm.view.icon}}</i>
+        </div>
+      </md-toolbar>
+      <md-content style="background-color: #eee;">
+          <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
+            <div class="md-toolbar-tools">
+              <h2 class="md-title">Planilla mensual de nuevos prestamos</h2>
+              <div flex="" class="flex"></div>
+              <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
+                <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
+                <md-icon class="material-icons">filter_list</md-icon>
+              </md-button>
+            </div>
+          </md-toolbar>
+          <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
+            <div class="md-toolbar-tools">
+              <md-icon class="material-icons">search</md-icon>
+              <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
+                <md-input-container md-no-float style="top: 11px;">
+                  <input ng-model="vm.query.search" ng-model-options="vm.filter.options" placeholder="Prestatario" class="ng-pristine ng-untouched ng-valid" aria-invalid="false" type="text">
+                </md-input-container>
+              </form>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
+                <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
+                <md-icon class="material-icons">clear_all</md-icon>
+              </button>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
+                <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
+                <md-icon class="material-icons">close</md-icon>
+              </button>
+            </div>
+          </md-toolbar>
+          <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
+            <div class="md-toolbar-tools">
+              <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
+              <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
+              <div flex="" class="flex"></div>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
+                <md-icon class="material-icons">delete</md-icon>
+              </button>
+            </div>
+          </md-toolbar>
+          <!-- exact table from live demo -->
+          <md-content>
+            <md-table-container>
+              <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
+                  <tr md-row>
+                    <th md-column md-numeric md-order-by="warrant"><span>Orden N°</span></th>
+                    <th md-column md-numeric md-order-by="authorization">Autorización N°</th>
+                    <th md-column md-order-by="first_name">Nombre</th>
+                    <th md-column md-order-by="last_name">Apellido</th>
+                    <th md-column md-numeric md-order-by="capital">Capital</th>
+                    <th md-column md-numeric md-order-by="fee">Cuotas</th>
+                    <th md-column md-numeric >Importe</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments.results">
+                    <td md-cell>{{investment.warrant}}</td>
+                    <td md-cell>{{investment.authorization}}</td>
+                    <td md-cell>{{investment.first_name}}</td>
+                    <td md-cell>{{investment.last_name}}</td>
+                    <td md-cell>${{investment.capital}}</td>
+                    <td md-cell>{{investment.fee}}</td>
+                    <td md-cell></td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+            <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
+          </md-content>
+      </md-content>
+    </div>
+  </div>
+  {% endverbatim %}
+
+{% endblock %}
