@@ -80,7 +80,7 @@
                     <td md-cell>{{investment.last_name}}</td>
                     <td md-cell>{{investment.final_capital | currency}}</td>
                     <td md-cell>{{investment.fee}}</td>
-                    <td md-cell>{{ ( investment.final_capital | divide : investment.fee ) | currency }}</td>
+                    <td md-cell>{{investment.monthly_amount| currency}}</td>
                   </tr>
                 </tbody>
               </table>
