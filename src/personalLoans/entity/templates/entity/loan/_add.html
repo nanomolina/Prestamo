@@ -99,7 +99,7 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.final_capital.label}}</label>
-          <input type="number" name="final_capital" ng-model="vm.data.final_capital" max="99999999.99" disabled>
+          <input type="number" name="final_capital" ng-model="vm.data.final_capital" max="99999999.99" ng-readonly="true">
           <div ng-messages="investmentForm.final_capital.$error">
             <div ng-message="max">El máximo permitido es 99999999.99.</div>
           </div>
@@ -107,7 +107,7 @@
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>Importe mensual</label>
-          <input type="number" name="monthly_amount" ng-model="vm.data.monthly_amount" max="99999999.99" disabled>
+          <input type="number" name="monthly_amount" ng-model="vm.data.monthly_amount" max="99999999.99" ng-readonly="true">
           <div ng-messages="investmentForm.monthly_amount.$error">
             <div ng-message="max">El máximo permitido es 99999999.99.</div>
           </div>
