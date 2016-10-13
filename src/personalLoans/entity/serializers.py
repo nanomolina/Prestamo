@@ -44,7 +44,7 @@ class InvestmentSerializer(serializers.ModelSerializer):
         fields = (
             'investor', 'investor_full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
-            'fee', 'interests', 'date'
+            'fee', 'interests', 'monthly_amount', 'date'
         )
 
 

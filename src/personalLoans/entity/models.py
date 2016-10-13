@@ -55,6 +55,7 @@ class Investment(models.Model):
     final_capital = models.DecimalField('Capital final', max_digits=10, decimal_places=2, null=True, blank=True)
     fee = models.SmallIntegerField('Cuotas', choices=FEES, default=0)
     interests = models.DecimalField('Intereses', max_digits=5, decimal_places=2, default=0)
+    monthly_amount = models.DecimalField('Importe mensual', max_digits=10, decimal_places=2, null=True, blank=True)
     date = models.DateField('Creación')
 
     date_created = models.DateTimeField(auto_now_add=True)
