@@ -37,7 +37,7 @@
             <div class="md-toolbar-tools">
               <md-icon class="material-icons">search</md-icon>
               <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
-                <md-input-container md-no-float style="top: 11px;">
+                <md-input-container md-no-float style="top: 12px;">
                   <input ng-model="vm.query.search" ng-model-options="vm.filter.options" placeholder="Prestatario" class="ng-pristine ng-untouched ng-valid" aria-invalid="false" type="text">
                 </md-input-container>
                 <md-input-container md-no-float>
@@ -107,6 +107,11 @@
                     <td md-cell>${{investment.final_capital}}</td>
                     <td md-cell>{{investment.fee}}</td>
                     <td md-cell>{{investment.interests}} %</td>
+                  </tr>
+                  <tr ng-show="!events.length">
+                    <td colspan="10">
+                      <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
