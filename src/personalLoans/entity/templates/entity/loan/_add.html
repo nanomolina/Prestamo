@@ -107,7 +107,10 @@
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>Importe mensual</label>
-          <input type="text" ng-model="vm.data.monthly_amount" disabled>
+          <input type="number" name="monthly_amount" ng-model="vm.data.monthly_amount" max="99999999.99" disabled>
+          <div ng-messages="investmentForm.monthly_amount.$error">
+            <div ng-message="max">El máximo permitido es 99999999.99.</div>
+          </div>
         </md-input-container>
       </div>
     </md-dialog-content>

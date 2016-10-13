@@ -36,7 +36,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       final_capital: 0,
       fee: 1,
       interests: 12.00,
-      monthly_amount = 0,
+      monthly_amount: 0,
       date: undefined,
       date_partial: undefined,
     }
@@ -138,21 +138,23 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         final_capital: 0,
         fee: 1,
         interests: 12.00,
-        monthly_amount = 0,
+        monthly_amount: 0,
         date: undefined,
         date_partial: undefined,
       }
     }
 
     function updateFinalCapital() {
-      var result = ((vm.data.interests * vm.data.capital) / 100) + vm.data.capital;
-      vm.data.final_capital = $filter('number')(result, 2);
+      var f_capital = ((vm.data.interests * vm.data.capital) / 100) + vm.data.capital;
+      f_capital = $filter('number')(f_capital, 2);
+      vm.data.final_capital = parseFloat(f_capital.replace('.', '').replace(',', '.'));
       updateMonthlyAmount();
     }
 
     function updateMonthlyAmount() {
       var m_amount = (vm.data.final_capital / vm.data.fee);
-      vm.data.monthly_amount = $filter('number')(m_amount, 2);
+      m_amount = $filter('number')(m_amount, 2);
+      vm.data.monthly_amount = parseFloat(m_amount.replace('.', '').replace(',', '.'));
     }
 
     // PRIVATE FUNCTIONS
