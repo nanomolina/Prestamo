@@ -2,9 +2,9 @@
 
 app.controller('InvestmentCtrl', InvestmentCtrl);
 
-InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog', '$mdToast'];
+InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams', '$scope', '$mdDialog', '$mdToast', '$filter'];
 
-function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $mdToast) {
+function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $mdToast, $filter) {
     var vm = this;
 
     vm.view = {
@@ -36,6 +36,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       final_capital: 0,
       fee: 1,
       interests: 12.00,
+      monthly_amount = 0,
       date: undefined,
       date_partial: undefined,
     }
@@ -56,7 +57,11 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
+    vm.updateFinalCapital = updateFinalCapital;
+    vm.updateMonthlyAmount = updateMonthlyAmount;
 
+
+    // INIT
     getOptions();
     getInvestors();
 
@@ -133,9 +138,21 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         final_capital: 0,
         fee: 1,
         interests: 12.00,
+        monthly_amount = 0,
         date: undefined,
         date_partial: undefined,
       }
+    }
+
+    function updateFinalCapital() {
+      var result = ((vm.data.interests * vm.data.capital) / 100) + vm.data.capital;
+      vm.data.final_capital = $filter('number')(result, 2);
+      updateMonthlyAmount();
+    }
+
+    function updateMonthlyAmount() {
+      var m_amount = (vm.data.final_capital / vm.data.fee);
+      vm.data.monthly_amount = $filter('number')(m_amount, 2);
     }
 
     // PRIVATE FUNCTIONS
