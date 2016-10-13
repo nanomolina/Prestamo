@@ -103,12 +103,12 @@
                     <td md-cell>{{investment.authorization}}</td>
                     <td md-cell>{{investment.first_name}}</td>
                     <td md-cell>{{investment.last_name}}</td>
-                    <td md-cell>${{investment.capital}}</td>
-                    <td md-cell>${{investment.final_capital}}</td>
+                    <td md-cell>{{investment.capital | currency}}</td>
+                    <td md-cell>{{investment.final_capital | currency}}</td>
                     <td md-cell>{{investment.fee}}</td>
                     <td md-cell>{{investment.interests}} %</td>
                   </tr>
-                  <tr ng-show="!events.length">
+                  <tr ng-show="!vm.investments.count">
                     <td colspan="10">
                       <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
                     </td>

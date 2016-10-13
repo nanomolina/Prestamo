@@ -78,14 +78,6 @@
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
-          <label>{{vm.options.final_capital.label}}</label>
-          <input type="number" name="final_capital" ng-model="vm.data.final_capital" step="1.00" max="99999999.99">
-          <div ng-messages="investmentForm.final_capital.$error">
-            <div ng-message="max">El máximo permitido es 99999999.99.</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.fee.label}}</label>
           <md-select ng-model="vm.data.fee">
             <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
@@ -102,6 +94,20 @@
             <div ng-message="min">El mínimo es 0.</div>
             <div ng-message="max">El máximo es 100.</div>
           </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.final_capital.label}}</label>
+          <input type="number" name="final_capital" ng-model="vm.data.final_capital" step="1.00" max="99999999.99" disabled>
+          <div ng-messages="investmentForm.final_capital.$error">
+            <div ng-message="max">El máximo permitido es 99999999.99.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Importe mensual</label>
+          <input type="text" ng-model="(vm.data.capital | divide : vm.data.fee) | number:2" disabled>
         </md-input-container>
       </div>
     </md-dialog-content>
