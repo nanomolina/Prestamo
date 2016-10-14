@@ -81,26 +81,12 @@ class Investment(models.Model):
         name += ' ' + self.investor.last_name
         return name
 
-    def getCurrentFee(self, year, month):
+    def get_current_fee(self, year, month):
         import datetime
-        date_added = datetime.date(self.date.year, self.date.month, self.date.day)
+        from entity.functions import monthdelta
         current_date = datetime.date(int(year), int(month), self.date.day)
-        timed = current_date - date_added
-        if timed.days >= 0:
-            diff_years = current_date.year - date_added.year
-            diff_months = current_date.month - date_added.month
-            if diff_years == 0:
-                if diff_months > 0:
-                    fee = diff_months
-                elif diff_months == 0:
-                    fee = 0
-                else:
-                    fee = None
-            elif diff_years > 0:
-                months_by_years = diff_years * 12
-                fee = months_by_years + diff_months
-            else:
-                fee = None
+        if self.date <= current_date <= self.end_date:
+            fee = monthdelta(self.date, current_date)
         else:
             fee = None
         return fee

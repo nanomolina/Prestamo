@@ -4,7 +4,7 @@ import os
 
 from django.conf import settings
 import datetime
-import calendar
+from calendar import monthrange
 
 
 def filter_files(directory, extention):
@@ -25,5 +25,21 @@ def add_months(sourcedate,months):
     month = sourcedate.month - 1 + months
     year = int(sourcedate.year + month / 12 )
     month = month % 12 + 1
-    day = calendar.monthrange(year,month)[1]
+    day = monthrange(year,month)[1]
     return datetime.date(year,month,day)
+
+
+def monthdelta(d1, d2):
+    """
+    Devuelve la diferencia de meses entre esas dos fechas.
+    PRE: d1 <= d2
+    """
+    delta = 0
+    while True:
+        mdays = monthrange(d1.year, d1.month)[1]
+        d1 += datetime.timedelta(days=mdays)
+        if d1 <= d2:
+            delta += 1
+        else:
+            break
+    return delta

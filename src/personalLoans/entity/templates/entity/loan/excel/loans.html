@@ -25,7 +25,7 @@
 
 {% block rows %}
   {% for investment in investments %}
-  {% getCurrentFee investment year month as current_fee %}
+  {% get_current_fee investment year month as current_fee %}
     <tr>
       <td>{{investment.date}}</td>
       <td>{{investment.warrant}}</td>
