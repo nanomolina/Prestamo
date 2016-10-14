@@ -90,9 +90,18 @@ class InvestmentList(ListCreateAPIView):
 def investment_excel(request, assoc_id):
     if request.method == 'GET':
         from datetime import datetime
+        from core.constant import MONTHS
+        year = request.GET.get('year', None)
+        month = request.GET.get('month', None)
         association = Association.objects.get(id=assoc_id)
-        investments = Investment.objects.all()
-        context = {'investments': investments, 'association': association}
+        investments = Investment.objects.filter(
+            investor__association=association,
+            date__month__lte=month, date__year__lte=year
+        ).order_by('-date')
+        context = {
+            'investments': investments, 'association': association,
+            'month_name': MONTHS[int(month)-1], 'month': month, 'year': year,
+        }
         response = TemplateResponse(
             request, 'entity/loan/excel/loans.html', context)
         filename = 'prestamos-%s.xls' % datetime.now().strftime('%y%m%d_%H%M')

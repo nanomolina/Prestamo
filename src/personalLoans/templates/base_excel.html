@@ -1,17 +1,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <table>
     <tr>
-        <th colspan="{{ column_count }}" align="left"><h2>{% block title %}{% endblock title %}</h2></th>
+        <th colspan="{{ column_count }}" align="left"><h3>{% block title %}{% endblock title %}</h3></th>
     </tr>
-    {% block header %}
     <tr>
       <td colspan="2" style="font-size: 13px"><b>Nombre del comercio:</b></td>
       <td colspan="5" style="font-size: 13px">{% block association %}{% endblock association %}</td>
     </tr>
+    {% block extra_header %}
     <tr>
       <td></td>
     </tr>
-    {% endblock header %}
+    {% endblock extra_header %}
 
     {% block body %}
         {% block columns %}

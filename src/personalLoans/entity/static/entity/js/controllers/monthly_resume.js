@@ -2,9 +2,9 @@
 
 app.controller('MonthlyResume', MonthlyResume);
 
-MonthlyResume.$inject = ['investmentService', '$routeParams', '$scope', '$locale'];
+MonthlyResume.$inject = ['investmentService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
 
-function MonthlyResume(investmentService, $routeParams, $scope, $locale) {
+function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -28,6 +28,10 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale) {
       },
       form: undefined,
     };
+    vm.export = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+    }
     vm.selected = [];
     vm.investments = [];
     vm.promise;
@@ -35,6 +39,9 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale) {
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
     vm.clearFilterBar = clearFilterBar;
+    vm.showDialogExport = showDialogExport;
+    vm.hideDialogExport = hideDialogExport;
+    vm.exportExcel = exportExcel;
 
     // INIT
     initDateFilter();
@@ -63,6 +70,28 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale) {
       if(vm.filter.form.$dirty) {
         vm.filter.form.$setPristine();
       }
+    }
+
+    function showDialogExport($event) {
+      $mdDialog.show({
+        targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        templateUrl: 'entity/loan/excel/_export.html',
+      });
+    };
+
+    function hideDialogExport() {
+      $mdDialog.hide();
+    }
+
+    function exportExcel() {
+      var id = $routeParams.associationId;
+      var query = '?year=' + vm.export.year + '&' + 'month=' + vm.export.month;
+      location.href = "/entity/associations/"+id+"/investments/excel/" + query;
+      hideDialogExport();
+      $mdToast.showSimple('Exportando a excel.');
     }
 
     // PRIVATE FUNCTIONS

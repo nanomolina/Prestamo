@@ -1,0 +1,43 @@
+{% verbatim %}
+<md-dialog aria-label="export dialog" flex="40" id="export-dialog">
+  <form name="exportForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Exportar</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.hideDialogExport()">
+          <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <form flex="" name="exportForm" class="ng-pristine ng-valid">
+        <p class="md-subhead">Filtrar hasta este periodo</p>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Año</label>
+            <md-select ng-model="vm.export.year">
+              <md-option ng-value="year" ng-repeat="year in vm.filter.options.years">{{ year }}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Mes</label>
+            <md-select ng-model="vm.export.month">
+              <md-option ng-value="month.value" ng-repeat="month in vm.filter.options.months">{{ month.text }}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <div ng-if="exportForm.$valid">
+        <md-button class="md-raised md-primary" ng-click="vm.exportExcel()">Exportar</md-button>
+      </div>
+      <div ng-if="exportForm.$invalid">
+        <md-button class="md-raised md-primary" ng-disabled="true">Exportar</md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+{% endverbatim %}
