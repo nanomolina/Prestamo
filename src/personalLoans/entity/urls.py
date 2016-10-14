@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^associations/(?P<pk>[0-9]+)/$', views.AssociationDetail.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investors/$', views.InvestorList.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investments/$', views.InvestmentList.as_view()),
+    url(r'^associations/(?P<assoc_id>[0-9]+)/investments/excel/$', views.investment_excel),
     url(r'^avatars/$', views.get_avatars),
     url(r'^(?P<template_name>.*)$', views.render_partial),
 ]

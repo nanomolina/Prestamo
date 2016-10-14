@@ -3,6 +3,7 @@
 
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
+from rest_framework.decorators import api_view
 from rest_framework import filters
 from rest_framework.generics import (ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
@@ -60,21 +61,44 @@ class SetPagination(PageNumberPagination):
     page_size_query_param = 'limit'
 
 
+class InvestmentFilter(filters.FilterSet):
+    import django_filters
+    year = django_filters.NumberFilter(name="date__year", lookup_type='contains')
+    month = django_filters.NumberFilter(name="date__month", lookup_type='contains')
+    class Meta:
+        model = Investment
+        fields = ['investor', 'fee', 'year', 'month']
+
+
 class InvestmentList(ListCreateAPIView):
     serializer_class = InvestmentSerializer
     pagination_class = SetPagination
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,
         filters.DjangoFilterBackend)
+    filter_class = InvestmentFilter
     ordering_fields = (
         'date', 'investor', 'warrant', 'authorization', 'first_name',
         'last_name', 'capital', 'final_capital', 'fee', 'interests'
     )
     search_fields = ('first_name', 'last_name')
-    filter_fields = ('investor', 'fee')
 
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']
         return Investment.objects.filter(investor__association__id=assoc_id)
+
+
+def investment_excel(request, assoc_id):
+    if request.method == 'GET':
+        from datetime import datetime
+        association = Association.objects.get(id=assoc_id)
+        investments = Investment.objects.all()
+        context = {'investments': investments, 'association': association}
+        response = TemplateResponse(
+            request, 'entity/loan/excel/loans.html', context)
+        filename = 'prestamos-%s.xls' % datetime.now().strftime('%y%m%d_%H%M')
+        response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
 
 
 def get_avatars(request):

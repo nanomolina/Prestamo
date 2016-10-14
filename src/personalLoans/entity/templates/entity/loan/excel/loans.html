@@ -1,0 +1,30 @@
+{% extends "base_excel.html" %}
+
+{% block title %}Planilla de prestamos mensuales{% endblock title %}
+{% block association %}{{association.name}}{% endblock association %}
+
+{% block columns %}
+  <tr bgcolor="#BBCEE9">
+    <th>Orden N°</th>
+    <th>Autorización N°</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Capital Final</th>
+    <th>Cuotas</th>
+    <th>Importe</th>
+  </tr>
+{% endblock columns %}
+
+{% block rows %}
+  {% for investment in investments %}
+  <tr>
+    <td>{{investment.warrant}}</td>
+    <td>{{investment.authorization}}</td>
+    <td>{{investment.first_name}}</td>
+    <td>{{investment.last_name}}</td>
+    <td>{{investment.final_capital}}</td>
+    <td>{{investment.fee}}</td>
+    <td>{{investment.monthly_amount}}</td>
+  </tr>
+  {% endfor %}
+{% endblock rows %}
