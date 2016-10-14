@@ -117,6 +117,7 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
       var currentYear = new Date().getFullYear();
       var monthNames = $locale.DATETIME_FORMATS.MONTH
       // Build a list of months over 20 years
+      currentYear += 5
       for (var year=currentYear; year >= (currentYear-10); year--) {
         vm.filter.options.years.push(year);
       }

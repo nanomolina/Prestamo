@@ -89,14 +89,16 @@ class InvestmentList(ListCreateAPIView):
 
 def investment_excel(request, assoc_id):
     if request.method == 'GET':
-        from datetime import datetime
+        from datetime import datetime, date
+        import calendar
         from core.constant import MONTHS
         year = request.GET.get('year', None)
         month = request.GET.get('month', None)
+        weekday, total_days = calendar.monthrange(int(year), int(month))
+        current_date = date(int(year), int(month), total_days)
         association = Association.objects.get(id=assoc_id)
         investments = Investment.objects.filter(
-            investor__association=association,
-            date__month__lte=month, date__year__lte=year
+            investor__association=association, date__lte=current_date,
         ).order_by('-date')
         context = {
             'investments': investments, 'association': association,
