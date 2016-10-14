@@ -99,7 +99,7 @@ def investment_excel(request, assoc_id):
         association = Association.objects.get(id=assoc_id)
         investments = Investment.objects.filter(
             investor__association=association, date__lte=current_date,
-        ).order_by('-date')
+        ).exclude(end_date__lt=current_date).order_by('-date')
         context = {
             'investments': investments, 'association': association,
             'month_name': MONTHS[int(month)-1], 'month': month, 'year': year,

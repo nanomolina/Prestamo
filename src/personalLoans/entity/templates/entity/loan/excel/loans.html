@@ -26,7 +26,6 @@
 {% block rows %}
   {% for investment in investments %}
   {% getCurrentFee investment year month as current_fee %}
-    {% if current_fee <= investment.fee %}
     <tr>
       <td>{{investment.date}}</td>
       <td>{{investment.warrant}}</td>
@@ -37,6 +36,5 @@
       <td>{{current_fee}}/{{investment.fee}}</td>
       <td>{{investment.monthly_amount}}</td>
     </tr>
-    {% endif %}
   {% endfor %}
 {% endblock rows %}

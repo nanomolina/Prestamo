@@ -57,12 +57,19 @@ class Investment(models.Model):
     interests = models.DecimalField('Intereses', max_digits=5, decimal_places=2, default=0)
     monthly_amount = models.DecimalField('Importe mensual', max_digits=10, decimal_places=2, null=True, blank=True)
     date = models.DateField('Creación')
+    end_date = models.DateField('Fin del prestamo', null=True, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return "%s" % (self.investor)
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            from entity.functions import add_months
+            self.end_date = add_months(self.date, self.fee)
+            super(Investment, self).save(*args, **kwargs)
 
     @property
     def investor_full_name(self):
