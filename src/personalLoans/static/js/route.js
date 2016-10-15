@@ -3,8 +3,7 @@
 app.config(function ($routeProvider) {
   $routeProvider
       .when('/', {
-        templateUrl: 'core/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'entity/association.html',
         resolve: {
           authenticated: ['djangoAuth', function(djangoAuth){
             return djangoAuth.authenticationStatus(true);
