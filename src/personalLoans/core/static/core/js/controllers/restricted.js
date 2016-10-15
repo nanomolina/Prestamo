@@ -8,7 +8,7 @@
  * Controller of the angularDjangoRegistrationAuthApp
  */
 app.controller('RestrictedCtrl', function ($scope, $location) {
-    $scope.$on('djangoAuth.logged_in', function() {
+    $scope.$on('authService.logged_in', function() {
       $location.path('/association');
     });
   });

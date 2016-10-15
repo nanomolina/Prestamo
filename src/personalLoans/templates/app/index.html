@@ -28,7 +28,9 @@
         <div ng-view layout-fill></div>
     </div>
 
-    <div ng-view ng-if="!authenticated" layout-fill></div>
+    <div ng-view ng-if="!authenticated" layout-fill>
+      <div ng-include="'core/login.html'"></div>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -67,20 +69,11 @@
     <script src="{% static 'js/run.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
     <script src="{% static 'core/js/controllers/main.js' %}"></script>
-    <script src="{% static 'core/js/controllers/register.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordreset.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordresetconfirm.js' %}"></script>
     <script src="{% static 'core/js/controllers/login.js' %}"></script>
-    <script src="{% static 'core/js/controllers/input.js' %}"></script>
-    <script src="{% static 'core/js/controllers/verifyemail.js' %}"></script>
     <script src="{% static 'core/js/controllers/logout.js' %}"></script>
-    <script src="{% static 'core/js/controllers/userprofile.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordchange.js' %}"></script>
-    <script src="{% static 'core/js/services/djangoAuth.js' %}"></script>
-    <script src="{% static 'core/js/services/validate.js' %}"></script>
     <script src="{% static 'core/js/controllers/master.js' %}"></script>
     <script src="{% static 'core/js/controllers/restricted.js' %}"></script>
-    <script src="{% static 'core/js/controllers/authrequired.js' %}"></script>
+    <script src="{% static 'core/js/services/auth.js' %}"></script>
     <!-- entity -->
     <script src="{% static 'entity/js/services/association.js' %}"></script>
     <script src="{% static 'entity/js/services/investors.js' %}"></script>

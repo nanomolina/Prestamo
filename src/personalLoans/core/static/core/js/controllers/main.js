@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MainCtrl', function ($scope, $http, $cookies, $location, djangoAuth, $mdSidenav) {
+app.controller('MainCtrl', function ($scope, $http, $cookies, $location, $mdSidenav) {
 
 });
 
