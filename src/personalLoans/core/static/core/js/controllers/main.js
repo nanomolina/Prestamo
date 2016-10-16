@@ -33,22 +33,12 @@ function PrincipalCtrl($scope, $mdSidenav, $http, $location) {
     ];
     vm.isSidenavOpen = false;
     vm.openLeftMenu = openLeftMenu;
-    vm.profile = {};
+    vm.profile = $scope.profile;
 
-    // INIT
-    getUser();
 
     // PUBLIC FUNCTIONS
     function openLeftMenu() {
       $mdSidenav('left').toggle();
-    }
-
-    // PRIVATE FUNCTIONS
-    function getUser() {
-      $http.get("rest-auth/user")
-      .then(function(response) {
-          vm.profile = response.data;
-      });
     }
 
 }

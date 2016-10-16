@@ -4,9 +4,10 @@ app.controller('MasterCtrl', function ($scope, $location, authService) {
     // Assume user is not logged in until we hear otherwise
     $scope.authenticated = false;
     // Wait for the status of authentication, set scope var to true if it resolves
-    authService.authStatus()
-    .then(function() {
+    authService.getUser()
+    .then(function(response) {
         $scope.authenticated = true;
+        $scope.profile = response.data;
     });
     // Wait and respond to the logout event.
     $scope.$on('authService.logged_out', function() {

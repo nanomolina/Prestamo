@@ -6,7 +6,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/association.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -17,7 +17,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'core/logout.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -26,7 +26,7 @@ app.config(function ($routeProvider) {
         controller: 'RestrictedCtrl',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -35,7 +35,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/investors.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -43,7 +43,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/association.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -51,7 +51,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/console.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -59,7 +59,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/detail/association.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -67,7 +67,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/loan/investments.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })
@@ -75,7 +75,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'entity/loan/monthly_resume.html',
         resolve: {
           authenticated: ['authService', function(authService){
-            return authService.authStatus();
+            return authService.getUser();
           }],
         }
       })

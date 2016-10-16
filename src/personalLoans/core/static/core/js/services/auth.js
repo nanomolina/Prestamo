@@ -8,7 +8,7 @@ function authService($q, $http, $cookies, $rootScope) {
   var service = {
     login: login,
     logout: logout,
-    authStatus: authStatus,
+    getUser: getUser,
   }
 
   return service
@@ -27,25 +27,25 @@ function authService($q, $http, $cookies, $rootScope) {
   }
 
   function logout() {
-      var auth_user = this;
-      return $http.post(
-        "rest-auth/logout/", {},
-        {
-          withCredentials: true,
-          headers: {'X-CSRFToken': $cookies.get('csrftoken')},
-        }
-      ).then(function(data){
-          delete $http.defaults.headers.common.Authorization;
-          delete $cookies.token;
-          // auth_user.authenticated = false;
-          $rootScope.$broadcast("authService.logged_out");
-      });
+    var auth_user = this;
+    return $http.post(
+      "rest-auth/logout/", {},
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    ).then(function(data){
+        delete $http.defaults.headers.common.Authorization;
+        delete $cookies.token;
+        // auth_user.authenticated = false;
+        $rootScope.$broadcast("authService.logged_out");
+    });
   }
 
-  function authStatus() {
-      return $http.get(
-        "rest-auth/user/"
-      )
+  function getUser() {
+    return $http.get(
+      "rest-auth/user/"
+    )
   }
 
 }
