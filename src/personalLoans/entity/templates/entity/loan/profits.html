@@ -97,8 +97,9 @@
                     <th md-column md-order-by="last_name">Apellido</th>
                     <th md-column md-numeric md-order-by="capital">Capital</th>
                     <th md-column md-numeric md-order-by="capital">Capital Final</th>
+                    <th md-column>Ganancia total</th>
                     <th md-column md-numeric md-order-by="fee">Cuotas</th>
-                    <th md-column md-numeric >Importe</th>
+                    <th md-column md-numeric >Importe mensual</th>
                   </tr>
                 </thead>
                 <tbody md-body>
@@ -111,6 +112,7 @@
                     <td md-cell>{{investment.last_name}}</td>
                     <td md-cell>{{investment.capital | currency}}</td>
                     <td md-cell>{{investment.final_capital | currency}}</td>
+                    <td md-cell>{{investment.profit | currency}}</td>
                     <td md-cell>{{investment.fee}}</td>
                     <td md-cell>{{investment.monthly_amount| currency}}</td>
                   </tr>
