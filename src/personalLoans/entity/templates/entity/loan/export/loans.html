@@ -2,17 +2,17 @@
 {% load entity_extras %}
 
 {% block title %}Planilla de prestamos mensuales{% endblock title %}
-{% block association %}{{association.name}}{% endblock association %}
+{% block association %}{{association.name|title}}{% endblock association %}
 {% block extra_header %}
   <tr>
     <td colspan="2" style="font-size: 13px"><b>Periodo:</b></td>
-    <td colspan="5" style="font-size: 15px">{{month_name}} de {{year}}</td>
+    <td colspan="5" style="font-size: 15px">{{month_name|title}} de {{year}}</td>
   </tr>
 {% endblock extra_header %}
 
 {% block columns %}
   <tr bgcolor="#BBCEE9">
-    <th>Creación</th>
+    <th>Otorgado</th>
     <th>Orden N°</th>
     <th>Autorización N°</th>
     <th>Nombre</th>
@@ -27,7 +27,7 @@
   {% for investment in investments %}
   {% get_current_fee investment year month as current_fee %}
     <tr>
-      <td>{{investment.date}}</td>
+      <td>{{investment.date|date:'SHORT_DATE_FORMAT'}}</td>
       <td>{{investment.warrant}}</td>
       <td>{{investment.authorization}}</td>
       <td>{{investment.first_name}}</td>

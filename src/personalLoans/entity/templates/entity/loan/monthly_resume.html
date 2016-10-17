@@ -23,10 +23,20 @@
             <div class="md-toolbar-tools">
               <h2 class="md-title">Planilla mensual de nuevos prestamos</h2>
               <div flex="" class="flex"></div>
-              <md-button class="md-icon-button" type="button" ng-click="vm.showDialogExport()" aria-label="filter_list">
-                <md-tooltip md-direction="bottom">Exportar a excel</md-tooltip>
-                <md-icon class="material-icons">import_export</md-icon>
-              </md-button>
+              <md-menu>
+               <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="filter_list">
+                 <md-tooltip md-direction="bottom">Exportar</md-tooltip>
+                 <md-icon class="material-icons">import_export</md-icon>
+               </md-button>
+               <md-menu-content>
+                 <md-menu-item>
+                   <md-button ng-click="vm.dialogExportExcel($event)">Export Excel</md-button>
+                 </md-menu-item>
+                 <md-menu-item>
+                   <md-button ng-click="vm.dialogExportDoc($event)">Export Word</md-button>
+                 </md-menu-item>
+               </md-menu-content>
+              </md-menu>
               <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
                 <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
                 <md-icon class="material-icons">filter_list</md-icon>

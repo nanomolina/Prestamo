@@ -87,13 +87,14 @@ class InvestmentList(ListCreateAPIView):
         return Investment.objects.filter(investor__association__id=assoc_id)
 
 
-def investment_excel(request, assoc_id):
+def investment_export(request, assoc_id):
     if request.method == 'GET':
         from datetime import datetime, date
         import calendar
         from core.constant import MONTHS
         year = request.GET.get('year', None)
         month = request.GET.get('month', None)
+        exp_type = request.GET.get('type', None)
         weekday, total_days = calendar.monthrange(int(year), int(month))
         current_date = date(int(year), int(month), total_days)
         association = Association.objects.get(id=assoc_id)
@@ -103,11 +104,18 @@ def investment_excel(request, assoc_id):
         context = {
             'investments': investments, 'association': association,
             'month_name': MONTHS[int(month)-1], 'month': month, 'year': year,
+            'column_count': 8,
         }
         response = TemplateResponse(
-            request, 'entity/loan/excel/loans.html', context)
-        filename = 'prestamos-%s.xls' % datetime.now().strftime('%y%m%d_%H%M')
-        response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
+            request, 'entity/loan/export/loans.html', context)
+        if exp_type == 'excel':
+            filename = 'prestamos-%s.xls' % datetime.now().strftime('%y%m%d_%H%M')
+            response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
+        elif exp_type == 'doc':
+            filename = 'prestamos-%s.doc' % datetime.now().strftime('%y%m%d_%H%M')
+            response['Content-Type'] = 'text/docx; charset=utf-8'
+        else:
+            return None
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
         return response
 

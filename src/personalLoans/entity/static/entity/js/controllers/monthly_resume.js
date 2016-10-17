@@ -29,6 +29,7 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
       form: undefined,
     };
     vm.export = {
+      type: '',
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
     }
@@ -39,9 +40,10 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
     vm.clearFilterBar = clearFilterBar;
-    vm.showDialogExport = showDialogExport;
+    vm.dialogExportExcel = dialogExportExcel;
+    vm.dialogExportDoc = dialogExportDoc;
     vm.hideDialogExport = hideDialogExport;
-    vm.exportExcel = exportExcel;
+    vm.exportResume = exportResume;
 
     // INIT
     initDateFilter();
@@ -72,26 +74,26 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
       }
     }
 
-    function showDialogExport($event) {
-      $mdDialog.show({
-        targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
-        clickOutsideToClose: true,
-        templateUrl: 'entity/loan/excel/_export.html',
-      });
-    };
+    function dialogExportExcel($event) {
+      vm.export.type = 'excel';
+      showDialogExport($event);
+    }
+
+    function dialogExportDoc($event) {
+      vm.export.type = 'doc';
+      showDialogExport($event);
+    }
+
+    function exportResume() {
+      var id = $routeParams.associationId;
+      var query = '?year=' + vm.export.year + '&month=' + vm.export.month + '&type=' + vm.export.type;
+      location.href = "/entity/associations/"+id+"/investments/export/" + query;
+      hideDialogExport();
+      $mdToast.showSimple('Exportando a .' + vm.export.type);
+    }
 
     function hideDialogExport() {
       $mdDialog.hide();
-    }
-
-    function exportExcel() {
-      var id = $routeParams.associationId;
-      var query = '?year=' + vm.export.year + '&' + 'month=' + vm.export.month;
-      location.href = "/entity/associations/"+id+"/investments/excel/" + query;
-      hideDialogExport();
-      $mdToast.showSimple('Exportando a excel.');
     }
 
     // PRIVATE FUNCTIONS
@@ -125,5 +127,15 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
         vm.filter.options.months.push({value: m+1, text: monthNames[m]});
       }
     }
+
+    function showDialogExport($event) {
+      $mdDialog.show({
+        targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        templateUrl: 'entity/loan/export/_modal_export.html',
+      });
+    };
 
 }
