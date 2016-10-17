@@ -79,6 +79,14 @@ app.config(function ($routeProvider) {
           }],
         }
       })
+      .when('/association/:associationId/profits', {
+        templateUrl: 'entity/loan/profits.html',
+        resolve: {
+          authenticated: ['authService', function(authService){
+            return authService.getUser();
+          }],
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
