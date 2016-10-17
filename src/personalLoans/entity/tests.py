@@ -5,6 +5,7 @@ from django.test import TestCase
 from .models import *
 import datetime
 import calendar
+from decimal import Decimal
 
 
 class EntityMixins(object):
@@ -33,6 +34,7 @@ class EntityMixins(object):
             last_name="Perisit",
             capital=8500.00,
             final_capital=9792.00,
+            profit=1292.00,
             fee=6,
             interests=15.20,
             monthly_amount=1632.00,
@@ -101,3 +103,16 @@ class InvestmentModelTests(EntityMixins, TestCase):
         self.assertIsNone(current_fee)
         current_fee = self.investment.get_current_fee(2018, 5)
         self.assertIsNone(current_fee)
+
+    def test_final_capital(self):
+        f_cap = self.investment.capital
+        f_cap += (self.investment.interests * self.investment.capital) / 100
+        self.assertEqual(self.investment.final_capital, round(f_cap, 2))
+
+    def test_monthly_amount(self):
+        monthly_amount = self.investment.final_capital / self.investment.fee
+        self.assertEqual(self.investment.monthly_amount, round(monthly_amount, 2))
+
+    def test_profit(self):
+        profit = self.investment.final_capital - self.investment.capital
+        self.assertEqual(self.investment.profit, round(profit, 2))
