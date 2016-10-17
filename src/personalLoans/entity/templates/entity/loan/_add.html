@@ -11,7 +11,7 @@
       </div>
     </md-toolbar>
     <md-dialog-content layout-padding>
-      <h3 class="md-subhead">Prestamista</h3>
+      <!--<h3 class="md-subhead">Prestamista</h3> -->
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.investor.label}}*</label>
@@ -47,7 +47,7 @@
           <md-datepicker ng-model="vm.data.date_partial"></md-datepicker>
         </div>
       </div>
-      <h3 class="md-subhead">Prestatario</h3>
+      <!--<h3 class="md-subhead">Prestatario</h3> -->
       <div layout-gt-sm="row">
         <md-input-container flex-sm>
           <label>{{vm.options.first_name.label}}*</label>
@@ -67,7 +67,7 @@
           </div>
         </md-input-container>
       </div>
-      <h3 class="md-subhead">Detalles de Prestamo</h3>
+      <!--<h3 class="md-subhead">Detalles de Prestamo</h3>-->
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.capital.label}}</label>
@@ -75,15 +75,6 @@
           <div ng-messages="investmentForm.capital.$error">
             <div ng-message="max">El máximo permitido es 99999999.99.</div>
           </div>
-        </md-input-container>
-
-        <md-input-container class="md-block" flex-gt-sm>
-          <label>{{vm.options.fee.label}}</label>
-          <md-select ng-model="vm.data.fee" ng-change="vm.updateMonthlyAmount()">
-            <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
-              {{fee_choice.display_name}}
-            </md-option>
-          </md-select>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
@@ -95,12 +86,29 @@
             <div ng-message="max">El máximo es 100.</div>
           </div>
         </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.fee.label}}</label>
+          <md-select ng-model="vm.data.fee" ng-change="vm.updateMonthlyAmount()">
+            <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
+              {{fee_choice.display_name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
       </div>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.final_capital.label}}</label>
           <input type="number" name="final_capital" ng-model="vm.data.final_capital" max="99999999.99" ng-readonly="true">
           <div ng-messages="investmentForm.final_capital.$error">
+            <div ng-message="max">El máximo permitido es 99999999.99.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>{{vm.options.profit.label}}</label>
+          <input type="number" name="profit" ng-model="vm.data.profit" max="99999999.99" ng-readonly="true">
+          <div ng-messages="investmentForm.profit.$error">
             <div ng-message="max">El máximo permitido es 99999999.99.</div>
           </div>
         </md-input-container>

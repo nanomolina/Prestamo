@@ -34,6 +34,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       last_name: undefined,
       capital: 0,
       final_capital: 0,
+      profit: 0,
       fee: 1,
       interests: 12.00,
       monthly_amount: 0,
@@ -128,6 +129,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     }
 
     function clearDialogCreate() {
+      $scope.investmentForm.$setPristine();
       vm.data = {
         investor: undefined,
         warrant: undefined,
@@ -136,6 +138,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         last_name: undefined,
         capital: 0,
         final_capital: 0,
+        profit: 0,
         fee: 1,
         interests: 12.00,
         monthly_amount: 0,
@@ -147,14 +150,17 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     function updateFinalCapital() {
       var f_capital = ((vm.data.interests * vm.data.capital) / 100) + vm.data.capital;
       f_capital = $filter('number')(f_capital, 2);
-      vm.data.final_capital = parseFloat(f_capital.replace('.', '').replace(',', '.'));
+      vm.data.final_capital = parseFloat(f_capital.replace('.', '').replace('.', '').replace(',', '.'));
+      var profit = vm.data.final_capital - vm.data.capital;
+      profit = $filter('number')(profit, 2);
+      vm.data.profit = parseFloat(profit.replace('.', '').replace('.', '').replace(',', '.'));
       updateMonthlyAmount();
     }
 
     function updateMonthlyAmount() {
       var m_amount = (vm.data.final_capital / vm.data.fee);
       m_amount = $filter('number')(m_amount, 2);
-      vm.data.monthly_amount = parseFloat(m_amount.replace('.', '').replace(',', '.'));
+      vm.data.monthly_amount = parseFloat(m_amount.replace('.', '').replace('.', '').replace(',', '.'));
     }
 
     // PRIVATE FUNCTIONS

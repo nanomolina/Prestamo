@@ -53,6 +53,7 @@ class Investment(models.Model):
     last_name = models.CharField('Apellido', max_length=30, blank=True)
     capital = models.DecimalField('Capital', max_digits=10, decimal_places=2, default=0)
     final_capital = models.DecimalField('Capital final', max_digits=10, decimal_places=2, null=True, blank=True)
+    profit = models.DecimalField('Ganancia', max_digits=10, decimal_places=2, null=True, blank=True)
     fee = models.SmallIntegerField('Cuotas', choices=FEES, default=0)
     interests = models.DecimalField('Intereses', max_digits=5, decimal_places=2, default=0)
     monthly_amount = models.DecimalField('Importe mensual', max_digits=10, decimal_places=2, null=True, blank=True)
