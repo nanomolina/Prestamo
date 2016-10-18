@@ -93,7 +93,7 @@
                     <th md-column>Inversor</th>
                     <th md-column>Total prestado</th>
                     <th md-column>Total cobrado</th>
-                    <!--<th md-column>Capital por cuota</th> -->
+                    <th md-column>Recuperado</th>
                     <th md-column>Ganancia Total</th>
                   </tr>
                 </thead>
@@ -101,10 +101,10 @@
                   <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="profit in vm.profits">
                     <td md-cell>{{profit.period}}</td>
                     <td md-cell>{{profit.investor_full_name}}</td>
-                    <td md-cell>{{profit.total_capital}}</td>
-                    <td md-cell>{{profit.payments}}</td>
-                    <!--<td md-cell>-</td>-->
-                    <td md-cell>{{profit.total_profit}}</td>
+                    <td md-cell>{{profit.total_capital | currency}}</td>
+                    <td md-cell>{{profit.payments | currency}}</td>
+                    <td md-cell>{{profit.revenue | currency}}</td>
+                    <td md-cell>{{profit.total_profit | currency}}</td>
                   </tr>
                 </tbody>
               </table>

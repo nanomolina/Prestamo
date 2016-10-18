@@ -113,7 +113,7 @@ class ProfitList(APIView):
                     'total_capital': Decimal('0'), 'payments': Decimal('0'),
                     'investor_full_name': list_by_investors.first().investor_full_name,
                     'period': "%i de %i" % (date.month, date.year),
-                    'total_profit': Decimal('0'),
+                    'total_profit': Decimal('0'), 'revenue': Decimal('0')
                 }
                 for p_inv in investments_until_now:
                     current_fee = p_inv.get_current_fee(date.year, date.month)
@@ -122,6 +122,7 @@ class ProfitList(APIView):
                             data['total_capital'] += Decimal(p_inv.capital)
                         elif current_fee > 0:
                             data['payments'] += Decimal(p_inv.monthly_amount)
+                            data['revenue'] += Decimal(p_inv.capital) / Decimal(p_inv.fee)
                             data['total_profit'] += Decimal(p_inv.monthly_amount) - (Decimal(p_inv.capital) / Decimal(p_inv.fee))
                 queryset.append(data)
         serializer = ProfitSerializer(queryset, many=True)
