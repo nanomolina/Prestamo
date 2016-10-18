@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from entity.models import Association, Investment, Investor, Revenue
+from entity.models import Association, Investment, Investor
 
 
 class AssociationSerializer(serializers.ModelSerializer):
@@ -60,7 +60,12 @@ class InvestmentSerializer(serializers.ModelSerializer):
         month = self.context.get('month')
         return obj.fee_past_or_future(year, month)
 
-class RevenueSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Revenue
-        fields = ('investor', 'association', 'date', 'money')
+
+class ProfitSerializer(serializers.Serializer):
+    # investor = PrimaryKeyRelatedField(label='Inversor', queryset=Investor.objects.all())
+    investor_full_name = serializers.ReadOnlyField()
+    period = serializers.CharField(max_length=30)
+    total_capital = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
+    payments = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
+    capital_by_fee = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
+    profit = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)

@@ -5,13 +5,13 @@ from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework import filters
-from rest_framework.generics import (ListCreateAPIView,
+from rest_framework.generics import (ListCreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.pagination import PageNumberPagination
 
 from entity.models import Association, Investment, Investor
 from entity.serializers import (AssociationSerializer, InvestmentSerializer,
-                                InvestorSerializer)
+                                InvestorSerializer, ProfitSerializer)
 
 
 def render_partial(request, template_name):
@@ -90,6 +90,24 @@ class InvestmentList(ListCreateAPIView):
         from datetime import datetime
         date = datetime.now()
         return {"year": date.year, "month": date.month}
+
+
+class ProfitList(ListAPIView):
+    serializer_class = ProfitSerializer
+
+    def get_queryset(self):
+        assoc_id = self.kwargs['assoc_id']
+        return Investment.objects.filter(investor__association__id=assoc_id)
+
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        investments = self.get_queryset()
+        dates_by_month = investments.dates('date', 'month', order='DESC')
+        for date in dates_by_month:
+            investments_by_month = investments.filter(date__year=date.year, date__month=date.month)
+            import ipdb; ipdb.set_trace()
+        serializer = UserSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 def investment_export(request, assoc_id):

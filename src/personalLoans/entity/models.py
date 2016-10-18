@@ -104,22 +104,3 @@ class Investment(models.Model):
         else: #self.end_date < current_date
             fee_time = 'past'
         return fee_time
-
-class Revenue(models.Model):
-    investor = models.ForeignKey(Investor)
-    date = models.DateField()
-    money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return "%s" % (self.investor)
-
-
-class Moneylender(models.Model):
-    pass
-
-
-class Borrower(models.Model):
-    pass
