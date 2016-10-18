@@ -2,9 +2,9 @@
 
 app.controller('ProfitCtrl', ProfitCtrl);
 
-ProfitCtrl.$inject = ['investmentService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
+ProfitCtrl.$inject = ['profitService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
 
-function ProfitCtrl(investmentService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
+function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -34,9 +34,9 @@ function ProfitCtrl(investmentService, $routeParams, $scope, $locale, $mdDialog,
       month: new Date().getMonth() + 1,
     }
     vm.selected = [];
-    vm.investments = [];
+    vm.profits = [];
     vm.promise;
-    vm.getInvestments = getInvestments;
+    vm.getProfits = getProfits;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
     vm.clearFilterBar = clearFilterBar;
@@ -47,13 +47,14 @@ function ProfitCtrl(investmentService, $routeParams, $scope, $locale, $mdDialog,
 
     // INIT
     initDateFilter();
+    getProfits();
 
     // PUBLIC FUNCTIONS
-    function getInvestments() {
+    function getProfits() {
       var id = $routeParams.associationId;
-      vm.promise = investmentService.getList(id, vm.query)
+      vm.promise = profitService.getList(id)
       .then(function(response) {
-        vm.investments = response.data;
+        vm.profits = response.data;
       });
     }
 
@@ -108,7 +109,7 @@ function ProfitCtrl(investmentService, $routeParams, $scope, $locale, $mdDialog,
       if(!newValue) {
         vm.query.page = bookmark;
       }
-      vm.getInvestments();
+      vm.getProfits();
     });
 
     function formatDate(date) {

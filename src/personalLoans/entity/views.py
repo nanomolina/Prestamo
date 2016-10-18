@@ -5,7 +5,8 @@ from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework import filters
-from rest_framework.generics import (ListCreateAPIView, ListAPIView,
+from rest_framework.views import APIView
+from rest_framework.generics import (ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.pagination import PageNumberPagination
 
@@ -92,21 +93,38 @@ class InvestmentList(ListCreateAPIView):
         return {"year": date.year, "month": date.month}
 
 
-class ProfitList(ListAPIView):
-    serializer_class = ProfitSerializer
-
-    def get_queryset(self):
-        assoc_id = self.kwargs['assoc_id']
-        return Investment.objects.filter(investor__association__id=assoc_id)
-
-    def list(self, request):
-        # Note the use of `get_queryset()` instead of `self.queryset`
-        investments = self.get_queryset()
-        dates_by_month = investments.dates('date', 'month', order='DESC')
-        for date in dates_by_month:
-            investments_by_month = investments.filter(date__year=date.year, date__month=date.month)
-            import ipdb; ipdb.set_trace()
-        serializer = UserSerializer(queryset, many=True)
+class ProfitList(APIView):
+    def get(self, request, assoc_id, format=None):
+        from calendar import monthrange
+        from datetime import date as create_date
+        from decimal import Decimal
+        from rest_framework.response import Response
+        queryset = []
+        investments = Investment.objects.filter(investor__association__id=assoc_id)
+        list_investors = investments.values_list('investor', flat=True).distinct()
+        for inv_id in list_investors:
+            list_by_investors = investments.filter(investor__id=inv_id)
+            dates_by_month = list_by_investors.dates('date', 'month', order='DESC')
+            for date in dates_by_month:
+                max_day = monthrange(date.year, date.month)[1]
+                current_date = create_date(date.year, date.month, max_day)
+                investments_until_now = list_by_investors.filter(date__lte=current_date)
+                data = {
+                    'total_capital': Decimal('0'), 'payments': Decimal('0'),
+                    'investor_full_name': list_by_investors.first().investor_full_name,
+                    'period': "%i de %i" % (date.month, date.year),
+                    'total_profit': Decimal('0'),
+                }
+                for p_inv in investments_until_now:
+                    current_fee = p_inv.get_current_fee(date.year, date.month)
+                    if current_fee is not None:
+                        if current_fee == 0:
+                            data['total_capital'] += Decimal(p_inv.capital)
+                        elif current_fee > 0:
+                            data['payments'] += Decimal(p_inv.monthly_amount)
+                            data['total_profit'] += Decimal(p_inv.monthly_amount) - (Decimal(p_inv.capital) / Decimal(p_inv.fee))
+                queryset.append(data)
+        serializer = ProfitSerializer(queryset, many=True)
         return Response(serializer.data)
 
 

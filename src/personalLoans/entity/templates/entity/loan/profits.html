@@ -87,39 +87,28 @@
           <md-content>
             <md-table-container>
               <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
-                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
+                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getProfits">
                   <tr md-row>
-                    <th md-column md-order-by="date">Creación</th>
-                    <th md-column md-order-by="investor">Inversor</th>
-                    <th md-column md-numeric md-order-by="warrant"><span>Orden N°</span></th>
-                    <th md-column md-numeric md-order-by="authorization">Autorización N°</th>
-                    <th md-column md-order-by="first_name">Nombre</th>
-                    <th md-column md-order-by="last_name">Apellido</th>
-                    <th md-column md-numeric md-order-by="capital">Capital</th>
-                    <th md-column md-numeric md-order-by="capital">Capital Final</th>
-                    <th md-column>Ganancia total</th>
-                    <th md-column md-numeric md-order-by="fee">Cuotas</th>
-                    <th md-column md-numeric >Importe mensual</th>
+                    <th md-column>Periodo</th>
+                    <th md-column>Inversor</th>
+                    <th md-column>Total prestado</th>
+                    <th md-column>Total cobrado</th>
+                    <!--<th md-column>Capital por cuota</th> -->
+                    <th md-column>Ganancia Total</th>
                   </tr>
                 </thead>
                 <tbody md-body>
-                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments.results">
-                    <td md-cell>{{investment.date}}</td>
-                    <td md-cell>{{investment.investor_full_name}}</td>
-                    <td md-cell>{{investment.warrant}}</td>
-                    <td md-cell>{{investment.authorization}}</td>
-                    <td md-cell>{{investment.first_name}}</td>
-                    <td md-cell>{{investment.last_name}}</td>
-                    <td md-cell>{{investment.capital | currency}}</td>
-                    <td md-cell>{{investment.final_capital | currency}}</td>
-                    <td md-cell>{{investment.profit | currency}}</td>
-                    <td md-cell>{{investment.fee}}</td>
-                    <td md-cell>{{investment.monthly_amount| currency}}</td>
+                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="profit in vm.profits">
+                    <td md-cell>{{profit.period}}</td>
+                    <td md-cell>{{profit.investor_full_name}}</td>
+                    <td md-cell>{{profit.total_capital}}</td>
+                    <td md-cell>{{profit.payments}}</td>
+                    <!--<td md-cell>-</td>-->
+                    <td md-cell>{{profit.total_profit}}</td>
                   </tr>
                 </tbody>
               </table>
             </md-table-container>
-            <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
           </md-content>
       </md-content>
     </div>

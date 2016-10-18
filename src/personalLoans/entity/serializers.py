@@ -68,4 +68,4 @@ class ProfitSerializer(serializers.Serializer):
     total_capital = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
     payments = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
     capital_by_fee = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
-    profit = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
+    total_profit = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
