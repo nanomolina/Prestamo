@@ -39,14 +39,26 @@ class InvestmentSerializer(serializers.ModelSerializer):
         format=settings.DATE_FORMAT,
         input_formats=settings.DATE_INPUT_FORMATS
     )
+    current_fee = serializers.SerializerMethodField('get_current_fee_serializer')
+    fee_time = serializers.SerializerMethodField('fee_past_or_future_serializer')
     class Meta:
         model = Investment
         fields = (
             'investor', 'investor_full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
-            'profit', 'fee', 'interests', 'monthly_amount', 'date'
+            'profit', 'fee', 'interests', 'monthly_amount', 'date',
+            'current_fee', 'fee_time',
         )
 
+    def get_current_fee_serializer(self, obj):
+        year = self.context.get('year')
+        month = self.context.get('month')
+        return obj.get_current_fee(year, month)
+
+    def fee_past_or_future_serializer(self, obj):
+        year = self.context.get('year')
+        month = self.context.get('month')
+        return obj.fee_past_or_future(year, month)
 
 class RevenueSerializer(serializers.ModelSerializer):
     class Meta:

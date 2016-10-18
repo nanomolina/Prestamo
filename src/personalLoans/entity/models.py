@@ -83,15 +83,27 @@ class Investment(models.Model):
         return name
 
     def get_current_fee(self, year, month):
-        import datetime
+        from datetime import date
         from entity.functions import monthdelta
-        current_date = datetime.date(int(year), int(month), self.date.day)
+        current_date = date(int(year), int(month), self.date.day)
         if self.date <= current_date <= self.end_date:
             fee = monthdelta(self.date, current_date)
         else:
             fee = None
         return fee
 
+    def fee_past_or_future(self, year, month):
+        from datetime import date
+        from calendar import monthrange
+        last_day = monthrange(year, month)[1]
+        current_date = date(int(year), int(month), last_day)
+        if self.date <= current_date <= self.end_date:
+            fee_time = 'now'
+        elif self.date > current_date:
+            fee_time = 'future'
+        else: #self.end_date < current_date
+            fee_time = 'past'
+        return fee_time
 
 class Revenue(models.Model):
     investor = models.ForeignKey(Investor)

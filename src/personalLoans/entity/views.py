@@ -86,6 +86,11 @@ class InvestmentList(ListCreateAPIView):
         assoc_id = self.kwargs['assoc_id']
         return Investment.objects.filter(investor__association__id=assoc_id)
 
+    def get_serializer_context(self):
+        from datetime import datetime
+        date = datetime.now()
+        return {"year": date.year, "month": date.month}
+
 
 def investment_export(request, assoc_id):
     if request.method == 'GET':

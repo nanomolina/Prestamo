@@ -13,8 +13,8 @@ function ProfitCtrl(investmentService, $routeParams, $scope, $locale, $mdDialog,
     };
     vm.query = {
       search: '',
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      year: '',
+      month: '',
       ordering: '-date',
       limit: 10,
       page: 1

@@ -8,8 +8,9 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     var vm = this;
 
     vm.view = {
-      title: 'Prestamos',
-      icon: 'view_list'
+      title: 'Prestamos otorgados',
+      icon: 'view_list',
+      current_date: new Date(),
     };
     vm.query = {
       investor: '',

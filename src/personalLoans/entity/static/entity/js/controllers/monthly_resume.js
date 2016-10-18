@@ -8,13 +8,14 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
     var vm = this;
 
     vm.view = {
-      title: 'Amembe',
-      icon: 'view_list'
+      title: 'Planilla mensual para Amembe',
+      icon: 'view_list',
+      current_date: new Date(),
     };
     vm.query = {
       search: '',
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      year: '',
+      month: '',
       ordering: '-date',
       limit: 10,
       page: 1
