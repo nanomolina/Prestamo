@@ -13,9 +13,12 @@ function profitService($http, $cookies) {
   ////////////
 
   // GET - LIST
-  function getList(id) {
+  function getList(id, query) {
     return $http.get(
-      "entity/associations/"+id+"/profits/"
+      "entity/associations/"+id+"/profits/",
+      {
+        params: query,
+      }
     )
   }
 }

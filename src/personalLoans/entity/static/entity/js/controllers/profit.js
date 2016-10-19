@@ -12,12 +12,12 @@ function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $md
       icon: 'view_list'
     };
     vm.query = {
-      search: '',
-      year: '',
-      month: '',
-      ordering: '-date',
-      limit: 10,
-      page: 1
+      // search: '',
+      // year: '',
+      // month: '',
+      ordering: '-period',
+      // limit: 10,
+      // page: 1
     };
     vm.filter = {
       show: false,
@@ -52,7 +52,7 @@ function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $md
     // PUBLIC FUNCTIONS
     function getProfits() {
       var id = $routeParams.associationId;
-      vm.promise = profitService.getList(id)
+      vm.promise = profitService.getList(id, vm.query)
       .then(function(response) {
         vm.profits = response.data;
       });

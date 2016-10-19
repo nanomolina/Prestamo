@@ -89,17 +89,17 @@
               <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
                 <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getProfits">
                   <tr md-row>
-                    <th md-column>Periodo</th>
+                    <th md-column md-order-by="period">Periodo</th>
                     <th md-column>Inversor</th>
                     <th md-column>Total prestado</th>
-                    <th md-column>Total cobrado</th>
+                    <th md-column>Capital por cuotas</th>
                     <th md-column>Recuperado</th>
-                    <th md-column>Ganancia Total</th>
+                    <th md-column>Ganancia</th>
                   </tr>
                 </thead>
                 <tbody md-body>
                   <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="profit in vm.profits">
-                    <td md-cell>{{profit.period}}</td>
+                    <td md-cell>{{profit.period | date:"MMMM 'de' yyyy"}}</td>
                     <td md-cell>{{profit.investor_full_name}}</td>
                     <td md-cell>{{profit.total_capital | currency}}</td>
                     <td md-cell>{{profit.payments | currency}}</td>

@@ -112,7 +112,7 @@ class ProfitList(APIView):
                 data = {
                     'total_capital': Decimal('0'), 'payments': Decimal('0'),
                     'investor_full_name': list_by_investors.first().investor_full_name,
-                    'period': "%i de %i" % (date.month, date.year),
+                    'period': create_date(date.year, date.month, 1),
                     'total_profit': Decimal('0'), 'revenue': Decimal('0')
                 }
                 for p_inv in investments_until_now:
