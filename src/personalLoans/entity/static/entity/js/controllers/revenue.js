@@ -28,8 +28,6 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
     };
     vm.export = {
       type: '',
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
     }
     vm.selected = [];
     vm.revenues = [];
@@ -41,8 +39,6 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
     vm.clearFilterBar = clearFilterBar;
     vm.dialogExportExcel = dialogExportExcel;
     vm.dialogExportDoc = dialogExportDoc;
-    vm.hideDialogExport = hideDialogExport;
-    vm.exportResume = exportResume;
 
     // INIT
     getInvestors();
@@ -73,24 +69,12 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
 
     function dialogExportExcel($event) {
       vm.export.type = 'excel';
-      showDialogExport($event);
+      exportResume();
     }
 
     function dialogExportDoc($event) {
       vm.export.type = 'doc';
-      showDialogExport($event);
-    }
-
-    function exportResume() {
-      var id = $routeParams.associationId;
-      var query = '?year=' + vm.export.year + '&month=' + vm.export.month + '&type=' + vm.export.type;
-      location.href = "/entity/associations/"+id+"/investments/export/" + query;
-      hideDialogExport();
-      $mdToast.showSimple('Exportando a .' + vm.export.type);
-    }
-
-    function hideDialogExport() {
-      $mdDialog.hide();
+      exportResume();
     }
 
     // PRIVATE FUNCTIONS
@@ -116,14 +100,10 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
       vm.getRevenue();
     });
 
-    function showDialogExport($event) {
-      $mdDialog.show({
-        targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
-        clickOutsideToClose: true,
-        templateUrl: 'entity/loan/export/_modal_export.html',
-      });
-    };
-
+    function exportResume() {
+      var id = $routeParams.associationId;
+      var query = '?type=' + vm.export.type + '&investor=' + vm.query.investor + '&ordering=' + vm.query.ordering;
+      location.href = "/entity/associations/"+id+"/revenue/export/" + query;
+      $mdToast.showSimple('Exportando a .' + vm.export.type);
+    }
 }

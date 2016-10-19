@@ -140,6 +140,36 @@ def investment_export(request, assoc_id):
         return response
 
 
+def revenue_export(request, assoc_id):
+    if request.method == 'GET':
+        from datetime import datetime
+        association = Association.objects.get(id=assoc_id)
+        exp_type = request.GET.get('type', None)
+        investor_id = request.GET.get('investor', None)
+        ordering = request.GET.get('ordering', None)
+        revenues = Revenue.objects.filter(investor__association=association)
+        if investor_id:
+            revenues = revenues.filter(investor__id=investor_id)
+        if ordering:
+            revenues = revenues.order_by(ordering)
+        context = {
+            'association': association,
+            'revenues': revenues, 'column_count': 8,
+        }
+        response = TemplateResponse(
+            request, 'entity/loan/export/revenue.html', context)
+        if exp_type == 'excel':
+            filename = 'redito-%s.xls' % datetime.now().strftime('%y%m%d_%H%M')
+            response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
+        elif exp_type == 'doc':
+            filename = 'redito-%s.doc' % datetime.now().strftime('%y%m%d_%H%M')
+            response['Content-Type'] = 'text/docx; charset=utf-8'
+        else:
+            return None
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
+
+
 def get_avatars(request):
     from entity.functions import filter_files
     from os.path import join
