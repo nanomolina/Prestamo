@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('angularDjangoRegistrationAuthApp',
+var app = angular.module('personalLoans',
   [
     'ngCookies',
     'ngResource',

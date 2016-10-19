@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name angularDjangoRegistrationAuthApp.controller:RestrictedCtrl
+ * @name personalLoans.controller:RestrictedCtrl
  * @description
  * # RestrictedCtrl
- * Controller of the angularDjangoRegistrationAuthApp
+ * Controller of the personalLoans
  */
 app.controller('RestrictedCtrl', function ($scope, $location) {
     $scope.$on('authService.logged_in', function() {
