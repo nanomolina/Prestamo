@@ -6,7 +6,7 @@ from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework import filters
 from rest_framework.views import APIView
-from rest_framework.generics import (ListCreateAPIView,
+from rest_framework.generics import (ListCreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.pagination import PageNumberPagination
 
@@ -93,13 +93,20 @@ class InvestmentList(ListCreateAPIView):
         return {"year": date.year, "month": date.month}
 
 
-class ProfitList(APIView):
-    def get(self, request, assoc_id, format=None):
+class ProfitList(ListAPIView):
+    serializer_class = ProfitSerializer
+    filter_backends = (filters.OrderingFilter, )
+    ordering_fields = (
+        'period'
+    )
+
+    def get_queryset(self):
         from calendar import monthrange
         from datetime import date as create_date
         from decimal import Decimal
         from rest_framework.response import Response
         queryset = []
+        assoc_id = self.kwargs['assoc_id']
         investments = Investment.objects.filter(investor__association__id=assoc_id)
         list_investors = investments.values_list('investor', flat=True).distinct()
         for inv_id in list_investors:
@@ -125,8 +132,7 @@ class ProfitList(APIView):
                             data['revenue'] += Decimal(p_inv.capital) / Decimal(p_inv.fee)
                             data['total_profit'] += Decimal(p_inv.monthly_amount) - (Decimal(p_inv.capital) / Decimal(p_inv.fee))
                 queryset.append(data)
-        serializer = ProfitSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return queryset
 
 
 def investment_export(request, assoc_id):
