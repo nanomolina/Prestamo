@@ -19,10 +19,14 @@
           </div>
         </md-toolbar>
         <md-content style="background-color: #eee;">
-          <div layout-padding>
+          <div layout="row" layout-padding>
             <h4>
               Posee {{vm.getTotalAssociations()}} asociaciones
             </h4>
+            <span flex></span>
+            <md-button type="button" class="md-fab" aria-label="Add" ng-click="vm.showDialogCreate($event)">
+              <md-icon class="material-icons" style="position: relative;bottom: 7px;">add</md-icon>
+            </md-button>
           </div>
           <div layout="row" layout-wrap layout-padding>
             <md-card ng-repeat="association in vm.associations" md-theme-watch flex="29">
@@ -57,9 +61,6 @@
         </md-content>
       </div>
       <!-- End content -->
-      <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.showDialogCreate($event)" style="position:fixed !important;">
-        <md-icon><i class="material-icons">add</i></md-icon>
-      </md-button>
   </div>
   {% endverbatim %}
 {% endblock content %}

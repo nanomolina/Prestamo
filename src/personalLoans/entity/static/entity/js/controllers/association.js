@@ -55,6 +55,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
         scope: $scope,
         preserveScope: true,
         clickOutsideToClose: true,
+        fullscreen: true,
         templateUrl: 'entity/_add_association.html',
       });
     }

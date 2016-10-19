@@ -99,6 +99,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         scope: $scope,
         preserveScope: true,
         clickOutsideToClose: true,
+        fullscreen: true,
         templateUrl: 'entity/loan/_add.html',
       });
     }
