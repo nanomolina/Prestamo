@@ -2,9 +2,9 @@
 
 app.controller('RevenueCtrl', RevenueCtrl);
 
-RevenueCtrl.$inject = ['revenueService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
+RevenueCtrl.$inject = ['revenueService', 'investorService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
 
-function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
+function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -12,12 +12,10 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
       icon: 'view_list'
     };
     vm.query = {
-      // search: '',
-      // year: '',
-      // month: '',
+      investor: '',
       ordering: '-period',
-      // limit: 10,
-      // page: 1
+      limit: 10,
+      page: 1
     };
     vm.filter = {
       show: false,
@@ -35,6 +33,7 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
     }
     vm.selected = [];
     vm.revenues = [];
+    vm.investors = [];
     vm.promise;
     vm.getRevenue = getRevenue;
     vm.showFilterBar = showFilterBar;
@@ -46,8 +45,7 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
     vm.exportResume = exportResume;
 
     // INIT
-    initDateFilter();
-    getRevenue();
+    getInvestors();
 
     // PUBLIC FUNCTIONS
     function getRevenue() {
@@ -67,9 +65,7 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
     }
 
     function clearFilterBar() {
-      vm.query.search = '';
-      vm.query.year = '';
-      vm.query.month = '';
+      vm.query.investor = '';
       if(vm.filter.form.$dirty) {
         vm.filter.form.$setPristine();
       }
@@ -98,7 +94,15 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
     }
 
     // PRIVATE FUNCTIONS
-    $scope.$watchGroup(['vm.query.search', 'vm.query.year', 'vm.query.month'], function (newValue, oldValue) {
+    function getInvestors() {
+      var id = $routeParams.associationId;
+      investorService.getList(id)
+      .then(function(response) {
+          vm.investors = response.data;
+      });
+    }
+
+    $scope.$watch('vm.query.investor', function (newValue, oldValue) {
       var bookmark = 1;
       if(!oldValue) {
         bookmark = vm.query.page;
@@ -111,23 +115,6 @@ function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $
       }
       vm.getRevenue();
     });
-
-    function formatDate(date) {
-      return moment(date).format('DD/MM/YYYY');
-    }
-
-    function initDateFilter() {
-      var currentYear = new Date().getFullYear();
-      var monthNames = $locale.DATETIME_FORMATS.MONTH
-      // Build a list of months over 20 years
-      currentYear += 5
-      for (var year=currentYear; year >= (currentYear-10); year--) {
-        vm.filter.options.years.push(year);
-      }
-      for (var m=0; m < monthNames.length; m++) {
-        vm.filter.options.months.push({value: m+1, text: monthNames[m]});
-      }
-    }
 
     function showDialogExport($event) {
       $mdDialog.show({

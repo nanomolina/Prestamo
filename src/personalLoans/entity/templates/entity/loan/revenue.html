@@ -45,21 +45,12 @@
           </md-toolbar>
           <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
             <div class="md-toolbar-tools">
-              <md-icon class="material-icons">search</md-icon>
               <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
-                <md-input-container style="top: 12px;">
-                  <input ng-model="vm.query.search" ng-model-options="vm.filter.options" placeholder="Prestatario" class="ng-pristine ng-untouched ng-valid" aria-invalid="false" type="text">
-                </md-input-container>
-                <md-input-container>
-                  <label>Año</label>
-                  <md-select ng-model="vm.query.year">
-                    <md-option ng-value="year" ng-repeat="year in vm.filter.options.years">{{ year }}</md-option>
-                  </md-select>
-                </md-input-container>
-                <md-input-container>
-                  <label>Mes</label>
-                  <md-select ng-model="vm.query.month">
-                    <md-option ng-value="month.value" ng-repeat="month in vm.filter.options.months">{{ month.text }}</md-option>
+                <md-input-container md-no-float>
+                  <md-select ng-model="vm.query.investor" placeholder="Inversor">
+                    <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
+                      {{investor.first_name}} {{investor.last_name}}
+                    </md-option>
                   </md-select>
                 </md-input-container>
               </form>
@@ -98,7 +89,7 @@
                   </tr>
                 </thead>
                 <tbody md-body>
-                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="revenue in vm.revenues">
+                  <tr md-row md-select="revenue" md-select-id="revenue" md-auto-select ng-repeat="revenue in vm.revenues.results">
                     <td md-cell>{{revenue.period | date:"MMMM 'de' yyyy"}}</td>
                     <td md-cell>{{revenue.investor__full_name}}</td>
                     <td md-cell>{{revenue.capital | currency}}</td>
@@ -109,6 +100,7 @@
                 </tbody>
               </table>
             </md-table-container>
+            <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.revenues.count}}" md-on-paginate="vm.getRevenue" md-page-select></md-table-pagination>
           </md-content>
       </md-content>
     </div>

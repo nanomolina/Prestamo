@@ -41,16 +41,14 @@
                   <input ng-model="vm.query.search" ng-model-options="vm.filter.options" placeholder="Prestatario" class="ng-pristine ng-untouched ng-valid" aria-invalid="false" type="text">
                 </md-input-container>
                 <md-input-container md-no-float>
-                  <label>Inversor</label>
-                  <md-select ng-model="vm.query.investor"/>
+                  <md-select ng-model="vm.query.investor" placeholder="Inversor">
                     <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
                       {{investor.first_name}} {{investor.last_name}}
                     </md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container md-no-float>
-                  <label>Cuotas</label>
-                  <md-select ng-model="vm.query.fee">
+                  <md-select ng-model="vm.query.fee" placeholder="Cuotas">
                     <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
                       {{fee_choice.display_name}}
                     </md-option>

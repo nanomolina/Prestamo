@@ -95,7 +95,9 @@ class InvestmentList(ListCreateAPIView):
 
 class RevenueList(ListAPIView):
     serializer_class = RevenueSerializer
-    filter_backends = (filters.OrderingFilter,)
+    pagination_class = SetPagination
+    filter_backends = (filters.OrderingFilter, filters.DjangoFilterBackend)
+    filter_fields = ('investor', )
     ordering_fields = (
         'investor', 'period', 'capital', 'payment',
         'recovered', 'profit',
