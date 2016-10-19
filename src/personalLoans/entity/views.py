@@ -95,9 +95,10 @@ class InvestmentList(ListCreateAPIView):
 
 class RevenueList(ListAPIView):
     serializer_class = RevenueSerializer
-    filter_backends = (filters.OrderingFilter, )
+    filter_backends = (filters.OrderingFilter,)
     ordering_fields = (
-        'period'
+        'investor', 'period', 'capital', 'payment',
+        'recovered', 'profit',
     )
 
     def get_queryset(self):
