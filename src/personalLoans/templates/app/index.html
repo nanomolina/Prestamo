@@ -17,20 +17,35 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.css' %}" rel="stylesheet" type="text/css"/>
   </head>
-  <body ng-app="personalLoans" ng-controller="MasterCtrl" ng-cloak layout="column" >
+  <body ng-app="personalLoans" ng-controller="MasterCtrl as master" ng-cloak layout="column">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ng-controller="PrincipalCtrl as principal" ng-if="authenticated" layout="row" layout-fill>
-        {% include "core/menu.html" %}
-        <!-- Add your site or application content here -->
+    <!-- Container #1 (see wireframe) -->
+    <md-toolbar layout="row" class="md-toolbar-tools" ng-if="master.authenticated">
+      <md-button class="menu md-icon-button" ng-click="master.toggleLeftMenu()"aria-label="menu">
+        <md-icon class="material-icons">menu</md-icon>
+      </md-button>
+      <h1>Angular Material - Starter App</h1>
+    </md-toolbar>
+
+    <!-- Container #2 -->
+    <div flex layout="row" ng-if="master.authenticated">
+      <!-- Container #3 -->
+      <div ng-include="'core/menu.html'"></div>
+
+      <!-- Container #4 -->
+      <md-content flex id="content">
+        <!-- Custom UserDetails component -->
         <div ng-view layout-fill></div>
+      </md-content>
     </div>
 
-    <div ng-view ng-if="!authenticated" layout-fill>
+    <div ng-view ng-if="!master.authenticated" layout-fill>
       <div ng-include="'core/login.html'"></div>
     </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>

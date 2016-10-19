@@ -33,7 +33,7 @@ function PrincipalCtrl($scope, $mdSidenav, $http, $location) {
     ];
     vm.isSidenavOpen = false;
     vm.openLeftMenu = openLeftMenu;
-    vm.profile = $scope.profile;
+    vm.profile = $scope.master.profile;
 
 
     // PUBLIC FUNCTIONS
