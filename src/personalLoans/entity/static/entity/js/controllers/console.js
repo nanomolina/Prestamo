@@ -14,7 +14,7 @@ function ConsoleCtrl($routeParams, $location) {
     vm.goToDetail = goToDetail;
     vm.goToLoans = goToLoans;
     vm.goToMonthlyResume = goToMonthlyResume;
-    vm.goToProfits = goToProfits;
+    vm.goToRevenue = goToRevenue;
 
     // PUBLIC FUNCTIONS
     function goToDetail() {
@@ -32,9 +32,9 @@ function ConsoleCtrl($routeParams, $location) {
       $location.path('/association/' + id + '/monthly_resume');
     }
 
-    function goToProfits() {
+    function goToRevenue() {
       var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/profits');
+      $location.path('/association/' + id + '/revenue');
     }
 
     // PRIVATE FUNCTIONS

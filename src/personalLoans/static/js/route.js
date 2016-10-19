@@ -79,8 +79,8 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/association/:associationId/profits', {
-        templateUrl: 'entity/loan/profits.html',
+      .when('/association/:associationId/revenue', {
+        templateUrl: 'entity/loan/revenue.html',
         resolve: {
           authenticated: ['authService', function(authService){
             return authService.getUser();

@@ -41,6 +41,16 @@ class Investor(models.Model):
     def __unicode__(self):
         return "%s - %s %s" % (self.association, self.first_name, self.last_name)
 
+    @property
+    def full_name(self):
+        name = ''
+        # if self.investor.alias:
+        #     name += self.investor.alias
+        # else:
+        name += self.first_name
+        name += ' ' + self.last_name
+        return name
+
 
 class Investment(models.Model):
     FEES = (
@@ -71,16 +81,6 @@ class Investment(models.Model):
             from entity.functions import add_months
             self.end_date = add_months(self.date, self.fee)
             super(Investment, self).save(*args, **kwargs)
-
-    @property
-    def investor_full_name(self):
-        name = ''
-        # if self.investor.alias:
-        #     name += self.investor.alias
-        # else:
-        name += self.investor.first_name
-        name += ' ' + self.investor.last_name
-        return name
 
     def get_current_fee(self, year, month):
         from datetime import date

@@ -1,10 +1,10 @@
 'use strict';
 
-app.factory('profitService', profitService);
+app.factory('revenueService', revenueService);
 
-profitService.$inject = ['$http', '$cookies'];
+revenueService.$inject = ['$http', '$cookies'];
 
-function profitService($http, $cookies) {
+function revenueService($http, $cookies) {
   var service = {
     getList: getList,
   }
@@ -15,7 +15,7 @@ function profitService($http, $cookies) {
   // GET - LIST
   function getList(id, query) {
     return $http.get(
-      "entity/associations/"+id+"/profits/",
+      "entity/associations/"+id+"/revenue/",
       {
         params: query,
       }

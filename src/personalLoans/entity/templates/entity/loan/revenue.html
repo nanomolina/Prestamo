@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
 
   {% verbatim %}
-  <div id="inner-content" ng-controller="ProfitCtrl as vm" ng-cloak>
+  <div id="inner-content" ng-controller="RevenueCtrl as vm" ng-cloak>
     <!-- Start content -->
     <div class="md-whiteframe-z1" layout-fill>
       <md-toolbar class="md-hue-1">
@@ -87,7 +87,7 @@
           <md-content>
             <md-table-container>
               <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
-                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getProfits">
+                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getRevenue">
                   <tr md-row>
                     <th md-column md-order-by="period">Periodo</th>
                     <th md-column>Inversor</th>
@@ -98,13 +98,13 @@
                   </tr>
                 </thead>
                 <tbody md-body>
-                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="profit in vm.profits">
-                    <td md-cell>{{profit.period | date:"MMMM 'de' yyyy"}}</td>
-                    <td md-cell>{{profit.investor_full_name}}</td>
-                    <td md-cell>{{profit.total_capital | currency}}</td>
-                    <td md-cell>{{profit.payments | currency}}</td>
-                    <td md-cell>{{profit.revenue | currency}}</td>
-                    <td md-cell>{{profit.total_profit | currency}}</td>
+                  <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="revenue in vm.revenues">
+                    <td md-cell>{{revenue.period | date:"MMMM 'de' yyyy"}}</td>
+                    <td md-cell>{{revenue.investor__full_name}}</td>
+                    <td md-cell>{{revenue.capital | currency}}</td>
+                    <td md-cell>{{revenue.payment | currency}}</td>
+                    <td md-cell>{{revenue.recovered | currency}}</td>
+                    <td md-cell>{{revenue.profit | currency}}</td>
                   </tr>
                 </tbody>
               </table>

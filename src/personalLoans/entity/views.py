@@ -10,9 +10,9 @@ from rest_framework.generics import (ListCreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.pagination import PageNumberPagination
 
-from entity.models import Association, Investment, Investor
+from entity.models import Association, Investment, Investor, Revenue
 from entity.serializers import (AssociationSerializer, InvestmentSerializer,
-                                InvestorSerializer, ProfitSerializer)
+                                InvestorSerializer, RevenueSerializer)
 
 
 def render_partial(request, template_name):
@@ -93,47 +93,16 @@ class InvestmentList(ListCreateAPIView):
         return {"year": date.year, "month": date.month}
 
 
-class ProfitList(ListAPIView):
-    serializer_class = ProfitSerializer
+class RevenueList(ListAPIView):
+    serializer_class = RevenueSerializer
     filter_backends = (filters.OrderingFilter, )
     ordering_fields = (
         'period'
     )
 
     def get_queryset(self):
-        from calendar import monthrange
-        from datetime import date as create_date
-        from decimal import Decimal
-        from rest_framework.response import Response
-        queryset = []
         assoc_id = self.kwargs['assoc_id']
-        investments = Investment.objects.filter(investor__association__id=assoc_id)
-        list_investors = investments.values_list('investor', flat=True).distinct()
-        for inv_id in list_investors:
-            list_by_investors = investments.filter(investor__id=inv_id)
-            dates_by_month = list_by_investors.dates('date', 'month', order='DESC')
-            for date in dates_by_month:
-                max_day = monthrange(date.year, date.month)[1]
-                current_date = create_date(date.year, date.month, max_day)
-                investments_until_now = list_by_investors.filter(date__lte=current_date)
-                data = {
-                    'total_capital': Decimal('0'), 'payments': Decimal('0'),
-                    'investor_full_name': list_by_investors.first().investor_full_name,
-                    'period': create_date(date.year, date.month, 1),
-                    'total_profit': Decimal('0'), 'revenue': Decimal('0')
-                }
-                for p_inv in investments_until_now:
-                    current_fee = p_inv.get_current_fee(date.year, date.month)
-                    if current_fee is not None:
-                        if current_fee == 0:
-                            data['total_capital'] += Decimal(p_inv.capital)
-                        elif current_fee > 0:
-                            data['payments'] += Decimal(p_inv.monthly_amount)
-                            data['revenue'] += Decimal(p_inv.capital) / Decimal(p_inv.fee)
-                            data['total_profit'] += Decimal(p_inv.monthly_amount) - (Decimal(p_inv.capital) / Decimal(p_inv.fee))
-                queryset.append(data)
-        return queryset
-
+        return Revenue.objects.filter(investor__association__id=assoc_id)
 
 def investment_export(request, assoc_id):
     if request.method == 'GET':

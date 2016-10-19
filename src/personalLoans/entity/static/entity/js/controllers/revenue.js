@@ -1,10 +1,10 @@
 'use strict';
 
-app.controller('ProfitCtrl', ProfitCtrl);
+app.controller('RevenueCtrl', RevenueCtrl);
 
-ProfitCtrl.$inject = ['profitService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
+RevenueCtrl.$inject = ['revenueService', '$routeParams', '$scope', '$locale', '$mdDialog', '$mdToast'];
 
-function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
+function RevenueCtrl(revenueService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
     vm.view = {
@@ -34,9 +34,9 @@ function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $md
       month: new Date().getMonth() + 1,
     }
     vm.selected = [];
-    vm.profits = [];
+    vm.revenues = [];
     vm.promise;
-    vm.getProfits = getProfits;
+    vm.getRevenue = getRevenue;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
     vm.clearFilterBar = clearFilterBar;
@@ -47,14 +47,14 @@ function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $md
 
     // INIT
     initDateFilter();
-    getProfits();
+    getRevenue();
 
     // PUBLIC FUNCTIONS
-    function getProfits() {
+    function getRevenue() {
       var id = $routeParams.associationId;
-      vm.promise = profitService.getList(id, vm.query)
+      vm.promise = revenueService.getList(id, vm.query)
       .then(function(response) {
-        vm.profits = response.data;
+        vm.revenues = response.data;
       });
     }
 
@@ -109,7 +109,7 @@ function ProfitCtrl(profitService, $routeParams, $scope, $locale, $mdDialog, $md
       if(!newValue) {
         vm.query.page = bookmark;
       }
-      vm.getProfits();
+      vm.getRevenue();
     });
 
     function formatDate(date) {

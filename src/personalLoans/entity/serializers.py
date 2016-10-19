@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from entity.models import Association, Investment, Investor
+from entity.models import Association, Investment, Investor, Revenue
 
 
 class AssociationSerializer(serializers.ModelSerializer):
@@ -41,10 +41,12 @@ class InvestmentSerializer(serializers.ModelSerializer):
     )
     current_fee = serializers.SerializerMethodField('get_current_fee_serializer')
     fee_time = serializers.SerializerMethodField('fee_past_or_future_serializer')
+    investor__full_name = serializers.SerializerMethodField('investor_full_name')
+
     class Meta:
         model = Investment
         fields = (
-            'investor', 'investor_full_name', 'warrant', 'authorization',
+            'investor', 'investor__full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
             'profit', 'fee', 'interests', 'monthly_amount', 'date',
             'current_fee', 'fee_time',
@@ -60,13 +62,19 @@ class InvestmentSerializer(serializers.ModelSerializer):
         month = self.context.get('month')
         return obj.fee_past_or_future(year, month)
 
+    def investor_full_name(self, obj):
+        return obj.investor.full_name
 
-class ProfitSerializer(serializers.Serializer):
-    # investor = PrimaryKeyRelatedField(label='Inversor', queryset=Investor.objects.all())
-    investor_full_name = serializers.ReadOnlyField()
-    period = serializers.CharField(max_length=30)
-    total_capital = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
-    payments = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
-    capital_by_fee = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
-    total_profit = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
-    revenue = serializers.DecimalField(decimal_places=2, max_digits=10, required=False)
+
+class RevenueSerializer(serializers.ModelSerializer):
+    investor__full_name = serializers.SerializerMethodField('investor_full_name')
+
+    class Meta:
+        model = Revenue
+        fields = (
+            'investor', 'investor__full_name', 'period', 'capital', 'payment',
+            'recovered', 'profit'
+        )
+
+    def investor_full_name(self, obj):
+        return obj.investor.full_name
