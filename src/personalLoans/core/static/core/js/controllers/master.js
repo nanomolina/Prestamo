@@ -26,6 +26,7 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav) {
         icon: 'exit_to_app'
       },
     ];
+    vm.toolbar = {title: '', icon: ''};
     vm.authenticated = false;
     vm.profile = {};
     vm.isSidenavOpen = false;

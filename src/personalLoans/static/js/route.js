@@ -21,15 +21,6 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/restricted', {
-        templateUrl: 'core/restricted.html',
-        controller: 'RestrictedCtrl',
-        resolve: {
-          authenticated: ['authService', function(authService){
-            return authService.getUser();
-          }],
-        }
-      })
       // ENTITY
       .when('/investors', {
         templateUrl: 'entity/investors.html',

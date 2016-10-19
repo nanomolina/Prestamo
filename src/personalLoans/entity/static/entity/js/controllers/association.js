@@ -7,11 +7,7 @@ AssociationCtrl.$inject = ['associationService', '$location', '$mdDialog', '$sco
 function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdToast) {
     var vm = this;
 
-    vm.view = {
-      link: '#/association',
-      title: 'Asociaciones',
-      icon: 'business'
-    };
+    $scope.master.toolbar = {title: 'Asociaciones', icon: 'business'}
     vm.name;
     vm.description;
     vm.associations = [];
