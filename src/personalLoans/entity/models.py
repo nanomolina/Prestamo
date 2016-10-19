@@ -104,3 +104,15 @@ class Investment(models.Model):
         else: #self.end_date < current_date
             fee_time = 'past'
         return fee_time
+
+
+class Revenue(models.Model):
+    investor = models.ForeignKey(Investor, verbose_name="Inversor")
+    period = models.DateField('Periodo')
+    capital = models.DecimalField('Prestado', max_digits=10, decimal_places=2, default=0)
+    payment = models.DecimalField('Capital por cuotas', max_digits=10, decimal_places=2, default=0)
+    recovered = models.DecimalField('Recuperado', max_digits=10, decimal_places=2, default=0)
+    profit = models.DecimalField('Ganancia', max_digits=10, decimal_places=2, default=0)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.investor, self.period)
