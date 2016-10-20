@@ -2,29 +2,31 @@
 
 app.controller('InvestorCtrl', InvestorCtrl);
 
-InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast'];
+InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast', '$mdDialog', '$routeParams'];
 
-function InvestorCtrl(investorService, $scope, $mdToast) {
+function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams) {
     var vm = this;
 
-    vm.first_name;
-    vm.last_name;
-    vm.alias;
-    vm.dni;
-    vm.phone;
-    vm.email;
-    vm.birthdate;
-    vm.gender = '1';
-    vm.image_url;
+    vm.data = {
+      first_name: '',
+      last_name: '',
+      alias: '',
+      dni: undefined,
+      phone: '',
+      email: '',
+      birthdate: undefined,
+      birthdate_partial: undefined,
+      gender: '1',
+      image_url: '',
+    }
     vm.investors = [];
     vm.men_avatars = [];
     vm.women_avatars = [];
     vm.is_selected_investor = false;
     vm.selected_investor;
-    vm.form_create = false;
-    vm.showFormCreate = showFormCreate;
-    vm.hideFormCreate = hideFormCreate;
-    vm.clearFormCreate = clearFormCreate;
+    vm.showDialogCreate = showDialogCreate;
+    vm.hideDialogCreate = hideDialogCreate;
+    vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestor = createInvestor;
     vm.is_male = is_male;
     vm.is_female = is_female;
@@ -38,43 +40,45 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
 
 
     // PUBLIC FUNCTIONS
-    function showFormCreate() {
-      vm.form_create = true;
+    function showDialogCreate($event) {
+      $mdDialog.show({
+        targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        fullscreen: true,
+        templateUrl: 'entity/detail/_add_investor.html',
+      });
     }
 
-    function hideFormCreate() {
-      vm.form_create = false;
+    function hideDialogCreate() {
+      $mdDialog.hide();
     }
 
-    function clearFormCreate() {
-      vm.first_name = '';
-      vm.last_name = '';
-      vm.alias = '';
-      vm.dni = '';
-      vm.phone = '';
-      vm.email = '';
-      vm.birthdate = '';
-      vm.gender = '1';
-      vm.image_url = '';
+    function clearDialogCreate() {
+      $scope.investorForm.$setPristine();
+      vm.data = {
+        first_name: '',
+        last_name: '',
+        alias: '',
+        dni: undefined,
+        phone: '',
+        email: '',
+        birthdate: undefined,
+        birthdate_partial: undefined,
+        gender: '1',
+        image_url: '',
+      }
     }
 
     function createInvestor() {
       if ($scope.investorForm.$valid) {
-        var id = $scope.params.associationId;
-        var data = {
-          first_name: vm.first_name,
-          last_name: vm.last_name,
-          alias: vm.alias,
-          phone: vm.phone,
-          email: vm.email,
-          birthdate: formatDate(vm.birthdate),
-          gender: vm.gender,
-          image_url: vm.image_url,
-        };
-        investorService.create(id, data)
+        var id = $routeParams.associationId;
+        vm.data.birthdate = formatDate(vm.data.birthdate_partial);
+        investorService.create(id, vm.data)
         .then(function(response) {
           vm.investors.push(response.data);
-          hideFormCreate();
+          hideDialogCreate();
           showToastCreate();
         }).catch(function(response) {
           $mdToast.showSimple('Error al añadir inversor.');
@@ -92,9 +96,9 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
 
     function chooseAvatar(index) {
       if (is_male(vm.gender)) {
-        vm.image_url = vm.men_avatars[index];
+        vm.data.image_url = vm.men_avatars[index];
       } else {
-        vm.image_url = vm.women_avatars[index];
+        vm.data.image_url = vm.women_avatars[index];
       }
     }
 
@@ -105,7 +109,7 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
 
     // PRIVATE FUNCTIONS
     function getInvestors() {
-      var id = $scope.params.associationId;
+      var id = $routeParams.associationId;
       investorService.getList(id)
       .then(function(response) {
           vm.investors = response.data;
@@ -121,8 +125,8 @@ function InvestorCtrl(investorService, $scope, $mdToast) {
     }
 
     function showToastCreate($event) {
-      $mdToast.showSimple('Inversor ' + vm.first_name + ' ' + vm.last_name + ' añadido exitosamente!');
-    };
+      $mdToast.showSimple('Inversor ' + vm.data.first_name + ' ' + vm.data.last_name + ' añadido exitosamente!');
+    }
 
     function formatDate(date) {
       return moment(date).format('DD/MM/YYYY');

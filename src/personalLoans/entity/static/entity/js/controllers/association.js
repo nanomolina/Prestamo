@@ -110,11 +110,7 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast,
     var vm = this;
 
     $scope.params = $routeParams;
-    vm.view = {
-      link: '',
-      title: 'Detalle de Asociación',
-      icon: 'business'
-    };
+    $scope.master.toolbar = {title: 'Detalle de Asociación', icon: 'business'}
     vm.name;
     vm.description;
     vm.association = {};
