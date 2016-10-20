@@ -7,9 +7,8 @@ InvestmentCtrl.$inject = ['investmentService', 'investorService', '$routeParams'
 function InvestmentCtrl(investmentService, investorService, $routeParams, $scope, $mdDialog, $mdToast, $filter) {
     var vm = this;
 
+    $scope.master.toolbar = {title: 'Prestamos otorgados', icon: 'view_list'}
     vm.view = {
-      title: 'Prestamos otorgados',
-      icon: 'view_list',
       current_date: new Date(),
     };
     vm.query = {

@@ -7,9 +7,8 @@ MonthlyResume.$inject = ['investmentService', '$routeParams', '$scope', '$locale
 function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
+    $scope.master.toolbar = {title: 'Planilla mensual para Amembe', icon: 'view_list',}
     vm.view = {
-      title: 'Planilla mensual para Amembe',
-      icon: 'view_list',
       current_date: new Date(),
     };
     vm.query = {

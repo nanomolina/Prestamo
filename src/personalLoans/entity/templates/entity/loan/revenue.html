@@ -1,110 +1,87 @@
-{% extends "core/principal.html" %}
-{% load static %}
-
-{% block content %}
-  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
-
-  {% verbatim %}
-  <div id="inner-content" ng-controller="RevenueCtrl as vm" ng-cloak>
-    <!-- Start content -->
-    <div class="md-whiteframe-z1" layout-fill>
-      <md-toolbar class="md-hue-1">
-        <div class="md-toolbar-tools">
-          <md-button class="md-icon-button" aria-label="Settings" ng-click="principal.openLeftMenu()()">
-            <i class="material-icons">menu</i>
-          </md-button>
-          <h2 class="md-flex">{{vm.view.title}}</h2>
-          <span flex></span>
-          <i class="material-icons">{{vm.view.icon}}</i>
-        </div>
-      </md-toolbar>
-      <md-content style="background-color: #eee;">
-          <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
-            <div class="md-toolbar-tools">
-              <h2 class="md-title">Planilla mensual de ganancias</h2>
-              <div flex="" class="flex"></div>
-              <md-menu>
-               <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="filter_list">
-                 <md-tooltip md-direction="bottom">Exportar</md-tooltip>
-                 <md-icon class="material-icons">import_export</md-icon>
-               </md-button>
-               <md-menu-content>
-                 <md-menu-item>
-                   <md-button ng-click="vm.dialogExportExcel($event)">Export Excel</md-button>
-                 </md-menu-item>
-                 <md-menu-item>
-                   <md-button ng-click="vm.dialogExportDoc($event)">Export Word</md-button>
-                 </md-menu-item>
-               </md-menu-content>
-              </md-menu>
-              <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
-                <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
-                <md-icon class="material-icons">filter_list</md-icon>
-              </md-button>
-            </div>
-          </md-toolbar>
-          <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
-            <div class="md-toolbar-tools">
-              <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
-                <md-input-container md-no-float>
-                  <md-select ng-model="vm.query.investor" placeholder="Inversor">
-                    <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
-                      {{investor.first_name}} {{investor.last_name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-              </form>
-              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
-                <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
-                <md-icon class="material-icons">clear_all</md-icon>
-              </button>
-              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
-                <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
-                <md-icon class="material-icons">close</md-icon>
-              </button>
-            </div>
-          </md-toolbar>
-          <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
-            <div class="md-toolbar-tools">
-              <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
-              <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
-              <div flex="" class="flex"></div>
-              <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
-                <md-icon class="material-icons">delete</md-icon>
-              </button>
-            </div>
-          </md-toolbar>
-          <!-- exact table from live demo -->
-          <md-content>
-            <md-table-container>
-              <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
-                <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getRevenue">
-                  <tr md-row>
-                    <th md-column md-order-by="period">Periodo</th>
-                    <th md-column md-order-by="investor">Inversor</th>
-                    <th md-column md-order-by="capital">Total prestado</th>
-                    <th md-column md-order-by="payment">Capital por cuotas</th>
-                    <th md-column md-order-by="recovered">Recuperado</th>
-                    <th md-column md-order-by="profit">Ganancia</th>
-                  </tr>
-                </thead>
-                <tbody md-body>
-                  <tr md-row md-select="revenue" md-select-id="revenue" md-auto-select ng-repeat="revenue in vm.revenues.results">
-                    <td md-cell>{{revenue.period | date:"MMMM 'de' yyyy"}}</td>
-                    <td md-cell>{{revenue.investor__full_name}}</td>
-                    <td md-cell>{{revenue.capital | currency}}</td>
-                    <td md-cell>{{revenue.payment | currency}}</td>
-                    <td md-cell>{{revenue.recovered | currency}}</td>
-                    <td md-cell>{{revenue.profit | currency}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </md-table-container>
-            <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.revenues.count}}" md-on-paginate="vm.getRevenue" md-page-select></md-table-pagination>
-          </md-content>
-      </md-content>
-    </div>
-  </div>
-  {% endverbatim %}
-
-{% endblock %}
+{% verbatim %}
+<md-content ng-controller="RevenueCtrl as vm">
+    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
+      <div class="md-toolbar-tools">
+        <h2 class="md-title">Planilla mensual de ganancias</h2>
+        <div flex="" class="flex"></div>
+        <md-menu>
+         <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="filter_list">
+           <md-tooltip md-direction="bottom">Exportar</md-tooltip>
+           <md-icon class="material-icons">import_export</md-icon>
+         </md-button>
+         <md-menu-content>
+           <md-menu-item>
+             <md-button ng-click="vm.dialogExportExcel($event)">Export Excel</md-button>
+           </md-menu-item>
+           <md-menu-item>
+             <md-button ng-click="vm.dialogExportDoc($event)">Export Word</md-button>
+           </md-menu-item>
+         </md-menu-content>
+        </md-menu>
+        <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
+          <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
+          <md-icon class="material-icons">filter_list</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
+      <div class="md-toolbar-tools">
+        <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
+          <md-input-container md-no-float>
+            <md-select ng-model="vm.query.investor" placeholder="Inversor">
+              <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
+                {{investor.first_name}} {{investor.last_name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </form>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
+          <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
+          <md-icon class="material-icons">clear_all</md-icon>
+        </button>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
+          <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
+          <md-icon class="material-icons">close</md-icon>
+        </button>
+      </div>
+    </md-toolbar>
+    <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
+      <div class="md-toolbar-tools">
+        <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
+        <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
+        <div flex="" class="flex"></div>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
+          <md-icon class="material-icons">delete</md-icon>
+        </button>
+      </div>
+    </md-toolbar>
+    <!-- exact table from live demo -->
+    <md-content>
+      <md-table-container>
+        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+          <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getRevenue">
+            <tr md-row>
+              <th md-column md-order-by="period">Periodo</th>
+              <th md-column md-order-by="investor">Inversor</th>
+              <th md-column md-order-by="capital">Total prestado</th>
+              <th md-column md-order-by="payment">Capital por cuotas</th>
+              <th md-column md-order-by="recovered">Recuperado</th>
+              <th md-column md-order-by="profit">Ganancia</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="revenue" md-select-id="revenue" md-auto-select ng-repeat="revenue in vm.revenues.results">
+              <td md-cell>{{revenue.period | date:"MMMM 'de' yyyy"}}</td>
+              <td md-cell>{{revenue.investor__full_name}}</td>
+              <td md-cell>{{revenue.capital | currency}}</td>
+              <td md-cell>{{revenue.payment | currency}}</td>
+              <td md-cell>{{revenue.recovered | currency}}</td>
+              <td md-cell>{{revenue.profit | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.revenues.count}}" md-on-paginate="vm.getRevenue" md-page-select></md-table-pagination>
+    </md-content>
+</md-content>
+{% endverbatim %}
