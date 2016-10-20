@@ -2,23 +2,12 @@
 
 app.controller('MasterCtrl', MasterCtrl);
 
-MasterCtrl.$inject = ['authService', '$scope', '$location', '$mdSidenav'];
+MasterCtrl.$inject = ['authService', '$scope', '$location', '$mdSidenav', '$routeParams'];
 
-function MasterCtrl(authService, $scope, $location, $mdSidenav) {
+function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
     var vm = this;
 
-    vm.menu = [
-      {
-        link : '#/',
-        title: 'Consola Principal',
-        icon: 'dashboard'
-      },
-      {
-        link : '#/association',
-        title: 'Asociaciones',
-        icon: 'business'
-      },
-    ];
+    vm.menu = [];
     vm.admin = [
       {
         link: '#/logout',
@@ -31,20 +20,25 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav) {
     vm.profile = {};
     vm.isSidenavOpen = false;
     vm.toggleLeftMenu = toggleLeftMenu;
+    vm.updateSideNav = updateSideNav;
 
+    // INIT
+    getProfile();
+    updateSideNav();
 
     // PUBLIC FUNCTIONS
     function toggleLeftMenu() {
       $mdSidenav('left').toggle();
     }
 
-
     // PRIVATE FUNCTIONS
-    authService.getUser()
-    .then(function(response) {
-      vm.authenticated = true;
-      vm.profile = response.data;
-    });
+    function getProfile() {
+      authService.getUser()
+      .then(function(response) {
+        vm.authenticated = true;
+        vm.profile = response.data;
+      });
+    }
 
     // Wait and respond to the logout event.
     $scope.$on('authService.logged_out', function() {
@@ -59,4 +53,44 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav) {
       $location.path('/login');
     });
 
+    function updateSideNav() {
+      var id = $routeParams.associationId;
+      if (id === undefined) {
+        vm.menu = [
+            {
+              link : '#/association',
+              title: 'Asociaciones',
+              icon: 'business'
+            },
+        ];
+      } else {
+        vm.menu = [
+            {
+              link : '#/association',
+              title: 'Asociaciones',
+              icon: 'business'
+            },
+            {
+              link : '#/association/'+id+'/detail',
+              title: 'Detalle de Asociación',
+              icon: 'business'
+            },
+            {
+              link : '#/association/'+id+'/loans',
+              title: 'Prestamos',
+              icon: 'view_list'
+            },
+            {
+              link : '#/association/'+id+'/monthly_resume',
+              title: 'Amembe',
+              icon: 'view_list'
+            },
+            {
+              link : '#/association/'+id+'/revenue',
+              title: 'Ganancias',
+              icon: 'view_list'
+            },
+        ];
+      }
+    }
 }

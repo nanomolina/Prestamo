@@ -13,6 +13,9 @@ function ConsoleCtrl($routeParams, $location, $scope) {
     vm.goToMonthlyResume = goToMonthlyResume;
     vm.goToRevenue = goToRevenue;
 
+    // INIT
+    $scope.master.updateSideNav();
+
     // PUBLIC FUNCTIONS
     function goToDetail() {
       var id = $routeParams.associationId;

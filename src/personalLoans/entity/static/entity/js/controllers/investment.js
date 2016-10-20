@@ -61,10 +61,10 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.updateFinalCapital = updateFinalCapital;
     vm.updateMonthlyAmount = updateMonthlyAmount;
 
-
     // INIT
     getOptions();
     getInvestors();
+    $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
     function getInvestments() {

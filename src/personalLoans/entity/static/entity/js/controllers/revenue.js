@@ -39,6 +39,7 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
 
     // INIT
     getInvestors();
+    $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
     function getRevenue() {

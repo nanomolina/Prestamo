@@ -119,8 +119,9 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast,
     vm.hideDialogCreate = hideDialogCreate;
     vm.editAssociation = editAssociation;
 
+    // INIT
     getAssociationItem();
-
+    $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
     function showDialogEdit($event) {

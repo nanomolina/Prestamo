@@ -47,6 +47,7 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
 
     // INIT
     initDateFilter();
+    $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
     function getInvestments() {
