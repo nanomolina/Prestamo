@@ -1,16 +1,13 @@
 'use strict';
 
-
 app.controller('ConsoleCtrl', ConsoleCtrl);
-ConsoleCtrl.$inject = ['$routeParams', '$location'];
 
-function ConsoleCtrl($routeParams, $location) {
+ConsoleCtrl.$inject = ['$routeParams', '$location', '$scope'];
+
+function ConsoleCtrl($routeParams, $location, $scope) {
     var vm = this;
 
-    vm.view = {
-      title: 'Console',
-      icon: 'view_list'
-    };
+    $scope.master.toolbar = {title: 'Console', icon: 'view_list'}
     vm.goToDetail = goToDetail;
     vm.goToLoans = goToLoans;
     vm.goToMonthlyResume = goToMonthlyResume;

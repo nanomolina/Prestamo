@@ -1,57 +1,30 @@
-{% extends "core/principal.html" %}
-{% load static %}
-
-{% block content %}
-  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
-
-  {% verbatim %}
-  <div id="inner-content" ng-controller="ConsoleCtrl as vm" ng-cloak>
-      <div layout="row">
-        <div flex-md="90" flex-lg="90" style="min-width: 100%;">
-          <!-- Start content -->
-          <div layout="column" class="md-whiteframe-z1" layout-fill>
-            <md-toolbar class="md-hue-1">
-              <div class="md-toolbar-tools">
-                <md-button class="md-icon-button" aria-label="Settings" ng-click="principal.openLeftMenu()()">
-                  <i class="material-icons">menu</i>
-                </md-button>
-                <h2 class="md-flex">{{vm.view.title}}</h2>
-                <span flex></span>
-                <i class="material-icons">{{vm.view.icon}}</i>
-              </div>
-            </md-toolbar>
-            <md-content style="background-color: #eee;">
-              <div layout="row" layout-wrap>
-                  <div flex="33">
-                    <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToDetail()">
-                       <md-icon md-svg-icon="static/img/business/record.svg"></md-icon>
-                       Detalle
-                    </a>
-                  </div>
-                  <div flex="33">
-                    <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToLoans()">
-                      <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
-                      Prestamos
-                    </a>
-                  </div>
-                  <div flex="33">
-                    <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToMonthlyResume()">
-                      <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
-                      Amembe
-                    </a>
-                  </div>
-                  <div flex="33">
-                    <button type="button" class="md-button md-ink-ripple" ng-click="vm.goToRevenue()">
-                      <md-icon md-svg-icon="static/img/business/get-money.svg"></md-icon>
-                      Devolucion
-                    </button>
-                  </div>
-              </div>
-            </md-content>
-          </div>
-        </div>
+{% verbatim %}
+<md-content ng-controller="ConsoleCtrl as vm">
+  <div layout="row" layout-wrap>
+      <div flex="33">
+        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToDetail()">
+           <md-icon md-svg-icon="static/img/business/record.svg"></md-icon>
+           Detalle
+        </a>
+      </div>
+      <div flex="33">
+        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToLoans()">
+          <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
+          Prestamos
+        </a>
+      </div>
+      <div flex="33">
+        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToMonthlyResume()">
+          <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
+          Amembe
+        </a>
+      </div>
+      <div flex="33">
+        <button type="button" class="md-button md-ink-ripple" ng-click="vm.goToRevenue()">
+          <md-icon md-svg-icon="static/img/business/get-money.svg"></md-icon>
+          Devolucion
+        </button>
       </div>
   </div>
-  {% endverbatim %}
-
-{% endblock %}
+</md-content>
+{% endverbatim %}
