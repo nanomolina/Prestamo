@@ -1,7 +1,7 @@
 {% verbatim %}
 <md-content ng-controller="MonthlyResume as vm">
     <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
         <h2 class="md-title">{{vm.view.current_date | date : 'fullDate'}}</h2>
         <div flex="" class="flex"></div>
         <md-menu>
@@ -25,7 +25,7 @@
       </div>
     </md-toolbar>
     <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
         <md-icon class="material-icons">search</md-icon>
         <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
           <md-input-container md-no-float style="top: 12px;">
@@ -53,7 +53,7 @@
       </div>
     </md-toolbar>
     <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
         <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
         <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
         <div flex="" class="flex"></div>
@@ -63,7 +63,7 @@
       </div>
     </md-toolbar>
     <!-- exact table from live demo -->
-    <md-content>
+    <md-content class="md-whiteframe-1dp">
       <md-table-container>
         <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
           <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
