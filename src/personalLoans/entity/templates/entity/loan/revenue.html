@@ -7,20 +7,26 @@
         <md-menu>
          <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="filter_list">
            <md-tooltip md-direction="bottom">Exportar</md-tooltip>
-           <md-icon class="material-icons">import_export</md-icon>
+           <md-icon md-svg-src="static/img/business/export.svg" aria-hidden="true"></md-icon>
          </md-button>
          <md-menu-content>
            <md-menu-item>
-             <md-button ng-click="vm.dialogExportExcel($event)">Export Excel</md-button>
+             <md-button ng-click="vm.dialogExportExcel($event)">
+               <md-icon md-svg-src="static/img/business/xls.svg" aria-hidden="true"></md-icon>
+               Export Excel
+             </md-button>
            </md-menu-item>
            <md-menu-item>
-             <md-button ng-click="vm.dialogExportDoc($event)">Export Word</md-button>
+             <md-button ng-click="vm.dialogExportDoc($event)">
+               <md-icon md-svg-src="static/img/business/doc.svg" aria-hidden="true"></md-icon>
+               Export Word
+             </md-button>
            </md-menu-item>
          </md-menu-content>
         </md-menu>
         <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
           <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
-          <md-icon class="material-icons">filter_list</md-icon>
+          <md-icon md-svg-src="static/img/business/filter.svg" aria-hidden="true"></md-icon>
         </md-button>
       </div>
     </md-toolbar>

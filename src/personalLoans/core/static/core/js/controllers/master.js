@@ -12,7 +12,7 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
       {
         link: '#/logout',
         title: 'Cerrar Sesión',
-        icon: 'exit_to_app'
+        icon: 'static/img/business/logout.svg'
       },
     ];
     vm.toolbar = {title: '', icon: ''};
