@@ -2,9 +2,9 @@
 
 app.controller('LoginCtrl', LoginCtrl);
 
-LoginCtrl.$inject = ['authService', '$mdToast', '$location', '$http', '$cookies', '$rootScope'];
+LoginCtrl.$inject = ['authService', '$mdToast', '$location', '$http', '$cookies', '$rootScope', '$scope'];
 
-function LoginCtrl(authService, $mdToast, $location, $http, $cookies, $rootScope) {
+function LoginCtrl(authService, $mdToast, $location, $http, $cookies, $rootScope, $scope) {
     var vm = this;
 
     vm.data = {
@@ -21,7 +21,12 @@ function LoginCtrl(authService, $mdToast, $location, $http, $cookies, $rootScope
         $http.defaults.headers.common.Authorization = 'Token ' + response.key;
         $cookies.token = response.key;
         $rootScope.$broadcast("authService.logged_in", response);
-        $location.path('/association');
+        authService.getUser()
+        .then(function(response) {
+          $scope.master.authenticated = true;
+          $scope.master.profile = response.data;
+          $location.path('/association');
+        });
       }).catch(function(response) {
         $mdToast.showSimple('Error al iniciar sesion!');
       });
