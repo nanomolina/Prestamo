@@ -1,30 +1,47 @@
 {% verbatim %}
 <md-content ng-controller="ConsoleCtrl as vm">
-  <div layout="row" layout-wrap>
-      <div flex="33">
-        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToDetail()">
-           <md-icon md-svg-icon="static/img/business/record.svg"></md-icon>
-           Detalle
-        </a>
-      </div>
-      <div flex="33">
-        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToLoans()">
-          <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
-          Prestamos
-        </a>
-      </div>
-      <div flex="33">
-        <a type="button" class="md-button md-ink-ripple" ng-click="vm.goToMonthlyResume()">
-          <md-icon md-svg-icon="static/img/business/money.svg"></md-icon>
-          Amembe
-        </a>
-      </div>
-      <div flex="33">
-        <button type="button" class="md-button md-ink-ripple" ng-click="vm.goToRevenue()">
-          <md-icon md-svg-icon="static/img/business/get-money.svg"></md-icon>
-          Devolucion
-        </button>
-      </div>
-  </div>
+  <ul class="buckets" layout="" layout-align="center center" layout-wrap="">
+    <li flex="25" flex-md="50" flex-sm="50" ng-repeat="section in vm.sections" class="ng-scope">
+      <a class="md-primary md-raised md-button md-default-theme" style="margin-left:0;" ng-href="{{section.href}}">
+        <md-icon class="block ng-scope ng-isolate-scope md-default-theme" md-svg-src="{{section.icon}}" aria-hidden="true"></md-icon>
+        <span class="ng-binding ng-scope">
+          {{section.title}}
+        </span>
+        <div class="md-ripple-container"></div>
+      </a>
+    </li>
+  </ul>
+  <style media="screen">
+  ul.buckets {
+  margin: 24px 0;
+  padding: 0;
+  }
+  ul.buckets li {
+  list-style: none;
+  margin: 0;
+  text-align: center;
+  }
+  ul.buckets li md-card md-card-content {
+  padding: 0;
+  }
+  ul.buckets li a {
+  background-color: transparent;
+  display: block;
+  font-weight: 500;
+  padding: 16px 0;
+  text-decoration: none;
+  -webkit-transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
+  transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
+  }
+  ul.buckets li a:hover,
+  ul.buckets li a:focus {
+  background-color: #3F51B5;
+  color: white;
+  }
+  ul.buckets li a:hover md-icon,
+  ul.buckets li a:focus md-icon {
+  color: white;
+  }
+  </style>
 </md-content>
 {% endverbatim %}
