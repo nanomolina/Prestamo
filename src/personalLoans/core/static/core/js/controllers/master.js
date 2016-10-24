@@ -60,7 +60,7 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
             {
               link : '#/association',
               title: 'Asociaciones',
-              icon: 'business'
+              icon: 'static/img/business/cityscape.svg'
             },
         ];
       } else {
@@ -68,27 +68,27 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
             {
               link : '#/association',
               title: 'Asociaciones',
-              icon: 'business'
+              icon: 'static/img/business/cityscape.svg'
             },
             {
               link : '#/association/'+id+'/detail',
-              title: 'Detalle de Asociación',
-              icon: 'business'
+              title: 'Inversores',
+              icon: 'static/img/business/diagram.svg'
             },
             {
               link : '#/association/'+id+'/loans',
               title: 'Prestamos',
-              icon: 'view_list'
+              icon: 'static/img/business/money.svg'
             },
             {
               link : '#/association/'+id+'/monthly_resume',
               title: 'Amembe',
-              icon: 'view_list'
+              icon: 'static/img/business/receipt.svg'
             },
             {
               link : '#/association/'+id+'/revenue',
               title: 'Ganancias',
-              icon: 'view_list'
+              icon: 'static/img/business/get-money.svg'
             },
         ];
       }

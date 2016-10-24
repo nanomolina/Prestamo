@@ -7,7 +7,7 @@ AssociationCtrl.$inject = ['associationService', '$location', '$mdDialog', '$sco
 function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdToast) {
     var vm = this;
 
-    $scope.master.toolbar = {title: 'Asociaciones', icon: 'business'}
+    $scope.master.toolbar = {title: 'Asociaciones', icon: 'static/img/business/cityscape.svg'}
     vm.name;
     vm.description;
     vm.associations = [];
@@ -110,7 +110,7 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast,
     var vm = this;
 
     $scope.params = $routeParams;
-    $scope.master.toolbar = {title: 'Detalle de Asociación', icon: 'business'}
+    $scope.master.toolbar = {title: 'Inversores', icon: 'static/img/business/diagram.svg'}
     vm.name;
     vm.description;
     vm.association = {};

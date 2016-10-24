@@ -12,7 +12,7 @@ function ConsoleCtrl($routeParams, $location, $scope) {
     vm.sections = [
         {
           title: 'Inversores',
-          icon: 'static/img/business/record.svg',
+          icon: 'static/img/business/diagram.svg',
           href : '#/association/' + id + '/detail',
         },
         {
@@ -22,7 +22,7 @@ function ConsoleCtrl($routeParams, $location, $scope) {
         },
         {
           title: 'Amembe',
-          icon: 'static/img/business/money.svg',
+          icon: 'static/img/business/receipt.svg',
           href : '#/association/' + id + '/monthly_resume',
         },
         {

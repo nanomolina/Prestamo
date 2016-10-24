@@ -7,7 +7,7 @@ RevenueCtrl.$inject = ['revenueService', 'investorService', '$routeParams', '$sc
 function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $locale, $mdDialog, $mdToast) {
     var vm = this;
 
-    $scope.master.toolbar = {title: 'Ganancias', icon: 'view_list'}
+    $scope.master.toolbar = {title: 'Ganancias', icon: 'static/img/business/get-money.svg'}
     vm.query = {
       investor: '',
       ordering: '-period',

@@ -20,7 +20,7 @@
       <md-list>
         <md-list-item ng-repeat="item in master.menu" ng-href="{{item.link}}" >
               <div class="inset">
-                <i class="material-icons">{{item.icon}}</i>
+                <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
               </div>
               <div class="inset">{{item.title}}</div>
         </md-list-item>
