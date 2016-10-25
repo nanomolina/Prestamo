@@ -10,13 +10,13 @@
         </md-button>
         <md-button class="md-icon-button md-accent" type="button" ng-click="vm.showDialogCreate($event)" aria-label="add">
           <md-tooltip md-direction="bottom">Nuevo</md-tooltip>
-          <md-icon md-svg-src="static/img/business/plus.svg" aria-hidden="true"></md-icon>
+          <md-icon md-svg-src="static/img/business/plus-blue.svg" aria-hidden="true"></md-icon>
         </md-button>
       </div>
     </md-toolbar>
     <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
       <div class="md-toolbar-tools md-whiteframe-1dp">
-        <md-icon class="material-icons">search</md-icon>
+        <md-icon md-svg-src="static/img/business/search.svg" aria-hidden="true"></md-icon>
         <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
           <md-input-container md-no-float style="top: 12px;">
             <input ng-model="vm.query.search" ng-model-options="vm.filter.options" placeholder="Prestatario" class="ng-pristine ng-untouched ng-valid" aria-invalid="false" type="text">
@@ -38,11 +38,11 @@
         </form>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
           <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
-          <md-icon class="material-icons">clear_all</md-icon>
+          <md-icon md-svg-src="static/img/business/dustpan.svg" aria-hidden="true"></md-icon>
         </button>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
           <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
-          <md-icon class="material-icons">close</md-icon>
+          <md-icon md-svg-src="static/img/business/close-blue.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
     </md-toolbar>
@@ -52,7 +52,7 @@
         <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
         <div flex="" class="flex"></div>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
-          <md-icon class="material-icons">delete</md-icon>
+          <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
     </md-toolbar>

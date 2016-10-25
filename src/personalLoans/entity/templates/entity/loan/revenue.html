@@ -43,11 +43,11 @@
         </form>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
           <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
-          <md-icon class="material-icons">clear_all</md-icon>
+          <md-icon md-svg-src="static/img/business/dustpan.svg" aria-hidden="true"></md-icon>
         </button>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
           <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
-          <md-icon class="material-icons">close</md-icon>
+          <md-icon md-svg-src="static/img/business/close-blue.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
     </md-toolbar>
@@ -57,7 +57,7 @@
         <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
         <div flex="" class="flex"></div>
         <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
-          <md-icon class="material-icons">delete</md-icon>
+          <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
     </md-toolbar>
