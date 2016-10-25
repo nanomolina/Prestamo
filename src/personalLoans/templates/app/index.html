@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles compress %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -13,10 +13,12 @@
     <link href="{% static 'img/favicon.ico' %}" rel="icon" type="image/x-icon" />
 
     <!-- Angular Material style sheet -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'bower_components/angular-material/angular-material.min.css' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
   </head>
   <body ng-app="personalLoans" ng-controller="MasterCtrl as master" layout="column">
     <!--[if lt IE 7]>
@@ -80,6 +82,7 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+    {% compress js %}
     <!-- Angular Material requires Angular.js Libraries -->
     <script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
     <script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
@@ -117,6 +120,7 @@
     <script src="{% static 'entity/js/controllers/revenue.js' %}"></script>
     <script src="{% static 'entity/js/directives/alredy_exist.js' %}"></script>
     <!-- endbuild -->
+    {% endcompress %}
 
 </body>
 </html>
