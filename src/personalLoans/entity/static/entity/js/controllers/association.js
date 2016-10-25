@@ -132,6 +132,7 @@ function AssociationItemCtrl(associationService, $scope, $routeParams, $mdToast,
         scope: $scope,
         preserveScope: true,
         clickOutsideToClose: true,
+        fullscreen: true,
         templateUrl: 'entity/_edit_association.html',
       });
     }

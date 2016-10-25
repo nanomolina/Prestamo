@@ -2,46 +2,29 @@
 <md-content ng-controller="ConsoleCtrl as vm">
   <ul class="buckets" layout="" layout-align="center center" layout-wrap layout-padding>
     <li flex-lg="50" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="section in vm.sections" class="ng-scope">
-      <a class="md-primary md-raised md-button md-default-theme" style="margin-left:0;" ng-href="{{section.href}}">
+      <md-button class="md-primary md-raised" style="margin-left:0;" ng-href="{{section.href}}">
         <md-icon class="block ng-scope ng-isolate-scope md-default-theme" md-svg-src="{{section.icon}}" aria-hidden="true"></md-icon>
         <span class="ng-binding ng-scope">
           {{section.title}}
         </span>
         <div class="md-ripple-container"></div>
-      </a>
+      </md-button>
     </li>
   </ul>
   <style media="screen">
-  ul.buckets {
-  /*margin: 24px 0;*/
-  /*padding: 0;*/
-  }
-  ul.buckets li {
-  list-style: none;
-  /*margin: 0;*/
-  text-align: center;
-  }
-  ul.buckets li md-card md-card-content {
-  padding: 0;
-  }
-  ul.buckets li a {
-  background-color: transparent;
-  display: block;
-  font-weight: 500;
-  padding: 16px 0;
-  text-decoration: none;
-  -webkit-transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
-  transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
-  }
-  ul.buckets li a:hover,
-  ul.buckets li a:focus {
-  background-color: #3F51B5;
-  color: white;
-  }
-  ul.buckets li a:hover md-icon,
-  ul.buckets li a:focus md-icon {
-  color: white;
-  }
+    ul.buckets li {
+      list-style: none;
+      text-align: center;
+    }
+    ul.buckets li md-card md-card-content {
+      padding: 0;
+    }
+    ul.buckets li a {
+      display: block;
+      font-weight: 500;
+      padding: 16px 0;
+      text-decoration: none;
+    }
   </style>
 </md-content>
 {% endverbatim %}

@@ -41,6 +41,11 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $t
         $timeout(function () {
             vm.loading = false;
         }, 1000);
+      })
+      .catch(function(response) {
+        $timeout(function () {
+          vm.loading = false;
+        }, 1000);
       });
     }
 
