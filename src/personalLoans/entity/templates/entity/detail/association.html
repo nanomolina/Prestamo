@@ -13,7 +13,7 @@
         </span>
       </md-card-title-text>
       <md-card-title-media>
-        <div class="md-media-lg card-media">
+        <div class="card-media">
           <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
         </div>
       </md-card-title-media>
@@ -35,7 +35,7 @@
     </div>
   </md-toolbar>
   <md-content layout="row" class="md-whiteframe-4dp">
-    <div flex=50 style="border-right: 1px solid rgba(0,0,0,.2);">
+    <div flex=100 style="border-right: 1px solid rgba(0,0,0,.2);">
       <md-list>
         <md-list-item class="md-3-line" ng-click="vm2.selectInvestor($index)" ng-repeat="inv in vm2.investors">
           <img ng-src="{{inv.image_url}}" class="md-avatar"/>
