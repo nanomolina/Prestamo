@@ -2,11 +2,12 @@
 
 app.controller('MasterCtrl', MasterCtrl);
 
-MasterCtrl.$inject = ['authService', '$scope', '$location', '$mdSidenav', '$routeParams'];
+MasterCtrl.$inject = ['authService', '$scope', '$location', '$mdSidenav', '$routeParams', '$timeout'];
 
-function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
+function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $timeout) {
     var vm = this;
 
+    vm.loading = true;
     vm.menu = [];
     vm.admin = [
       {
@@ -37,6 +38,9 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams) {
       .then(function(response) {
         vm.authenticated = true;
         vm.profile = response.data;
+        $timeout(function () {
+            vm.loading = false;
+        }, 1000);
       });
     }
 

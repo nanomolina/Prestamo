@@ -18,10 +18,22 @@
     <link href="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet" type="text/css"/>
   </head>
-  <body ng-app="personalLoans" ng-controller="MasterCtrl as master" ng-cloak layout="column">
+  <body ng-app="personalLoans" ng-controller="MasterCtrl as master" layout="column">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <style media="screen">
+      .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(static/img/Preloader_10.gif) center no-repeat #fff;
+      }
+    </style>
+    <div class="se-pre-con" ng-if="master.loading"></div>
 
     <!-- Container #1 (see wireframe) -->
     <md-toolbar layout="row" class="md-toolbar-tools" ng-if="master.authenticated">
