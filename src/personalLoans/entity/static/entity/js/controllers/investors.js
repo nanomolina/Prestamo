@@ -47,7 +47,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
         preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/detail/_add_investor.html',
+        templateUrl: 'entity/members/_add_investor.html',
       });
     }
 
@@ -140,7 +140,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
         preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/detail/_investor_detail.html',
+        templateUrl: 'entity/members/_investor_detail.html',
       });
     }
 }

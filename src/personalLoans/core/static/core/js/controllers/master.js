@@ -80,7 +80,7 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $t
               icon: 'static/img/business/cityscape.svg'
             },
             {
-              link : '#/association/'+id+'/detail',
+              link : '#/association/'+id+'/members',
               title: 'Inversores',
               icon: 'static/img/business/diagram.svg'
             },

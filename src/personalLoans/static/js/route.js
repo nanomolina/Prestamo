@@ -46,8 +46,8 @@ app.config(function ($routeProvider) {
           }],
         }
       })
-      .when('/association/:associationId/detail', {
-        templateUrl: 'entity/detail/association.html',
+      .when('/association/:associationId/members', {
+        templateUrl: 'entity/members/investors.html',
         resolve: {
           authenticated: ['authService', function(authService){
             return authService.getUser();

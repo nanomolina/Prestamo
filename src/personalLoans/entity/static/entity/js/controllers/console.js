@@ -13,7 +13,7 @@ function ConsoleCtrl($routeParams, $location, $scope) {
         {
           title: 'Inversores',
           icon: 'static/img/business/diagram.svg',
-          href : '#/association/' + id + '/detail',
+          href : '#/association/' + id + '/members',
         },
         {
           title: 'Prestamos',
@@ -42,7 +42,7 @@ function ConsoleCtrl($routeParams, $location, $scope) {
     // PUBLIC FUNCTIONS
     function goToDetail() {
       var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/detail');
+      $location.path('/association/' + id + '/members');
     }
 
     function goToLoans() {
