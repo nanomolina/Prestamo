@@ -102,9 +102,10 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       }
     }
 
-    function selectInvestor(index) {
+    function selectInvestor(index, event) {
       vm.selected_investor = vm.investors[index];
       vm.is_selected_investor = true;
+      showDialogInvestorDetail(event);
     }
 
     // PRIVATE FUNCTIONS
@@ -132,4 +133,14 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       return moment(date).format('DD/MM/YYYY');
     }
 
+    function showDialogInvestorDetail($event) {
+      $mdDialog.show({
+        targetEvent: $event,
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        fullscreen: true,
+        templateUrl: 'entity/detail/_investor_detail.html',
+      });
+    }
 }
