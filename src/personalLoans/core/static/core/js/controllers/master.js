@@ -72,15 +72,7 @@ function MasterCtrl(authService, associationService, $scope, $location, $mdSiden
 
     function updateSideNav() {
       var id = $routeParams.associationId;
-      if (id === undefined) {
-        vm.menu = [
-            {
-              link : '#/association',
-              title: 'Asociaciones',
-              icon: 'static/img/business/cityscape.svg'
-            },
-        ];
-      } else {
+      if (id !== undefined) {
         associationService.get(id)
         .then(function(response) {
           vm.association = response.data;
