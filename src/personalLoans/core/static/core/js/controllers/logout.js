@@ -12,7 +12,7 @@ function LogoutCtrl(authService, $scope, $location) {
   // PRIVATE FUNCTIONS
   function logout() {
     authService.logout();
-    $scope.master.loading = false;
+    $scope.master.loading = true;
     $location.path('/login');
   }
 }

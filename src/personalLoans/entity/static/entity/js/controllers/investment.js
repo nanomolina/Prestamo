@@ -24,6 +24,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       options: {
         debounce: 500
       },
+      rows: [5, 10, 20, 50, 100],
       form: undefined,
     };
     vm.data = {
@@ -35,7 +36,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       capital: 0,
       final_capital: 0,
       profit: 0,
-      fee: 1,
+      fee: 6,
       interests: 12.00,
       monthly_amount: 0,
       date: undefined,

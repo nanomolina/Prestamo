@@ -71,7 +71,7 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.capital.label}}</label>
-          <input type="number" name="capital" ng-model="vm.data.capital" step="1.00" max="99999999.99" ng-change="vm.updateFinalCapital()">
+          <input type="number" name="capital" ng-model="vm.data.capital" step="500" max="99999999.99" ng-change="vm.updateFinalCapital()">
           <div ng-messages="investmentForm.capital.$error">
             <div ng-message="max">El máximo permitido es 99999999.99.</div>
           </div>

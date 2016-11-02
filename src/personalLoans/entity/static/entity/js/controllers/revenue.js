@@ -21,6 +21,7 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
         years: [],
         months: [],
       },
+      rows: [5, 10, 20, 50, 100],
       form: undefined,
     };
     vm.export = {

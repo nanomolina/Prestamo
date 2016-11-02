@@ -26,6 +26,7 @@ function MonthlyResume(investmentService, $routeParams, $scope, $locale, $mdDial
         years: [],
         months: [],
       },
+      rows: [5, 10, 20, 50, 100],
       form: undefined,
     };
     vm.export = {

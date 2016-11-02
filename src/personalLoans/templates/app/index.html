@@ -43,7 +43,7 @@
         <md-icon md-svg-src="static/img/business/menu-lines.svg" aria-hidden="true"></md-icon>
       </md-button>
       {% verbatim %}
-      <h1>{{master.toolbar.title}}</h1>
+      <h1><span ng-if="master.menu.length">{{master.association.name}} - </span>{{master.toolbar.title}}</h1>
       <span flex></span>
       <md-icon md-svg-src="{{master.toolbar.icon}}" aria-hidden="true"></md-icon>
       {% endverbatim %}
