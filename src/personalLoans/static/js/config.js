@@ -3,7 +3,7 @@
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('red')
-    .accentPalette('indigo');
+    .accentPalette('blue');
 });
 
 app.config(function($mdDateLocaleProvider) {
