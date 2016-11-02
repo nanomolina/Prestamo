@@ -2,9 +2,9 @@
 
 app.controller('MasterCtrl', MasterCtrl);
 
-MasterCtrl.$inject = ['authService', '$scope', '$location', '$mdSidenav', '$routeParams', '$timeout'];
+MasterCtrl.$inject = ['authService', 'associationService', '$scope', '$location', '$mdSidenav', '$routeParams', '$timeout'];
 
-function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $timeout) {
+function MasterCtrl(authService, associationService, $scope, $location, $mdSidenav, $routeParams, $timeout) {
     var vm = this;
 
     vm.loading = true;
@@ -22,6 +22,14 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $t
     vm.isSidenavOpen = false;
     vm.toggleLeftMenu = toggleLeftMenu;
     vm.updateSideNav = updateSideNav;
+    vm.association = {};
+    vm.static_menu = [
+      {
+        link : '#/association',
+        title: 'Asociaciones',
+        icon: 'static/img/business/cityscape.svg'
+      },
+    ];
 
     // INIT
     getProfile();
@@ -73,12 +81,11 @@ function MasterCtrl(authService, $scope, $location, $mdSidenav, $routeParams, $t
             },
         ];
       } else {
+        associationService.get(id)
+        .then(function(response) {
+          vm.association = response.data;
+        });
         vm.menu = [
-            {
-              link : '#/association',
-              title: 'Asociaciones',
-              icon: 'static/img/business/cityscape.svg'
-            },
             {
               link : '#/association/'+id+'/members',
               title: 'Inversores',

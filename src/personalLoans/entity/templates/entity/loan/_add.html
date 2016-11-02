@@ -89,7 +89,7 @@
 
         <md-input-container class="md-block" flex-gt-sm>
           <label>{{vm.options.fee.label}}</label>
-          <md-select ng-model="vm.data.fee" ng-change="vm.updateMonthlyAmount()">
+          <md-select ng-model="vm.data.fee" ng-change="vm.updateFinalCapital()">
             <md-option ng-repeat="fee_choice in vm.options.fee.choices" ng-value="fee_choice.value">
               {{fee_choice.display_name}}
             </md-option>

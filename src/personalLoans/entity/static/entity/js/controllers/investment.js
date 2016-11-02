@@ -59,7 +59,6 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
     vm.updateFinalCapital = updateFinalCapital;
-    vm.updateMonthlyAmount = updateMonthlyAmount;
 
     // INIT
     getOptions();
@@ -149,19 +148,10 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     }
 
     function updateFinalCapital() {
-      var f_capital = ((vm.data.interests * vm.data.capital) / 100) + vm.data.capital;
-      f_capital = $filter('number')(f_capital, 2);
-      vm.data.final_capital = parseFloat(f_capital.replace('.', '').replace('.', '').replace(',', '.'));
-      var profit = vm.data.final_capital - vm.data.capital;
-      profit = $filter('number')(profit, 2);
-      vm.data.profit = parseFloat(profit.replace('.', '').replace('.', '').replace(',', '.'));
-      updateMonthlyAmount();
-    }
-
-    function updateMonthlyAmount() {
-      var m_amount = (vm.data.final_capital / vm.data.fee);
-      m_amount = $filter('number')(m_amount, 2);
-      vm.data.monthly_amount = parseFloat(m_amount.replace('.', '').replace('.', '').replace(',', '.'));
+      var f_capital = vm.data.capital * (vm.data.interests / 100) * vm.data.fee + vm.data.capital;
+      vm.data.monthly_amount = Math.ceil(f_capital / vm.data.fee);
+      vm.data.final_capital = vm.data.monthly_amount * vm.data.fee;
+      vm.data.profit = vm.data.final_capital - vm.data.capital;
     }
 
     // PRIVATE FUNCTIONS
