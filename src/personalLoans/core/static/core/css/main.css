@@ -1,4 +1,4 @@
-body {
-  background-color: #eee;
-  min-height: 600px;
+.datepicker {
+  position: relative;
+  top: 17px;
 }

@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles compress %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -13,21 +13,61 @@
     <link href="{% static 'img/favicon.ico' %}" rel="icon" type="image/x-icon" />
 
     <!-- Angular Material style sheet -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    {% compress css %}
     <link rel="stylesheet" href="{% static 'bower_components/angular-material/angular-material.min.css' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'core/css/main.css' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
   </head>
-  <body ng-app="angularDjangoRegistrationAuthApp" ng-controller="MasterCtrl">
+  <body ng-app="personalLoans" ng-controller="MasterCtrl as master" layout="column">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <style media="screen">
+      .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(static/img/Preloader_10.gif) center no-repeat #fff;
+      }
+    </style>
+    <div class="se-pre-con" ng-if="master.loading"></div>
 
-    <div class="main-content" layout-fill>
-        <!-- Add your site or application content here -->
-        <div ng-view="" layout-fill></div>
+    <!-- Container #1 (see wireframe) -->
+    <md-toolbar layout="row" class="md-toolbar-tools" ng-if="master.authenticated">
+      <md-button class="menu md-icon-button" ng-click="master.toggleLeftMenu()"aria-label="menu">
+        <md-icon md-svg-src="static/img/business/menu-lines.svg" aria-hidden="true"></md-icon>
+      </md-button>
+      {% verbatim %}
+      <h1><span ng-if="master.menu.length">{{master.association.name}} - </span>{{master.toolbar.title}}</h1>
+      <span flex></span>
+      <md-icon md-svg-src="{{master.toolbar.icon}}" aria-hidden="true"></md-icon>
+      {% endverbatim %}
+    </md-toolbar>
+
+    <!-- Container #2 -->
+    <div flex layout="row" ng-if="master.authenticated">
+      <!-- Container #3 -->
+      <div ng-include="'core/menu.html'"></div>
+
+      <!-- Container #4 -->
+      <md-content flex id="content">
+        <!-- Custom UserDetails component -->
+        <div ng-view layout-fill></div>
+      </md-content>
     </div>
 
+    <div ng-view ng-if="!master.authenticated" layout-fill>
+      <div ng-include="'core/login.html'"></div>
+    </div>
+
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
+    <!--<script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -35,50 +75,52 @@
 
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
-    </script>
+    </script>-->
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+    {% compress js %}
     <!-- Angular Material requires Angular.js Libraries -->
-    <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+    <script src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+    <script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
+    <script src="{% static 'bower_components/angular-i18n/angular-locale_es-ar.js' %}"></script>
     <script src="{% static 'bower_components/angular-animate/angular-animate.min.js' %}"></script>
     <script src="{% static 'bower_components/angular-aria/angular-aria.min.js' %}"></script>
     <script src="{% static 'bower_components/angular-messages/angular-messages.min.js' %}"></script>
+    <script src="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.js' %}"></script>
     <!-- Angular Material Library -->
     <script src="{% static 'bower_components/angular-material/angular-material.min.js' %}"></script>
-    <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
-    <script src="{% static 'bower_components/angular-cookies/angular-cookies.js' %}"></script>
-    <script src="{% static 'bower_components/angular-sanitize/angular-sanitize.js' %}"></script>
-    <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+    <script src="{% static 'bower_components/angular-resource/angular-resource.min.js' %}"></script>
+    <script src="{% static 'bower_components/angular-cookies/angular-cookies.min.js' %}"></script>
+    <script src="{% static 'bower_components/angular-sanitize/angular-sanitize.min.js' %}"></script>
+    <script src="{% static 'bower_components/angular-route/angular-route.min.js' %}"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/route.js' %}"></script>
     <script src="{% static 'js/run.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
-    <script src="{% static 'core/js/controllers/main.js' %}"></script>
-    <script src="{% static 'core/js/controllers/register.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordreset.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordresetconfirm.js' %}"></script>
+    <script src="{% static 'core/js/services/auth.js' %}"></script>
     <script src="{% static 'core/js/controllers/login.js' %}"></script>
-    <script src="{% static 'core/js/controllers/input.js' %}"></script>
-    <script src="{% static 'core/js/controllers/verifyemail.js' %}"></script>
     <script src="{% static 'core/js/controllers/logout.js' %}"></script>
-    <script src="{% static 'core/js/controllers/userprofile.js' %}"></script>
-    <script src="{% static 'core/js/controllers/passwordchange.js' %}"></script>
-    <script src="{% static 'core/js/services/djangoAuth.js' %}"></script>
-    <script src="{% static 'core/js/services/validate.js' %}"></script>
     <script src="{% static 'core/js/controllers/master.js' %}"></script>
-    <script src="{% static 'core/js/controllers/restricted.js' %}"></script>
-    <script src="{% static 'core/js/controllers/authrequired.js' %}"></script>
     <!-- entity -->
     <script src="{% static 'entity/js/services/association.js' %}"></script>
+    <script src="{% static 'entity/js/services/investors.js' %}"></script>
+    <script src="{% static 'entity/js/services/investment.js' %}"></script>
+    <script src="{% static 'entity/js/services/revenue.js' %}"></script>
     <script src="{% static 'entity/js/controllers/investors.js' %}"></script>
     <script src="{% static 'entity/js/controllers/association.js' %}"></script>
+    <script src="{% static 'entity/js/controllers/console.js' %}"></script>
+    <script src="{% static 'entity/js/controllers/investment.js' %}"></script>
+    <script src="{% static 'entity/js/controllers/monthly_resume.js' %}"></script>
+    <script src="{% static 'entity/js/controllers/revenue.js' %}"></script>
+    <script src="{% static 'entity/js/directives/alredy_exist.js' %}"></script>
     <!-- endbuild -->
+    {% endcompress %}
 
 </body>
 </html>

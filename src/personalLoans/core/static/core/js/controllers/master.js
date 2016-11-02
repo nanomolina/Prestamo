@@ -1,23 +1,104 @@
 'use strict';
 
-app.controller('MasterCtrl', function ($scope, $location, djangoAuth) {
-    // Assume user is not logged in until we hear otherwise
-    $scope.authenticated = false;
-    // Wait for the status of authentication, set scope var to true if it resolves
-    djangoAuth.authenticationStatus(true).then(function(){
-        $scope.authenticated = true;
-    });
+app.controller('MasterCtrl', MasterCtrl);
+
+MasterCtrl.$inject = ['authService', 'associationService', '$scope', '$location', '$mdSidenav', '$routeParams', '$timeout'];
+
+function MasterCtrl(authService, associationService, $scope, $location, $mdSidenav, $routeParams, $timeout) {
+    var vm = this;
+
+    vm.loading = true;
+    vm.menu = [];
+    vm.admin = [
+      {
+        link: '#/logout',
+        title: 'Cerrar Sesión',
+        icon: 'static/img/business/logout.svg'
+      },
+    ];
+    vm.toolbar = {title: '', icon: ''};
+    vm.authenticated = false;
+    vm.profile = {};
+    vm.isSidenavOpen = false;
+    vm.toggleLeftMenu = toggleLeftMenu;
+    vm.updateSideNav = updateSideNav;
+    vm.association = {};
+    vm.static_menu = [
+      {
+        link : '#/association',
+        title: 'Asociaciones',
+        icon: 'static/img/business/cityscape.svg'
+      },
+    ];
+
+    // INIT
+    getProfile();
+    updateSideNav();
+
+    // PUBLIC FUNCTIONS
+    function toggleLeftMenu() {
+      $mdSidenav('left').toggle();
+    }
+
+    // PRIVATE FUNCTIONS
+    function getProfile() {
+      authService.getUser()
+      .then(function(response) {
+        vm.authenticated = true;
+        vm.profile = response.data;
+        $timeout(function () {
+            vm.loading = false;
+        }, 1000);
+      })
+      .catch(function(response) {
+        $timeout(function () {
+          vm.loading = false;
+        }, 1000);
+      });
+    }
+
     // Wait and respond to the logout event.
-    $scope.$on('djangoAuth.logged_out', function() {
-      $scope.authenticated = false;
+    $scope.$on('authService.logged_out', function() {
+      vm.authenticated = false;
     });
     // Wait and respond to the log in event.
-    $scope.$on('djangoAuth.logged_in', function() {
-      $scope.authenticated = true;
+    $scope.$on('authService.logged_in', function() {
+      vm.authenticated = true;
     });
     // If the user attempts to access a restricted page, redirect them back to the main page.
     $scope.$on('$routeChangeError', function(ev, current, previous, rejection){
-      console.error("Unable to change routes.  Error: ", rejection)
-      $location.path('/restricted').replace();
+      $location.path('/login');
     });
-  });
+
+    function updateSideNav() {
+      var id = $routeParams.associationId;
+      if (id !== undefined) {
+        associationService.get(id)
+        .then(function(response) {
+          vm.association = response.data;
+        });
+        vm.menu = [
+            {
+              link : '#/association/'+id+'/members',
+              title: 'Inversores',
+              icon: 'static/img/business/diagram.svg'
+            },
+            {
+              link : '#/association/'+id+'/loans',
+              title: 'Prestamos',
+              icon: 'static/img/business/money.svg'
+            },
+            {
+              link : '#/association/'+id+'/monthly_resume',
+              title: 'Amembe',
+              icon: 'static/img/business/receipt.svg'
+            },
+            {
+              link : '#/association/'+id+'/revenue',
+              title: 'Ganancias',
+              icon: 'static/img/business/get-money.svg'
+            },
+        ];
+      }
+    }
+}

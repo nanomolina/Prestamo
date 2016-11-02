@@ -1,0 +1,29 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<table>
+    <tr>
+        <th colspan="{{ column_count }}" align="left"><h3>{% block title %}{% endblock title %}</h3></th>
+    </tr>
+    <tr>
+      <td colspan="2" style="font-size: 13px"><b>Nombre del comercio:</b></td>
+      <td colspan="5" style="font-size: 13px">{% block association %}{% endblock association %}</td>
+    </tr>
+    {% block extra_header %}
+    <tr>
+      <td></td>
+    </tr>
+    {% endblock extra_header %}
+
+    {% block body %}
+        {% block columns %}
+        {% endblock columns %}
+
+        {% block rows %}
+        {% endblock rows %}
+    {% endblock body %}
+
+    <br><br>
+    <tr>
+        <td colspan="{{ column_count }}" style="border-top: 1px solid #444"><span class="text-muted"><i>Brought to you by Nano.</i></span></td>
+    </tr>
+
+</table>

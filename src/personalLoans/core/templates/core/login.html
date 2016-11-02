@@ -1,43 +1,33 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'core/css/login.css' %}" media="screen" charset="utf-8">
 
-<div id="login-tmp" ng-controller="LoginCtrl" layout="row" layout-align="center center" layout-fill>
+<div id="login-tmp" ng-controller="LoginCtrl as vm" layout="row" layout-align="center center" layout-fill>
   <div class="loginBox md-whiteframe-z1">
     <md-toolbar>
       <h2 class="md-toolbar-tools"><span>Iniciar Sesión - Prestamos Personales</span></h2>
     </md-toolbar>
     <md-content class="md-padding">
-      <form role="form" ng-submit="login(loginForm)" name="loginForm" layout="column" novalidate>
+      <form role="form" ng-submit="vm.login()" name="loginForm" layout="column" novalidate>
           <md-input-container>
-            <label for="id_username">Usuario</label>
-            <input name="username" id="id_username" type="text" ng-model="model.username" required>
-            <div ng-messages="projectForm.clientEmail.$error" role="alert">
-              <div ng-repeat="error in errors.username">
-                <div ng-message-exp="error">{% verbatim %}{{ error }}{% endverbatim %}</div>
-              </div>
-            </div>
-            <div ng-messages="projectForm.clientEmail.$error" role="alert">
-              <div ng-repeat="error in errors.non_field_errors">
-                <div ng-message-exp="error">El usuario que especificaste no es correcto.</div>
-              </div>
+            <label>Usuario</label>
+            <input name="username" type="text" ng-model="vm.data.username" required>
+            <div ng-messages="loginForm.username.$error" role="alert">
+              <div ng-message="required">Se requiere username.</div>
+              <div ng-message="error">El usuario que especificaste no es correcto.</div>
             </div>
           </md-input-container>
           <md-input-container>
-            <label for="id_password">Contraseña</label>
-            <input  name="password" id="id_password" type="password" ng-model="model.password" required>
-            <div ng-messages="projectForm.clientEmail.$error" role="alert">
-              <div ng-repeat="error in errors.password">
-                <div ng-message-exp="error">{% verbatim %}{{ error }}{% endverbatim %}</div>
-              </div>
-            </div>
-            <div ng-messages="projectForm.clientEmail.$error" role="alert">
-              <div ng-repeat="error in errors.non_field_errors">
-                <div ng-message-exp="error">La contraseña que especificaste no es correcta.</div>
-              </div>
+            <label>Contraseña</label>
+            <input name="password" type="password" ng-model="vm.data.password" required>
+            <div ng-messages="loginForm.password.$error" role="alert">
+              <div ng-message="required">Se requiere contraseña.</div>
+              <div ng-message="error">La contraseña que especificaste no es correcta.</div>
             </div>
           </md-input-container>
           <div layout="row" layout-align="center center" style="padding-top:20px;">
-            <md-button class="md-raised md-primary" type="submit">Iniciar</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-if="loginForm.$valid">Iniciar</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="true" ng-if="loginForm.$invalid">Iniciar</md-button>
+            <md-button class="md-raised" href="/accounts/facebook/login/?next=/">Facebook</md-button>
             <div flex="flex"></div>
             <md-button href="" md-no-ink="md-no-ink">Olvidé mi contraseña</md-button>
           </div>

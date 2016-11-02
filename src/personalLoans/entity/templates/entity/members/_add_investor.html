@@ -1,0 +1,84 @@
+{% verbatim %}
+<md-dialog aria-label="new investor">
+  <form name="investorForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nuevo Inversor</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm2.hideDialogCreate()">
+          <md-icon md-svg-src="static/img/business/close.svg" aria-hidden="true"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre*</label>
+          <input ng-model="vm2.data.first_name" name="first_name" required md-maxlength="30">
+          <div ng-messages="investorForm.first_name.$error">
+            <div ng-message="required">Se requiere el nombre.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Apellido*</label>
+          <input ng-model="vm2.data.last_name" name="last_name" required md-maxlength="30">
+          <div ng-messages="investorForm.last_name.$error">
+            <div ng-message="required">Se requiere el apellido.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Alias</label>
+          <input ng-model="vm2.data.alias" name="alias" md-maxlength="30">
+          <div ng-messages="investorForm.alias.$error">
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>DNI</label>
+          <input ng-model="vm2.data.dni" name="dni" md-maxlength="8">
+          <div ng-messages="investorForm.alias.$error">
+            <div ng-message="md-maxlength">Debe tener menos de 8 caracteres.</div>
+          </div>
+        </md-input-container>
+        <div class="datepicker" class="md-block" flex-gt-sm>
+          <md-datepicker ng-model="vm2.data.birthdate_partial" md-placeholder="Cumpleaños"></md-datepicker>
+        </div>
+        <div class="md-block" flex-gt-sm>
+          <md-radio-group ng-model="vm2.data.gender">
+            <md-radio-button value="1" class="md-primary">Masculino</md-radio-button>
+            <md-radio-button value="2">Femenino</md-radio-button>
+          </md-radio-group>
+        </div>
+      </div>
+      <md-divider><span style="color: rgba(0,0,0,0.26);">Elige un avatar</span></md-divider>
+      <div layout-gt-sm="row">
+        <md-grid-list
+              md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+              md-row-height-gt-md="1:1" md-row-height="4:3"
+              md-gutter="8px" md-gutter-gt-sm="4px">
+          <a ng-repeat="man_avatar in vm2.men_avatars" class="md-button" ng-if="vm2.is_male(vm2.data.gender)" ng-click="vm2.chooseAvatar($index)">
+            <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
+          </a>
+          <a ng-repeat="woman_avatar in vm2.women_avatars" class="md-button" ng-if="vm2.is_female(vm2.data.gender)" ng-click="vm2.chooseAvatar($index)">
+            <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
+          </a>
+        </md-grid-list>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm2.clearDialogCreate()">Limpiar</md-button>
+      <span flex></span>
+      <div ng-if="investorForm.$valid">
+        <md-button class="md-raised md-primary" ng-click="vm2.createInvestor()">Guardar</md-button>
+      </div>
+      <div ng-if="investorForm.$invalid">
+        <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+{% endverbatim %}

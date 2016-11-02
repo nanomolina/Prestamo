@@ -1,60 +1,41 @@
-{% extends "core/principal.html" %}
-{% load static %}
-
-{% block content %}
-  <link rel="stylesheet" href="{% static 'core/css/main.css' %}" media="screen" charset="utf-8">
-
-  {% verbatim %}
-  <div ng-controller="AssociationCtrl as vm" ng-cloak>
-      <div layout="row">
-        <div flex-md="90" flex-lg="90">
-          <!-- Start content -->
-          <div layout="column" class="md-whiteframe-z1" layout-fill>
-            <md-toolbar class="md-hue-1">
-              <div class="md-toolbar-tools">
-                <h2 class="md-flex">{{vm.view.title}}</h2>
-                <span flex></span>
-                <i class="material-icons">{{vm.view.icon}}</i>
-              </div>
-            </md-toolbar>
-            <md-content>
-              <div layout="row" layout-wrap layout-padding>
-                <md-card ng-repeat="association in vm.associations" md-theme-watch flex="29">
-                  <md-card-title>
-                    <md-card-title-text>
-                      <span class="md-headline">{{association.name}}</span>
-                      <span class="md-subhead">
-                        {{association.description}}
-                        <p>
-                          Founder: <b>{{association.founder}}</b>
-                        </p>
-                        <p>
-                          {{association.date_created}}
-                        </p>
-                      </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                      <div class="md-media-lg card-media">
-                        <img src="http://apocova.com/_jl/images/la_asociacion/juntadirectiva.jpg" class="md-media-lg card-media hide-xs" />
-                      </div>
-                    </md-card-title-media>
-                  </md-card-title>
-                  <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-raised">Editar</md-button>
-                    <md-button class="md-warn" ng-click="vm.showDialogRemove($event, association.id)">Borrar</md-button>
-                  </md-card-actions>
-                </md-card>
-
-
-              </div>
-            </md-content>
-          </div>
-          <!-- End content -->
-        </div>
-      </div>
-      <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.showDialogCreate($event)">
-        <md-icon><i class="material-icons">add</i></md-icon>
+{% verbatim %}
+<md-content ng-controller="AssociationCtrl as vm">
+  <div layout="row" layout-padding>
+      <h4>
+        Posee {{vm.getTotalAssociations()}} asociaciones
+      </h4>
+      <span flex></span>
+      <md-button type="button" class="md-fab" aria-label="Add" ng-click="vm.showDialogCreate($event)">
+        <md-icon md-svg-src="static/img/business/white-plus.svg" aria-hidden="true" style="position: relative;bottom: 7px;"></md-icon>
       </md-button>
   </div>
-  {% endverbatim %}
-{% endblock content %}
+  <div layout="row" layout-wrap layout-padding>
+      <md-card ng-repeat="association in vm.associations" md-theme-watch flex="29">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{association.name}}</span>
+            <span class="md-subhead">
+              <ul>
+                <li>
+                  <b>Fundador:</b> {{association.founder_name}}
+                </li>
+                <li>
+                  <b>Fecha:</b> {{association.date_created | date : 'dd/MM/yyyy'}}
+                </li>
+              </ul>
+            </span>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="card-media">
+              <img src="static/img/business/shared-folder.svg" class="md-media-lg card-media hide-xs" />
+            </div>
+          </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="left center">
+          <md-button class="md-raised" ng-click="vm.goToConsole(association.id)">VER</md-button>
+          <md-button class="md-warn" ng-click="vm.showDialogRemove($event, association.id)">Borrar</md-button>
+        </md-card-actions>
+      </md-card>
+  </div>
+</md-content>
+{% endverbatim %}

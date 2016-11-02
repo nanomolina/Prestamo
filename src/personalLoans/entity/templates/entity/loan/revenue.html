@@ -1,0 +1,93 @@
+{% verbatim %}
+<md-content ng-controller="RevenueCtrl as vm">
+    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
+        <h2 class="md-title">Planilla mensual de ganancias</h2>
+        <div flex="" class="flex"></div>
+        <md-menu>
+         <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="filter_list">
+           <md-tooltip md-direction="bottom">Exportar</md-tooltip>
+           <md-icon md-svg-src="static/img/business/export.svg" aria-hidden="true"></md-icon>
+         </md-button>
+         <md-menu-content>
+           <md-menu-item>
+             <md-button ng-click="vm.dialogExportExcel($event)">
+               <md-icon md-svg-src="static/img/business/xls.svg" aria-hidden="true"></md-icon>
+               Export Excel
+             </md-button>
+           </md-menu-item>
+           <md-menu-item>
+             <md-button ng-click="vm.dialogExportDoc($event)">
+               <md-icon md-svg-src="static/img/business/doc.svg" aria-hidden="true"></md-icon>
+               Export Word
+             </md-button>
+           </md-menu-item>
+         </md-menu-content>
+        </md-menu>
+        <md-button class="md-icon-button" type="button" ng-click="vm.showFilterBar()" aria-label="filter_list">
+          <md-tooltip md-direction="bottom">Filtrar</md-tooltip>
+          <md-icon md-svg-src="static/img/business/filter.svg" aria-hidden="true"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
+        <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
+          <md-input-container md-no-float>
+            <md-select ng-model="vm.query.investor" placeholder="Inversor">
+              <md-option ng-repeat="investor in vm.investors" ng-value="investor.id">
+                {{investor.first_name}} {{investor.last_name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </form>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.clearFilterBar()" aria-label="clear_all">
+          <md-tooltip md-direction="bottom">Limpiar Filtros</md-tooltip>
+          <md-icon md-svg-src="static/img/business/dustpan.svg" aria-hidden="true"></md-icon>
+        </button>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.hideFilterBar()" aria-label="close">
+          <md-tooltip md-direction="bottom">Cerrar</md-tooltip>
+          <md-icon md-svg-src="static/img/business/close-blue.svg" aria-hidden="true"></md-icon>
+        </button>
+      </div>
+    </md-toolbar>
+    <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
+      <div class="md-toolbar-tools md-whiteframe-1dp">
+        <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
+        <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
+        <div flex="" class="flex"></div>
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
+          <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
+        </button>
+      </div>
+    </md-toolbar>
+    <!-- exact table from live demo -->
+    <md-content class="md-whiteframe-1dp">
+      <md-table-container>
+        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+          <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getRevenue">
+            <tr md-row>
+              <th md-column md-order-by="period">Periodo</th>
+              <th md-column md-order-by="investor">Inversor</th>
+              <th md-column md-order-by="capital">Total prestado</th>
+              <th md-column md-order-by="payment">Capital por cuotas</th>
+              <th md-column md-order-by="recovered">Recuperado</th>
+              <th md-column md-order-by="profit">Ganancia</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="revenue" md-select-id="revenue" md-auto-select ng-repeat="revenue in vm.revenues.results">
+              <td md-cell>{{revenue.period | date:"MMMM 'de' yyyy"}}</td>
+              <td md-cell>{{revenue.investor__full_name}}</td>
+              <td md-cell>{{revenue.capital | currency}}</td>
+              <td md-cell>{{revenue.payment | currency}}</td>
+              <td md-cell>{{revenue.recovered | currency}}</td>
+              <td md-cell>{{revenue.profit | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.filter.rows" md-page="vm.query.page" md-total="{{vm.revenues.count}}" md-on-paginate="vm.getRevenue" md-page-select></md-table-pagination>
+    </md-content>
+</md-content>
+{% endverbatim %}
