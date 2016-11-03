@@ -80,7 +80,8 @@ class InvestmentList(ListCreateAPIView):
     filter_class = InvestmentFilter
     ordering_fields = (
         'date', 'investor', 'warrant', 'authorization', 'first_name',
-        'last_name', 'capital', 'final_capital', 'fee', 'interests'
+        'last_name', 'capital', 'final_capital', 'fee', 'interests',
+        'monthly_amount', 'profit',
     )
     search_fields = ('first_name', 'last_name')
 
