@@ -7,6 +7,7 @@ investmentService.$inject = ['$http', '$cookies'];
 function investmentService($http, $cookies) {
   var service = {
     getList: getList,
+    getTotal: getTotal,
     getOptions: getOptions,
     create: create,
   }
@@ -18,6 +19,16 @@ function investmentService($http, $cookies) {
   function getList(id, query) {
     return $http.get(
       "entity/associations/"+id+"/investments/",
+      {
+        params: query,
+      }
+    )
+  }
+
+  // GET - TOTAL
+  function getTotal(id, query) {
+    return $http.get(
+      "entity/associations/"+id+"/investments/total/",
       {
         params: query,
       }

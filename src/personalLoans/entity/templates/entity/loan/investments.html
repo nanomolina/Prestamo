@@ -95,20 +95,26 @@
               <td md-cell>{{investment.monthly_amount| currency}}</td>
               <td md-cell>{{investment.profit | currency}}</td>
             </tr>
-            <tr ng-show="!vm.investments.count">
-              <td colspan="10">
+            <tr ng-show="!vm.investments.count" class="color-bkg">
+              <td colspan="14">
                 <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
               </td>
             </tr>
           </tbody>
+          <tfoot md-foot>
+            <tr md-row>
+              <td md-cell colspan="2"><strong>TOTAL:</strong></td>
+              <td md-cell colspan="5"></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.capital | currency}}</strong></td>
+              <td md-cell colspan="3"></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.final_capital | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.monthly_amount | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.profit | currency}}</strong></td>
+            </tr>
+          </tfoot>
         </table>
       </md-table-container>
       <md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.filter.rows" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
     </md-content>
-    <md-toolbar class="md-hue-1">
-      <h2 class="md-toolbar-tools">
-        <span>Toolbar: tall (md-accent)</span>
-      </h2>
-    </md-toolbar>
 </md-content>
 {% endverbatim %}

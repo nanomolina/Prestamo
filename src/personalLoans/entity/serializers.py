@@ -78,3 +78,10 @@ class RevenueSerializer(serializers.ModelSerializer):
 
     def investor_full_name(self, obj):
         return obj.investor.full_name
+
+
+class TotalInvestmentSerializer(serializers.Serializer):
+    capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    final_capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    monthly_amount = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    profit = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)

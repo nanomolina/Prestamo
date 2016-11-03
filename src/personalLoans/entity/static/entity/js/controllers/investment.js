@@ -51,6 +51,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.options = {};
     vm.investors = [];
     vm.promise;
+    vm.total = {};
     vm.getInvestments = getInvestments;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
@@ -64,6 +65,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     // INIT
     getOptions();
     getInvestors();
+    getTotal();
     $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
@@ -115,6 +117,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         .then(function(response) {
           vm.getInvestments();
           vm.hideDialogCreate();
+          getTotal();
           showToastCreate();
         }).catch(function(response) {
           if (response.data.warrant) {
@@ -161,6 +164,14 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       investorService.getList(id)
       .then(function(response) {
           vm.investors = response.data;
+      });
+    }
+
+    function getTotal() {
+      var id = $routeParams.associationId;
+      investmentService.getTotal(id, vm.query)
+      .then(function(response) {
+        vm.total = response.data[0];
       });
     }
 

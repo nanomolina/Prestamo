@@ -12,7 +12,8 @@ from rest_framework.pagination import PageNumberPagination
 
 from entity.models import Association, Investment, Investor, Revenue
 from entity.serializers import (AssociationSerializer, InvestmentSerializer,
-                                InvestorSerializer, RevenueSerializer)
+                                InvestorSerializer, RevenueSerializer,
+                                TotalInvestmentSerializer)
 
 
 def render_partial(request, template_name):
@@ -106,6 +107,32 @@ class RevenueList(ListAPIView):
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']
         return Revenue.objects.filter(investor__association__id=assoc_id)
+
+
+class TotalInvestments(ListAPIView):
+    serializer_class = TotalInvestmentSerializer
+
+    def get_queryset(self):
+        from django.db.models import Sum, DecimalField
+        assoc_id = self.kwargs['assoc_id']
+        data = {
+            'capital': 0.00,
+            'final_capital': 0.00,
+            'monthly_amount': 0.00,
+            'profit': 0.00
+        }
+        investments = Investment.objects.filter(
+            investor__association__id=assoc_id)
+        data['capital'] = investments.aggregate(
+            total=Sum('capital', output_field=DecimalField()))['total']
+        data['final_capital'] = investments.aggregate(
+            total=Sum('final_capital', output_field=DecimalField()))['total']
+        data['monthly_amount'] = investments.aggregate(
+            total=Sum('monthly_amount', output_field=DecimalField()))['total']
+        data['profit'] = investments.aggregate(
+            total=Sum('profit', output_field=DecimalField()))['total']
+        return [data]
+
 
 def investment_export(request, assoc_id):
     if request.method == 'GET':
