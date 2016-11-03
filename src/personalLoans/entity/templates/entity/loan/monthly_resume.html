@@ -87,7 +87,11 @@
               <td md-cell ng-if="investment.fee_time == 'past'" style="text-decoration: line-through;">{{investment.fee}}/{{investment.fee}}</td>
               <td md-cell ng-if="investment.fee_time == 'future'">--/{{investment.fee}}</td>
               <td md-cell>{{investment.monthly_amount| currency}}</td>
-              <td md-cell>{{investment.fee_time}}</td>
+              <td md-cell>
+                <span class="chips chips-now" ng-if="investment.fee_time == 'now'">Vigente</span>
+                <span class="chips chips-past" ng-if="investment.fee_time == 'past'">Acabado</span>
+                <span class="chips chips-future" ng-if="investment.fee_time == 'future'">Futuro</span>
+              </td>
             </tr>
           </tbody>
         </table>
