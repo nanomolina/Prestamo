@@ -26,6 +26,7 @@
 {% block rows %}
   {% for investment in investments %}
   {% get_current_fee investment year month as current_fee %}
+    {% if current_fee != 0 %}
     <tr>
       <td>{{investment.date|date:'SHORT_DATE_FORMAT'}}</td>
       <td>{{investment.warrant}}</td>
@@ -36,5 +37,6 @@
       <td>{{current_fee}}/{{investment.fee}}</td>
       <td>{{investment.monthly_amount}}</td>
     </tr>
+    {% endif %}
   {% endfor %}
 {% endblock rows %}
