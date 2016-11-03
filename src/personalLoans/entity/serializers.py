@@ -46,7 +46,7 @@ class InvestmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investment
         fields = (
-            'investor', 'investor__full_name', 'warrant', 'authorization',
+            'id', 'investor', 'investor__full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
             'profit', 'fee', 'interests', 'monthly_amount', 'date',
             'current_fee', 'fee_time',

@@ -10,6 +10,8 @@ function investmentService($http, $cookies) {
     getTotal: getTotal,
     getOptions: getOptions,
     create: create,
+    get: get,
+    remove: remove,
   }
 
   return service
@@ -47,6 +49,24 @@ function investmentService($http, $cookies) {
     return $http.post(
       "entity/associations/"+id+"/investments/",
       data,
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
+  }
+
+  //  GET - RETRIEVE
+  function get(assoc_id, inv_id) {
+    return $http.get(
+      "entity/associations/"+assoc_id+"/investment/"+inv_id+"/"
+    )
+  }
+
+  // DELETE - DESTROY
+  function remove(assoc_id, inv_id) {
+    return $http.delete(
+      "entity/associations/"+assoc_id+"/investment/"+inv_id+"/",
       {
         withCredentials: true,
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},

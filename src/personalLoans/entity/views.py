@@ -94,6 +94,19 @@ class InvestmentList(ListCreateAPIView):
         return {"year": date.year, "month": date.month}
 
 
+class InvestmentDetail(RetrieveUpdateDestroyAPIView):
+    serializer_class = InvestmentSerializer
+
+    def get_queryset(self):
+        assoc_id = self.kwargs['assoc_id']
+        return Investment.objects.filter(investor__association__id=assoc_id)
+
+    def get_serializer_context(self):
+        from datetime import datetime
+        date = datetime.now()
+        return {"year": date.year, "month": date.month}
+
+
 class RevenueList(ListAPIView):
     serializer_class = RevenueSerializer
     pagination_class = SetPagination

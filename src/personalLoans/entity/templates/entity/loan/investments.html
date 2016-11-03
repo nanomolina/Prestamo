@@ -51,7 +51,7 @@
         <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
         <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
         <div flex="" class="flex"></div>
-        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.showDialogRemove($event);" aria-label="delete">
           <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
@@ -59,7 +59,7 @@
     <!-- exact table from live demo -->
     <md-content class="md-whiteframe-1dp">
       <md-table-container>
-        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+        <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
           <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
             <tr md-row>
               <th md-column md-order-by="warrant"><span>Orden N°</span></th>

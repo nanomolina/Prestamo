@@ -61,6 +61,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
     vm.updateFinalCapital = updateFinalCapital;
+    vm.showDialogRemove = showDialogRemove;
 
     // INIT
     getOptions();
@@ -158,6 +159,20 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       vm.data.profit = vm.data.final_capital - vm.data.capital;
     }
 
+    function showDialogRemove($event) {
+      var dialogR = $mdDialog.confirm()
+          .title('Borrar Prestamo')
+          .textContent('Estás seguro de querer borrar este prestamo?')
+          .ariaLabel('Lucky day')
+          .targetEvent($event)
+          .ok('Borrar')
+          .cancel('Cancelar')
+          .clickOutsideToClose(true);
+      $mdDialog.show(dialogR).then(function() {
+        removeInvestment();
+      });
+    }
+
     // PRIVATE FUNCTIONS
     function getInvestors() {
       var id = $routeParams.associationId;
@@ -203,6 +218,15 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
 
     function showToastCreate($event) {
       $mdToast.showSimple('Nuevo prestamo añadido exitosamente!');
-    };
+    }
 
+    function removeInvestment() {
+      var assoc_id = $routeParams.associationId;
+      var inv_id = vm.selected[0].id;
+      investmentService.remove(assoc_id, inv_id)
+      .then(function(response) {
+        getInvestments();
+        vm.selected = [];
+      });
+    }
 }
