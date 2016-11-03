@@ -108,6 +108,7 @@ class Investment(models.Model):
 
 class Revenue(models.Model):
     investor = models.ForeignKey(Investor, verbose_name="Inversor")
+    investment = models.ForeignKey(Investment, null=True, verbose_name="Prestamo")
     period = models.DateField('Periodo')
     capital = models.DecimalField('Prestado', max_digits=10, decimal_places=2, default=0)
     payment = models.DecimalField('Capital por cuotas', max_digits=10, decimal_places=2, default=0)
