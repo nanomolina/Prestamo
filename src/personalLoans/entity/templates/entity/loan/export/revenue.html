@@ -24,12 +24,12 @@
 {% block rows %}
   {% for revenue in revenues %}
     <tr>
-      <td md-cell>{{revenue.period|date:"F - Y"}}</td>
-      <td md-cell>{{revenue.investor.full_name}}</td>
-      <td md-cell>{{revenue.capital}}</td>
-      <td md-cell>{{revenue.payment}}</td>
-      <td md-cell>{{revenue.recovered}}</td>
-      <td md-cell>{{revenue.profit}}</td>
+      <td style="text-align: right;">{{revenue.period|date:"F - Y"}}</td>
+      <td style="text-align: right;">{{revenue.investor.full_name}}</td>
+      <td style="text-align: right;">{{revenue.capital}}</td>
+      <td style="text-align: right;">{{revenue.payment}}</td>
+      <td style="text-align: right;">{{revenue.recovered}}</td>
+      <td style="text-align: right;">{{revenue.profit}}</td>
     </tr>
   {% endfor %}
 {% endblock rows %}

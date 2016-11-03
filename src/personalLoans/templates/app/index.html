@@ -15,7 +15,7 @@
     <!-- Angular Material style sheet -->
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     {% compress css %}
-    <link rel="stylesheet" href="{% static 'bower_components/angular-material/angular-material.min.css' %}">
+    <link href="{% static 'bower_components/angular-material/angular-material.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'bower_components/angular-material-data-table/dist/md-data-table.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet" type="text/css"/>
     {% endcompress %}
