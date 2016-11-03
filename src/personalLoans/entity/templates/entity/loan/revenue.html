@@ -1,6 +1,6 @@
 {% verbatim %}
 <md-content ng-controller="RevenueCtrl as vm">
-    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
+    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.filter.show" aria-hidden="false">
       <div class="md-toolbar-tools md-whiteframe-1dp">
         <h2 class="md-title">Planilla mensual de ganancias</h2>
         <div flex="" class="flex"></div>
@@ -30,7 +30,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
+    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show" aria-hidden="false" style="">
       <div class="md-toolbar-tools md-whiteframe-1dp">
         <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
           <md-input-container md-no-float>
@@ -51,20 +51,10 @@
         </button>
       </div>
     </md-toolbar>
-    <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
-      <div class="md-toolbar-tools md-whiteframe-1dp">
-        <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
-        <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
-        <div flex="" class="flex"></div>
-        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
-          <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
-        </button>
-      </div>
-    </md-toolbar>
     <!-- exact table from live demo -->
     <md-content class="md-whiteframe-1dp">
       <md-table-container>
-        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+        <table md-table md-progress="vm.promise">
           <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getRevenue">
             <tr md-row>
               <th md-column md-order-by="period">Periodo</th>
@@ -93,7 +83,6 @@
           <tfoot md-foot>
             <tr md-row>
               <td md-cell colspan="2"><strong>TOTAL:</strong></td>
-              <td md-cell></td>
               <td md-cell style="text-align: right;"><strong>{{vm.total.capital | currency}}</strong></td>
               <td md-cell style="text-align: right;"><strong>{{vm.total.payment | currency}}</strong></td>
               <td md-cell style="text-align: right;"><strong>{{vm.total.recovered | currency}}</strong></td>
