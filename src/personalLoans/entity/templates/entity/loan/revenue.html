@@ -69,10 +69,10 @@
             <tr md-row>
               <th md-column md-order-by="period">Periodo</th>
               <th md-column md-order-by="investor">Inversor</th>
-              <th md-column md-order-by="capital">Total prestado</th>
-              <th md-column md-order-by="payment">Capital por cuotas</th>
-              <th md-column md-order-by="recovered">Recuperado</th>
-              <th md-column md-order-by="profit">Ganancia</th>
+              <th md-column md-order-by="capital" md-numeric>Total prestado</th>
+              <th md-column md-order-by="payment" md-numeric>Capital por cuotas</th>
+              <th md-column md-order-by="recovered" md-numeric>Recuperado</th>
+              <th md-column md-order-by="profit" md-numeric>Ganancia</th>
             </tr>
           </thead>
           <tbody md-body>
@@ -84,7 +84,22 @@
               <td md-cell>{{revenue.recovered | currency}}</td>
               <td md-cell>{{revenue.profit | currency}}</td>
             </tr>
+            <tr ng-show="!vm.revenues.count" class="color-bkg">
+              <td colspan="7">
+                <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
+              </td>
+            </tr>
           </tbody>
+          <tfoot md-foot>
+            <tr md-row>
+              <td md-cell colspan="2"><strong>TOTAL:</strong></td>
+              <td md-cell></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.capital | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.payment | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.recovered | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.profit | currency}}</strong></td>
+            </tr>
+          </tfoot>
         </table>
       </md-table-container>
       <md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.filter.rows" md-page="vm.query.page" md-total="{{vm.revenues.count}}" md-on-paginate="vm.getRevenue" md-page-select></md-table-pagination>

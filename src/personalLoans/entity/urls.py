@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^associations/(?P<assoc_id>[0-9]+)/investments/total/$', views.TotalInvestments.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/revenue/$', views.RevenueList.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/revenue/export/$', views.revenue_export),
+    url(r'^associations/(?P<assoc_id>[0-9]+)/revenue/total/$', views.TotalRevenues.as_view()),
     url(r'^avatars/$', views.get_avatars),
     url(r'^(?P<template_name>.*)$', views.render_partial),
 ]

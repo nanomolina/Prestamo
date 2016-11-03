@@ -31,6 +31,7 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
     vm.revenues = [];
     vm.investors = [];
     vm.promise;
+    vm.total = {};
     vm.getRevenue = getRevenue;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
@@ -40,6 +41,7 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
 
     // INIT
     getInvestors();
+    getTotal();
     $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
@@ -85,6 +87,14 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
       });
     }
 
+    function getTotal() {
+      var id = $routeParams.associationId;
+      revenueService.getTotal(id, vm.query)
+      .then(function(response) {
+        vm.total = response.data[0];
+      });
+    }
+
     $scope.$watch('vm.query.investor', function (newValue, oldValue) {
       var bookmark = 1;
       if(!oldValue) {
@@ -97,6 +107,7 @@ function RevenueCtrl(revenueService, investorService, $routeParams, $scope, $loc
         vm.query.page = bookmark;
       }
       vm.getRevenue();
+      getTotal();
     });
 
     function exportResume() {

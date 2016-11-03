@@ -13,7 +13,7 @@ from rest_framework.pagination import PageNumberPagination
 from entity.models import Association, Investment, Investor, Revenue
 from entity.serializers import (AssociationSerializer, InvestmentSerializer,
                                 InvestorSerializer, RevenueSerializer,
-                                TotalInvestmentSerializer)
+                                TotalInvestmentSerializer, TotalRevenueSerializer)
 
 
 def render_partial(request, template_name):
@@ -130,6 +130,37 @@ class TotalInvestments(ListAPIView):
         data['monthly_amount'] = investments.aggregate(
             total=Sum('monthly_amount', output_field=DecimalField()))['total']
         data['profit'] = investments.aggregate(
+            total=Sum('profit', output_field=DecimalField()))['total']
+        return [data]
+
+
+class TotalRevenues(ListAPIView):
+    serializer_class = TotalRevenueSerializer
+
+    def get_queryset(self):
+        from django.db.models import Sum, DecimalField
+        assoc_id = self.kwargs['assoc_id']
+        investor_id = self.request.GET.get('investor')
+        data = {
+            'capital': 0.00,
+            'payment': 0.00,
+            'recovered': 0.00,
+            'profit': 0.00
+        }
+
+        if investor_id:
+            revenues = Revenue.objects.filter(
+                investor__association__id=assoc_id, investor__id=investor_id)
+        else:
+            revenues = Revenue.objects.filter(
+                investor__association__id=assoc_id)
+        data['capital'] = revenues.aggregate(
+            total=Sum('capital', output_field=DecimalField()))['total']
+        data['payment'] = revenues.aggregate(
+            total=Sum('payment', output_field=DecimalField()))['total']
+        data['recovered'] = revenues.aggregate(
+            total=Sum('recovered', output_field=DecimalField()))['total']
+        data['profit'] = revenues.aggregate(
             total=Sum('profit', output_field=DecimalField()))['total']
         return [data]
 

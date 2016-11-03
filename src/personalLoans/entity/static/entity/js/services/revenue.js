@@ -7,6 +7,7 @@ revenueService.$inject = ['$http', '$cookies'];
 function revenueService($http, $cookies) {
   var service = {
     getList: getList,
+    getTotal: getTotal,
   }
 
   return service
@@ -16,6 +17,16 @@ function revenueService($http, $cookies) {
   function getList(id, query) {
     return $http.get(
       "entity/associations/"+id+"/revenue/",
+      {
+        params: query,
+      }
+    )
+  }
+
+  // GET - TOTAL
+  function getTotal(id, query) {
+    return $http.get(
+      "entity/associations/"+id+"/revenue/total/",
       {
         params: query,
       }

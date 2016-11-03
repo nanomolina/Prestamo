@@ -85,3 +85,10 @@ class TotalInvestmentSerializer(serializers.Serializer):
     final_capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
     monthly_amount = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
     profit = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+
+
+class TotalRevenueSerializer(serializers.Serializer):
+    capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    payment = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    recovered = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    profit = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
