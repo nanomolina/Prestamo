@@ -1,6 +1,6 @@
 {% verbatim %}
 <md-content ng-controller="MonthlyResume as vm">
-    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || vm.filter.show" aria-hidden="false">
+    <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.filter.show" aria-hidden="false">
       <div class="md-toolbar-tools md-whiteframe-1dp">
         <h2 class="md-title">{{vm.view.current_date | date : 'fullDate'}}</h2>
         <div flex="" class="flex"></div>
@@ -30,7 +30,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show &amp;&amp; !vm.selected.length" aria-hidden="false" style="">
+    <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show" aria-hidden="false" style="">
       <div class="md-toolbar-tools md-whiteframe-1dp">
         <md-icon md-svg-src="static/img/business/search.svg" aria-hidden="true"></md-icon>
         <form flex="" name="vm.filter.form" class="ng-pristine ng-valid flex">
@@ -58,20 +58,10 @@
         </button>
       </div>
     </md-toolbar>
-    <md-toolbar class="md-table-toolbar md-default ng-hide" ng-show="vm.selected.length" aria-hidden="true">
-      <div class="md-toolbar-tools md-whiteframe-1dp">
-        <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
-        <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
-        <div flex="" class="flex"></div>
-        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
-          <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
-        </button>
-      </div>
-    </md-toolbar>
     <!-- exact table from live demo -->
     <md-content class="md-whiteframe-1dp">
       <md-table-container>
-        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+        <table md-table md-progress="vm.promise">
           <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
             <tr md-row>
               <th md-column md-order-by="date">Creación</th>
@@ -81,8 +71,8 @@
               <th md-column md-order-by="last_name">Apellido</th>
               <th md-column md-numeric md-order-by="capital">Capital Final</th>
               <th md-column md-numeric md-order-by="fee">Cuotas</th>
+              <th md-column md-numeric md-order-by="monthly_amount">Importe mensual</th>
               <th md-column>Estado</th>
-              <th md-column md-numeric >Importe mensual</th>
             </tr>
           </thead>
           <tbody md-body>
@@ -96,8 +86,12 @@
               <td md-cell ng-if="investment.fee_time == 'now'">{{investment.current_fee}}/{{investment.fee}}</td>
               <td md-cell ng-if="investment.fee_time == 'past'" style="text-decoration: line-through;">{{investment.fee}}/{{investment.fee}}</td>
               <td md-cell ng-if="investment.fee_time == 'future'">--/{{investment.fee}}</td>
-              <td md-cell>{{investment.fee_time}}</td>
               <td md-cell>{{investment.monthly_amount| currency}}</td>
+              <td md-cell>
+                <span class="chips chips-now" ng-if="investment.fee_time == 'now'">Vigente</span>
+                <span class="chips chips-past" ng-if="investment.fee_time == 'past'">Acabado</span>
+                <span class="chips chips-future" ng-if="investment.fee_time == 'future'">Futuro</span>
+              </td>
             </tr>
           </tbody>
         </table>

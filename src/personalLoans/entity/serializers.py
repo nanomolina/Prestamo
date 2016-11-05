@@ -46,7 +46,7 @@ class InvestmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investment
         fields = (
-            'investor', 'investor__full_name', 'warrant', 'authorization',
+            'id', 'investor', 'investor__full_name', 'warrant', 'authorization',
             'first_name', 'last_name', 'capital', 'final_capital',
             'profit', 'fee', 'interests', 'monthly_amount', 'date',
             'current_fee', 'fee_time',
@@ -78,3 +78,17 @@ class RevenueSerializer(serializers.ModelSerializer):
 
     def investor_full_name(self, obj):
         return obj.investor.full_name
+
+
+class TotalInvestmentSerializer(serializers.Serializer):
+    capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    final_capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    monthly_amount = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    profit = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+
+
+class TotalRevenueSerializer(serializers.Serializer):
+    capital = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    payment = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    recovered = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)
+    profit = serializers.DecimalField(allow_null=True, decimal_places=2, max_digits=10, required=False)

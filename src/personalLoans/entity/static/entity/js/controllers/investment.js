@@ -51,6 +51,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.options = {};
     vm.investors = [];
     vm.promise;
+    vm.total = {};
     vm.getInvestments = getInvestments;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
@@ -60,10 +61,12 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.clearDialogCreate = clearDialogCreate;
     vm.createInvestment = createInvestment;
     vm.updateFinalCapital = updateFinalCapital;
+    vm.showDialogRemove = showDialogRemove;
 
     // INIT
     getOptions();
     getInvestors();
+    getTotal();
     $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
@@ -115,6 +118,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
         .then(function(response) {
           vm.getInvestments();
           vm.hideDialogCreate();
+          getTotal();
           showToastCreate();
         }).catch(function(response) {
           if (response.data.warrant) {
@@ -155,12 +159,34 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
       vm.data.profit = vm.data.final_capital - vm.data.capital;
     }
 
+    function showDialogRemove($event) {
+      var dialogR = $mdDialog.confirm()
+          .title('Borrar Prestamo')
+          .textContent('Estás seguro de querer borrar este prestamo?')
+          .ariaLabel('Lucky day')
+          .targetEvent($event)
+          .ok('Borrar')
+          .cancel('Cancelar')
+          .clickOutsideToClose(true);
+      $mdDialog.show(dialogR).then(function() {
+        removeInvestment();
+      });
+    }
+
     // PRIVATE FUNCTIONS
     function getInvestors() {
       var id = $routeParams.associationId;
       investorService.getList(id)
       .then(function(response) {
           vm.investors = response.data;
+      });
+    }
+
+    function getTotal() {
+      var id = $routeParams.associationId;
+      investmentService.getTotal(id, vm.query)
+      .then(function(response) {
+        vm.total = response.data[0];
       });
     }
 
@@ -192,6 +218,15 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
 
     function showToastCreate($event) {
       $mdToast.showSimple('Nuevo prestamo añadido exitosamente!');
-    };
+    }
 
+    function removeInvestment() {
+      var assoc_id = $routeParams.associationId;
+      var inv_id = vm.selected[0].id;
+      investmentService.remove(assoc_id, inv_id)
+      .then(function(response) {
+        getInvestments();
+        vm.selected = [];
+      });
+    }
 }

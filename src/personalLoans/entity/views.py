@@ -12,7 +12,8 @@ from rest_framework.pagination import PageNumberPagination
 
 from entity.models import Association, Investment, Investor, Revenue
 from entity.serializers import (AssociationSerializer, InvestmentSerializer,
-                                InvestorSerializer, RevenueSerializer)
+                                InvestorSerializer, RevenueSerializer,
+                                TotalInvestmentSerializer, TotalRevenueSerializer)
 
 
 def render_partial(request, template_name):
@@ -79,9 +80,23 @@ class InvestmentList(ListCreateAPIView):
     filter_class = InvestmentFilter
     ordering_fields = (
         'date', 'investor', 'warrant', 'authorization', 'first_name',
-        'last_name', 'capital', 'final_capital', 'fee', 'interests'
+        'last_name', 'capital', 'final_capital', 'fee', 'interests',
+        'monthly_amount', 'profit',
     )
     search_fields = ('first_name', 'last_name')
+
+    def get_queryset(self):
+        assoc_id = self.kwargs['assoc_id']
+        return Investment.objects.filter(investor__association__id=assoc_id)
+
+    def get_serializer_context(self):
+        from datetime import datetime
+        date = datetime.now()
+        return {"year": date.year, "month": date.month}
+
+
+class InvestmentDetail(RetrieveUpdateDestroyAPIView):
+    serializer_class = InvestmentSerializer
 
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']
@@ -106,6 +121,63 @@ class RevenueList(ListAPIView):
     def get_queryset(self):
         assoc_id = self.kwargs['assoc_id']
         return Revenue.objects.filter(investor__association__id=assoc_id)
+
+
+class TotalInvestments(ListAPIView):
+    serializer_class = TotalInvestmentSerializer
+
+    def get_queryset(self):
+        from django.db.models import Sum, DecimalField
+        assoc_id = self.kwargs['assoc_id']
+        data = {
+            'capital': 0.00,
+            'final_capital': 0.00,
+            'monthly_amount': 0.00,
+            'profit': 0.00
+        }
+        investments = Investment.objects.filter(
+            investor__association__id=assoc_id)
+        data['capital'] = investments.aggregate(
+            total=Sum('capital', output_field=DecimalField()))['total']
+        data['final_capital'] = investments.aggregate(
+            total=Sum('final_capital', output_field=DecimalField()))['total']
+        data['monthly_amount'] = investments.aggregate(
+            total=Sum('monthly_amount', output_field=DecimalField()))['total']
+        data['profit'] = investments.aggregate(
+            total=Sum('profit', output_field=DecimalField()))['total']
+        return [data]
+
+
+class TotalRevenues(ListAPIView):
+    serializer_class = TotalRevenueSerializer
+
+    def get_queryset(self):
+        from django.db.models import Sum, DecimalField
+        assoc_id = self.kwargs['assoc_id']
+        investor_id = self.request.GET.get('investor')
+        data = {
+            'capital': 0.00,
+            'payment': 0.00,
+            'recovered': 0.00,
+            'profit': 0.00
+        }
+
+        if investor_id:
+            revenues = Revenue.objects.filter(
+                investor__association__id=assoc_id, investor__id=investor_id)
+        else:
+            revenues = Revenue.objects.filter(
+                investor__association__id=assoc_id)
+        data['capital'] = revenues.aggregate(
+            total=Sum('capital', output_field=DecimalField()))['total']
+        data['payment'] = revenues.aggregate(
+            total=Sum('payment', output_field=DecimalField()))['total']
+        data['recovered'] = revenues.aggregate(
+            total=Sum('recovered', output_field=DecimalField()))['total']
+        data['profit'] = revenues.aggregate(
+            total=Sum('profit', output_field=DecimalField()))['total']
+        return [data]
+
 
 def investment_export(request, assoc_id):
     if request.method == 'GET':

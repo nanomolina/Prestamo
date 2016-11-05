@@ -1,4 +1,76 @@
+/* GENERAL */
 .datepicker {
   position: relative;
   top: 17px;
+}
+
+.color-bkg {
+  background-color: #F5F5F5;
+}
+
+.chips {
+  cursor: default;
+  border-radius: 16px;
+  display: block;
+  height: 25px;
+  line-height: 25px;
+  margin: 2px 0px 0 0;
+  padding: 0px 12px;
+  float: left;
+  box-sizing: border-box;
+  max-width: 100%;
+  position: relative;
+  background-color: rgb(224,224,224);
+  color: rgb(66,66,66);
+}
+
+.chips-now {
+  background-color: #4CAF50;
+  color: #FFFFFF;
+}
+
+.chips-past {
+  background-color: #607D8B;
+  color: #FFFFFF;
+}
+
+.chips-future {
+  background-color: #03A9F4;
+  color: #FFFFFF;
+}
+
+
+
+/* TABLE MATERIAL */
+
+/* thead*/
+table.md-table thead.md-head>tr.md-row  {
+  background-color: #F5F5F5;
+}
+/*tbody*/
+table.md-table.md-row-select tbody.md-body>tr.md-row,
+table.md-table tbody.md-body>tr.md-row {
+  background-color: #F5F5F5;
+}
+table.md-table.md-row-select tbody.md-body>tr.md-row.md-selected {
+  background-color: #EEEEEE;
+}
+table.md-table.md-row-select tbody.md-body>tr.md-row:not([disabled]):hover {
+  background-color: #E0E0E0 !important;
+}
+/*tfoot*/
+table.md-table tfoot.md-foot>tr.md-row {
+  background-color: #c62828;
+}
+table.md-table tfoot.md-foot>tr.md-row td.md-cell {
+  color: #fff;
+}
+/*pagination*/
+.md-table-pagination {
+  background-color: #F5F5F5;
+}
+
+/* TOOLBAR */
+md-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default {
+  background-color: #F5F5F5;
 }

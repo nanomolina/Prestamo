@@ -51,7 +51,7 @@
         <div ng-if="vm.selected.length == 1">1 item seleccionado</div>
         <div ng-if="vm.selected.length > 1">{{vm.selected.length}} items seleccionados</div>
         <div flex="" class="flex"></div>
-        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="" aria-label="delete">
+        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.showDialogRemove($event);" aria-label="delete">
           <md-icon md-svg-src="static/img/business/delete.svg" aria-hidden="true"></md-icon>
         </button>
       </div>
@@ -59,29 +59,29 @@
     <!-- exact table from live demo -->
     <md-content class="md-whiteframe-1dp">
       <md-table-container>
-        <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
+        <table md-table md-row-select ng-model="vm.selected" md-progress="vm.promise">
           <thead md-head md-order="vm.query.ordering" md-on-reorder="vm.getInvestments">
             <tr md-row>
-              <th md-column md-order-by="warrant"><span>Orden N°</span></th>
               <th md-column md-order-by="date">Creación</th>
               <th md-column md-order-by="investor"><span>Inversor</span></th>
+              <th md-column md-order-by="warrant"><span>Orden N°</span></th>
               <th md-column md-order-by="authorization">Aut N°</th>
               <th md-column md-order-by="first_name">Nombre</th>
               <th md-column md-order-by="last_name">Apellido</th>
               <th md-column md-numeric md-order-by="capital">Capital</th>
               <th md-column md-numeric md-order-by="interests">Intereses</th>
               <th md-column md-order-by="fee">Cuotas</th>
-              <th md-column>Estado</th>
               <th md-column md-numeric md-order-by="final_capital">Capital final</th>
-              <th md-column md-numeric >Importe mensual</th>
-              <th md-column>Ganancia</th>
+              <th md-column md-numeric md-order-by="monthly_amount">Importe mensual</th>
+              <th md-column md-numeric md-order-by="profit">Ganancia</th>
+              <th md-column>Estado</th>
             </tr>
           </thead>
           <tbody md-body>
             <tr md-row md-select="investment" md-select-id="investment" md-auto-select ng-repeat="investment in vm.investments.results">
-              <td md-cell>{{investment.warrant}}</td>
               <td md-cell>{{investment.date}}</td>
               <td md-cell>{{investment.investor__full_name}}</td>
+              <td md-cell>{{investment.warrant}}</td>
               <td md-cell>{{investment.authorization}}</td>
               <td md-cell>{{investment.first_name}}</td>
               <td md-cell>{{investment.last_name}}</td>
@@ -90,17 +90,33 @@
               <td md-cell ng-if="investment.fee_time == 'now'">{{investment.current_fee}}/{{investment.fee}}</td>
               <td md-cell ng-if="investment.fee_time == 'past'" style="text-decoration: line-through;">{{investment.fee}}/{{investment.fee}}</td>
               <td md-cell ng-if="investment.fee_time == 'future'">--/{{investment.fee}}</td>
-              <td md-cell>{{investment.fee_time}}</td>
               <td md-cell>{{investment.final_capital | currency}}</td>
               <td md-cell>{{investment.monthly_amount| currency}}</td>
               <td md-cell>{{investment.profit | currency}}</td>
+              <td md-cell>
+                <span class="chips chips-now" ng-if="investment.fee_time == 'now'">Vigente</span>
+                <span class="chips chips-past" ng-if="investment.fee_time == 'past'">Acabado</span>
+                <span class="chips chips-future" ng-if="investment.fee_time == 'future'">Futuro</span>
+              </td>
             </tr>
-            <tr ng-show="!vm.investments.count">
-              <td colspan="10">
+            <tr ng-show="!vm.investments.count" class="color-bkg">
+              <td colspan="14">
                 <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
               </td>
             </tr>
           </tbody>
+          <tfoot md-foot>
+            <tr md-row>
+              <td md-cell colspan="2"><strong>TOTAL:</strong></td>
+              <td md-cell colspan="5"></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.capital | currency}}</strong></td>
+              <td md-cell colspan="2"></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.final_capital | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.monthly_amount | currency}}</strong></td>
+              <td md-cell style="text-align: right;"><strong>{{vm.total.profit | currency}}</strong></td>
+              <td md-cell></td>
+            </tr>
+          </tfoot>
         </table>
       </md-table-container>
       <md-table-pagination md-limit="vm.query.limit" md-limit-options="vm.filter.rows" md-page="vm.query.page" md-total="{{vm.investments.count}}" md-on-paginate="vm.getInvestments" md-page-select></md-table-pagination>
