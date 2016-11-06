@@ -7,53 +7,23 @@ associationService.$inject = ['$http', '$cookies'];
 function associationService($http, $cookies) {
   var service = {
     getList: getList,
-    remove: remove,
     create: create,
+    remove: remove,
+    get: get,
+    update: update,
   }
 
   return service
   ////////////
 
-  // GET
+  // GET - LIST
   function getList() {
-    return $http.get("entity/associations/")
-      .then(getListComplete)
-      .catch(getListFailed);
-  }
-
-  function getListComplete(response) {
-    return response.data
-  }
-
-  function getListFailed(error) {
-    console.error('getAssociations failed');
-    return error
-  }
-
-  // DELETE
-  function remove(id) {
-    return $http.delete(
-      "entity/associations/"+id+"/",
-      {
-        withCredentials: true,
-        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
-      }
+    return $http.get(
+      "entity/associations/"
     )
-    .then(removeComplete)
-    .catch(removeFailed);
   }
 
-  function removeComplete(response) {
-    console.log('removeAssociation success');
-    return response
-  }
-
-  function removeFailed(error) {
-    console.error('removeAssociation failed');
-    return error
-  }
-
-  // POST
+  // POST - CREATE
   function create(data) {
     return $http.post(
       "entity/associations/",
@@ -63,17 +33,37 @@ function associationService($http, $cookies) {
         headers: {'X-CSRFToken': $cookies.get('csrftoken')},
       }
     )
-    .then(createComplete)
-    .catch(createFailed);
   }
 
-  function createComplete(response) {
-    console.log('createAssociation success');
-    return response
+  //  GET - RETRIEVE
+  function get(id) {
+    return $http.get(
+      "entity/associations/"+id+"/"
+    )
   }
 
-  function createFailed(error) {
-    console.error('createAssociation failed');
-    return error
+  // DELETE - DESTROY
+  function remove(id) {
+    return $http.delete(
+      "entity/associations/"+id+"/",
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
   }
+
+  // PUT - UPDATE
+  function update(id, data) {
+    return $http.put(
+      "entity/associations/"+id+"/",
+      data,
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
+  }
+
+
 }

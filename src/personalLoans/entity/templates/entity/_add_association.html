@@ -1,21 +1,42 @@
 <md-dialog aria-label="create association">
-  <md-dialog-content>
-    <form name="userForm">
-      <div layout layout="column">
-        <md-input-container flex>
+  <form name="associationForm">
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>Crear Asociación</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.hideDialogCreate()">
+          <md-icon md-svg-src="static/img/business/close.svg" aria-hidden="true"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <div layout="column">
+        <md-input-container>
           <label>Nombre</label>
-          <input ng-model="vm.name">
+          <input ng-model="vm.name" name="name" required md-maxlength="50" tabindex="1">
+          <div ng-messages="associationForm.name.$error">
+            <div ng-message="required">Se requiere el nombre.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 50 caracteres.</div>
+          </div>
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container>
           <label>Descripción</label>
-          <input ng-model="vm.description">
+          <input ng-model="vm.description" name="description" md-maxlength="250" tabindex="2">
+          <div ng-messages="associationForm.description.$error">
+            <div ng-message="md-maxlength">Debe tener menos de 250 caracteres.</div>
+          </div>
         </md-input-container>
       </div>
-    </form>
-  </md-dialog-content>
-  <md-dialog-actions layout="row">
-    <span flex></span>
-    <md-button ng-click="vm.hideDialogCreate()"> Cancelar </md-button>
-    <md-button ng-click="vm.createAssociation()" class="md-primary"> Guardar </md-button>
-  </md-dialog-actions>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
+      <span flex></span>
+      <div ng-if="associationForm.$valid">
+        <md-button class="md-raised md-primary" ng-click="vm.createAssociation()" tabindex="3">Guardar</md-button>
+      </div>
+      <div ng-if="associationForm.$invalid">
+        <md-button class="md-raised md-primary" ng-disabled="true" tabindex="3">Guardar</md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
 </md-dialog>

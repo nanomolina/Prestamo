@@ -1,0 +1,35 @@
+{% extends "base_excel.html" %}
+{% load entity_extras %}
+
+{% block title %}Planilla de prestamos mensuales{% endblock title %}
+{% block association %}{{association.name|title}}{% endblock association %}
+{% block extra_header %}
+  <tr>
+    <td colspan="2" style="font-size: 13px"><b>Fecha:</b></td>
+    <td colspan="5" style="font-size: 15px">{% now "SHORT_DATETIME_FORMAT" %}</td>
+  </tr>
+{% endblock extra_header %}
+
+{% block columns %}
+  <tr bgcolor="#4CAF50">
+    <th>Periodo</th>
+    <th>Inversor</th>
+    <th>Total prestado</th>
+    <th>Capital por cuotas</th>
+    <th>Recuperado</th>
+    <th>Ganancia</th>
+  </tr>
+{% endblock columns %}
+
+{% block rows %}
+  {% for revenue in revenues %}
+    <tr>
+      <td style="text-align: right;">{{revenue.period|date:"F - Y"}}</td>
+      <td style="text-align: right;">{{revenue.investor.full_name}}</td>
+      <td style="text-align: right;">{{revenue.capital}}</td>
+      <td style="text-align: right;">{{revenue.payment}}</td>
+      <td style="text-align: right;">{{revenue.recovered}}</td>
+      <td style="text-align: right;">{{revenue.profit}}</td>
+    </tr>
+  {% endfor %}
+{% endblock rows %}

@@ -1,13 +1,11 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.response import TemplateResponse
+
 from entity.models import Investor
 
+
 def home(request):
-    if request.user.is_authenticated():
-        investor, created = Investor.objects.get_or_create(
-            user=request.user
-        )
     return render_to_response(
         'app/index.html',
         {},

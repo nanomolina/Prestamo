@@ -1,40 +1,44 @@
-<style media="screen">
-  .material-icons.md-48 { font-size: 48px; }
-</style>
-
-<md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left md-whiteframe-1dp" layout="column" md-is-locked-open="$mdMedia('gt-md')" flex="25" layout-fill>
-    <md-toolbar class="md-tall">
+{% verbatim %}
+<md-sidenav md-swipe-left="master.toggleLeftMenu()" md-component-id="left"
+            md-is-open="master.isSidenavOpen" class="md-sidenav-left md-whiteframe-4dp" ng-cloak>
+    <md-toolbar class="md-tall md-hue-2">
       <div layout="column" class="md-toolbar-tools-bottom inset" layout-fill>
         <md-card-avatar>
-          <i class="material-icons md-48">account_circle</i>
+          <md-icon md-svg-src="static/img/business/male-user.svg" aria-hidden="true" style="height: 50px;width: 45px;"></md-icon>
         </md-card-avatar>
         <md-card-header-text>
-          {% verbatim %}
-          <span class="md-title">{{profile.username}}</span>
-          <span class="md-subhead">{{profile.email}}</span>
-          {% endverbatim %}
+          <span class="md-title">{{master.profile.first_name}} {{master.profile.last_name}}</span>
+          <span class="md-subhead">{{master.profile.email}}</span>
         </md-card-header-text>
       </div>
     </md-toolbar>
-    <md-list>
-      {% verbatim %}
-      <md-list-item ng-repeat="item in menu" md-ink-ripple ng-href="{{item.link}}">
-            <div class="inset">
-              <i class="material-icons">{{item.icon}}</i>
-            </div>
-            <div class="inset">{{item.title}}</div>
-      </md-list-item>
-      {% endverbatim %}
-    </md-list>
-    <md-divider></md-divider>
-    <md-list>
-      {% verbatim %}
-      <md-list-item ng-repeat="item in admin" md-ink-ripple ng-href="{{item.link}}">
-        <div class="inset">
-          <i class="material-icons">{{item.icon}}</i>
-        </div>
-        <div class="inset">{{item.title}}</div>
-      </md-list-item>
-      {% endverbatim %}
-    </md-list>
+    <md-content>
+      <md-list>
+        <md-subheader class="md-no-sticky">General</md-subheader>
+        <md-list-item ng-repeat="item in master.static_menu" ng-href="{{item.link}}" >
+              <div class="inset">
+                <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
+              </div>
+              <div class="inset">{{item.title}}</div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky" ng-if="master.menu.length">{{master.association.name}}</md-subheader>
+        <md-list-item ng-repeat="item in master.menu" ng-href="{{item.link}}" >
+              <div class="inset">
+                <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
+              </div>
+              <div class="inset">{{item.title}}</div>
+        </md-list-item>
+      </md-list>
+      <md-divider></md-divider>
+      <md-list>
+        <md-list-item ng-repeat="item in master.admin" ng-href="{{item.link}}">
+          <div class="inset">
+            <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
+          </div>
+          <div class="inset">{{item.title}}</div>
+        </md-list-item>
+      </md-list>
+    </md-content>
 </md-sidenav>
+{% endverbatim %}

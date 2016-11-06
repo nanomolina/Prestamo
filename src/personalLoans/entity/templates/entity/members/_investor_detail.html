@@ -1,0 +1,68 @@
+{% verbatim %}
+<md-dialog aria-label="new investor">
+  <form name="investorDetailForm">
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>Detalle del inversor</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm2.hideDialogCreate()">
+          <md-icon md-svg-src="static/img/business/close.svg" aria-hidden="true"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+      <div layout-gt-sm="row" layout-align="center center">
+        <img ng-src="{{vm2.selected_investor.image_url}}" height="200" style="border-radius: 50%; width: 100%;"/>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre*</label>
+          <input ng-model="vm2.selected_investor.first_name" name="first_name" required md-maxlength="30" ng-readonly="true">
+          <div ng-messages="investorDetailForm.first_name.$error">
+            <div ng-message="required">Se requiere el nombre.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Apellido*</label>
+          <input ng-model="vm2.selected_investor.last_name" name="last_name" required md-maxlength="30" ng-readonly="true">
+          <div ng-messages="investorDetailForm.last_name.$error">
+            <div ng-message="required">Se requiere el apellido.</div>
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Alias</label>
+          <input ng-model="vm2.selected_investor.alias" name="alias" md-maxlength="30" ng-readonly="true">
+          <div ng-messages="investorDetailForm.alias.$error">
+            <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>DNI</label>
+          <input ng-model="vm2.selected_investor.dni" name="dni" md-maxlength="8" ng-readonly="true">
+          <div ng-messages="investorDetailForm.alias.$error">
+            <div ng-message="md-maxlength">Debe tener menos de 8 caracteres.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Cumpleaños</label>
+          <input ng-model="vm2.selected_investor.birthdate" name="birthdate" ng-readonly="true">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Genero</label>
+          <input ng-model="vm2.selected_investor.gender_display" name="gender" ng-readonly="true">
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <div>
+        <md-button class="md-raised md-accent" ng-click="">Editar</md-button>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+{% endverbatim %}
