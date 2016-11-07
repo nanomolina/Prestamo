@@ -3,20 +3,20 @@
   <div class="login-overlay ng-scope">
     <div class="logo"> Mis Prestamos <br> <span class="smaller"></span> </div>
     <div class="form-container shadow">
+      <md-progress-linear md-mode="indeterminate" ng-show="vm.facebook_loading"></md-progress-linear>
       <div class="icon">
         <md-icon md-svg-src="/static/img/business/male-user.svg" aria-hidden="true" style="height: 100px; width: 100px;"></md-icon>
         <div class="header"> Iniciar Sesión </div>
       </div>
       <div class="inputs">
-        <md-button class="md-raised" href="/accounts/facebook/login/?next=/" style="margin-bottom: 40px;">
+        <md-button class="md-raised" href="/accounts/facebook/login/?next=/" ng-click="vm.facebook_loading = true;" style="margin-bottom: 40px;">
           <md-icon md-svg-src="/static/img/business/facebook2.svg" aria-hidden="true" style="height: 40px; width: 40px;position: relative;left: -6px;"></md-icon>
           Iniciar Sesión con facebook
         </md-button>
       </div>
     </div>
     <footer class="login-footer">
-      <div class="left-section"> © Material Dashboard Theme </div>
-      <div class="right-section"> Terms and Conditions Apply </div>
+      <div class="left-section"> ©MisPrestamosOnline </div>
     </footer>
   </div>
 </div>

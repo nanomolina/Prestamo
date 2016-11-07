@@ -12,6 +12,7 @@ function LoginCtrl(authService, $mdToast, $location, $http, $cookies, $rootScope
       password: '',
     }
     vm.login = login;
+    vm.facebook_loading = false;
 
 
     // PUBLIC FUNCTIONS
