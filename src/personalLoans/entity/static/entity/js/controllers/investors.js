@@ -94,8 +94,15 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       return gender == '2';
     }
 
-    function chooseAvatar(index) {
-      if (is_male(vm.gender)) {
+    function chooseAvatar(index, event) {
+      var element = angular.element(document.querySelector('.avatar-selected'));
+      var target = angular.element(event.target);
+      if (!target.hasClass('md-button')){
+        var target = angular.element(event.target.parentElement);
+      }
+      element.removeClass('avatar-selected');
+      target.addClass('avatar-selected');
+      if (is_male(vm.data.gender)) {
         vm.data.image_url = vm.men_avatars[index];
       } else {
         vm.data.image_url = vm.women_avatars[index];

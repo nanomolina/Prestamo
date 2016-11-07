@@ -60,10 +60,15 @@
               md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
               md-row-height-gt-md="1:1" md-row-height="4:3"
               md-gutter="8px" md-gutter-gt-sm="4px">
-          <a ng-repeat="man_avatar in vm2.men_avatars" class="md-button" ng-if="vm2.is_male(vm2.data.gender)" ng-click="vm2.chooseAvatar($index)">
+          <style media="screen">
+            .avatar-selected {
+              border: 1px solid rgb(198,40,40);
+            }
+          </style>
+          <a ng-repeat="man_avatar in vm2.men_avatars" class="md-button" ng-if="vm2.is_male(vm2.data.gender)" ng-click="vm2.chooseAvatar($index, $event)">
             <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
           </a>
-          <a ng-repeat="woman_avatar in vm2.women_avatars" class="md-button" ng-if="vm2.is_female(vm2.data.gender)" ng-click="vm2.chooseAvatar($index)">
+          <a ng-repeat="woman_avatar in vm2.women_avatars" class="md-button" ng-if="vm2.is_female(vm2.data.gender)" ng-click="vm2.chooseAvatar($index, $event)">
             <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
           </a>
         </md-grid-list>
