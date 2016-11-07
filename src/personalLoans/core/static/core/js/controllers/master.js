@@ -45,7 +45,7 @@ function MasterCtrl(authService, associationService, $scope, $location, $mdSiden
       authService.getUser()
       .then(function(response) {
         vm.authenticated = true;
-        vm.profile = response.data;
+        vm.profile = response.data[0];
         $timeout(function () {
             vm.loading = false;
         }, 1000);

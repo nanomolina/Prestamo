@@ -24,6 +24,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.women_avatars = [];
     vm.is_selected_investor = false;
     vm.selected_investor;
+    vm.create_loading = false;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -73,6 +74,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function createInvestor() {
       if ($scope.investorForm.$valid) {
+        vm.create_loading = true;
         var id = $routeParams.associationId;
         vm.data.birthdate = formatDate(vm.data.birthdate_partial);
         investorService.create(id, vm.data)
@@ -80,8 +82,10 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
           vm.investors.push(response.data);
           hideDialogCreate();
           showToastCreate();
+          vm.create_loading = false;
         }).catch(function(response) {
           $mdToast.showSimple('Error al añadir inversor.');
+          vm.create_loading = false;
         });
       }
     }
@@ -94,8 +98,15 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       return gender == '2';
     }
 
-    function chooseAvatar(index) {
-      if (is_male(vm.gender)) {
+    function chooseAvatar(index, event) {
+      var element = angular.element(document.querySelector('.avatar-selected'));
+      var target = angular.element(event.target);
+      if (!target.hasClass('md-button')){
+        var target = angular.element(event.target.parentElement);
+      }
+      element.removeClass('avatar-selected');
+      target.addClass('avatar-selected');
+      if (is_male(vm.data.gender)) {
         vm.data.image_url = vm.men_avatars[index];
       } else {
         vm.data.image_url = vm.women_avatars[index];
