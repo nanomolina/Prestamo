@@ -11,6 +11,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     vm.name;
     vm.description;
     vm.associations = [];
+    vm.create_loading = false;
     vm.getTotalAssociations = getTotalAssociations;
     vm.goToConsole = goToConsole;
     vm.createAssociation = createAssociation;
@@ -33,14 +34,17 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
 
     function createAssociation() {
       if ($scope.associationForm.$valid) {
+        vm.create_loading = true;
         var data = {name: vm.name, description: vm.description};
         associationService.create(data)
         .then(function(response) {
           vm.associations.push(response.data);
           hideDialogCreate();
           showToastCreate();
+          vm.create_loading = false;
         }).catch(function(response) {
           $mdToast.showSimple('Error al crear asociación!');
+          vm.create_loading = false;
         });
       }
     }

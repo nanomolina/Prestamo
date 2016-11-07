@@ -10,6 +10,7 @@
         </md-button>
       </div>
     </md-toolbar>
+    <md-progress-linear md-mode="indeterminate" ng-show="vm2.create_loading"></md-progress-linear>
     <md-dialog-content layout-padding>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
@@ -77,10 +78,10 @@
     <md-dialog-actions layout="row">
       <md-button ng-click="vm2.clearDialogCreate()">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="investorForm.$valid">
+      <div ng-if="investorForm.$valid && !vm2.create_loading">
         <md-button class="md-raised md-primary" ng-click="vm2.createInvestor()">Guardar</md-button>
       </div>
-      <div ng-if="investorForm.$invalid">
+      <div ng-if="investorForm.$invalid || vm2.create_loading">
         <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
       </div>
     </md-dialog-actions>

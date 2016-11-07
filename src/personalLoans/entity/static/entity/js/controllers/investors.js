@@ -24,6 +24,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.women_avatars = [];
     vm.is_selected_investor = false;
     vm.selected_investor;
+    vm.create_loading = false;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -73,6 +74,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function createInvestor() {
       if ($scope.investorForm.$valid) {
+        vm.create_loading = true;
         var id = $routeParams.associationId;
         vm.data.birthdate = formatDate(vm.data.birthdate_partial);
         investorService.create(id, vm.data)
@@ -80,8 +82,10 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
           vm.investors.push(response.data);
           hideDialogCreate();
           showToastCreate();
+          vm.create_loading = false;
         }).catch(function(response) {
           $mdToast.showSimple('Error al añadir inversor.');
+          vm.create_loading = false;
         });
       }
     }

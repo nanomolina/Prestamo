@@ -9,6 +9,7 @@
         </md-button>
       </div>
     </md-toolbar>
+    <md-progress-linear md-mode="indeterminate" ng-show="vm.create_loading"></md-progress-linear>
     <md-dialog-content layout-padding>
       <div layout="column">
         <md-input-container>
@@ -31,10 +32,10 @@
     <md-dialog-actions layout="row">
       <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="associationForm.$valid">
+      <div ng-if="associationForm.$valid && !vm.create_loading">
         <md-button class="md-raised md-primary" ng-click="vm.createAssociation()" tabindex="3">Guardar</md-button>
       </div>
-      <div ng-if="associationForm.$invalid">
+      <div ng-if="associationForm.$invalid || vm.create_loading">
         <md-button class="md-raised md-primary" ng-disabled="true" tabindex="3">Guardar</md-button>
       </div>
     </md-dialog-actions>

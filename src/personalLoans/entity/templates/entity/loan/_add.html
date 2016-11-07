@@ -10,6 +10,7 @@
         </md-button>
       </div>
     </md-toolbar>
+    <md-progress-linear md-mode="indeterminate" ng-show="vm.create_loading"></md-progress-linear>
     <md-dialog-content layout-padding>
       <!--<h3 class="md-subhead">Prestamista</h3> -->
       <div layout-gt-sm="row">
@@ -125,10 +126,10 @@
     <md-dialog-actions layout="row">
       <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="investmentForm.$valid">
+      <div ng-if="investmentForm.$valid && !vm.create_loading">
         <md-button class="md-raised md-primary" ng-click="vm.createInvestment()">Guardar</md-button>
       </div>
-      <div ng-if="investmentForm.$invalid">
+      <div ng-if="investmentForm.$invalid or vm.create_loading">
         <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
       </div>
     </md-dialog-actions>

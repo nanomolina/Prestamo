@@ -52,6 +52,7 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
     vm.investors = [];
     vm.promise;
     vm.total = {};
+    vm.create_loading = false;
     vm.getInvestments = getInvestments;
     vm.showFilterBar = showFilterBar;
     vm.hideFilterBar = hideFilterBar;
@@ -112,15 +113,18 @@ function InvestmentCtrl(investmentService, investorService, $routeParams, $scope
 
     function createInvestment() {
       if ($scope.investmentForm.$valid) {
+        vm.create_loading = true;
         var id = $routeParams.associationId;
         vm.data.date = formatDate(vm.data.date_partial);
         investmentService.create(id, vm.data)
         .then(function(response) {
+          vm.create_loading = false;
           vm.getInvestments();
           vm.hideDialogCreate();
           getTotal();
           showToastCreate();
         }).catch(function(response) {
+          vm.create_loading = false;
           if (response.data.warrant) {
             vm.errors.warrant.push(vm.data.warrant);
             $scope.investmentForm.warrant.$setValidity('warrantexist', false)
