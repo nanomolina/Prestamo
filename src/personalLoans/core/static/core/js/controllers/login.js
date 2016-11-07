@@ -25,7 +25,7 @@ function LoginCtrl(authService, $mdToast, $location, $http, $cookies, $rootScope
         authService.getUser()
         .then(function(response) {
           $scope.master.authenticated = true;
-          $scope.master.profile = response.data;
+          $scope.master.profile = response.data[0];
           $location.path('/association');
         });
       }).catch(function(response) {

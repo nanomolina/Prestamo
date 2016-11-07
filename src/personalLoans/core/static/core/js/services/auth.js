@@ -44,7 +44,7 @@ function authService($q, $http, $cookies, $rootScope) {
 
   function getUser() {
     return $http.get(
-      "rest-auth/user/"
+      "rest-auth/socialuser/"
     )
   }
 

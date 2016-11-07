@@ -4,11 +4,11 @@
     <md-toolbar class="md-tall md-hue-2">
       <div layout="column" class="md-toolbar-tools-bottom inset" layout-fill>
         <md-card-avatar>
-          <md-icon md-svg-src="static/img/business/male-user.svg" aria-hidden="true" style="height: 50px;width: 45px;"></md-icon>
+          <img ng-src="{{master.profile.get_avatar_url}}" style="height: 50px;width: 50px;border-radius: 40px;"></img>
         </md-card-avatar>
         <md-card-header-text>
-          <span class="md-title">{{master.profile.first_name}} {{master.profile.last_name}}</span>
-          <span class="md-subhead">{{master.profile.email}}</span>
+          <span class="md-title">{{master.profile.user.first_name}} {{master.profile.user.last_name}}</span>
+          <span class="md-subhead">{{master.profile.user.email}}</span>
         </md-card-header-text>
       </div>
     </md-toolbar>
