@@ -1,12 +1,13 @@
-{% verbatim %}
 <md-content ng-controller="AssociationCtrl as vm" class="color-bkg">
+  {% verbatim %}
+  <md-progress-linear md-mode="indeterminate" ng-show="vm.general_loading"></md-progress-linear>
   <div layout="row" layout-padding>
       <h4>
         Posee {{vm.getTotalAssociations()}} asociaciones
       </h4>
       <span flex></span>
       <md-button type="button" class="md-fab" aria-label="Add" ng-click="vm.showDialogCreate($event)">
-        <md-icon md-svg-src="static/img/business/white-plus.svg" aria-hidden="true" style="position: relative;bottom: 7px;"></md-icon>
+        <md-icon md-svg-src="static/img/business/white-plus.svg" aria-hidden="true" style="position: relative;bottom: 0px;"></md-icon>
       </md-button>
   </div>
   <div layout="row" layout-wrap layout-padding>
@@ -37,5 +38,10 @@
         </md-card-actions>
       </md-card>
   </div>
+  {% endverbatim %}
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myStaticDialog">
+      {% include "entity/_add_association.html" %}
+    </div>
+  </div>
 </md-content>
-{% endverbatim %}

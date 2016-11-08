@@ -11,6 +11,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     vm.name;
     vm.description;
     vm.associations = [];
+    vm.general_loading = false;
     vm.create_loading = false;
     vm.getTotalAssociations = getTotalAssociations;
     vm.goToConsole = goToConsole;
@@ -29,6 +30,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     }
 
     function goToConsole(id) {
+      vm.general_loading = true;
       $location.path('/association/' + id + '/console');
     }
 
@@ -51,14 +53,13 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
 
     function showDialogCreate($event) {
       $mdDialog.show({
+        contentElement: '#myStaticDialog',
+        parent: angular.element(document.body),
         targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/_add_association.html',
       });
-    }
+    };
 
     function hideDialogCreate() {
       $mdDialog.hide();
