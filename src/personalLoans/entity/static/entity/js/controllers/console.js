@@ -31,34 +31,14 @@ function ConsoleCtrl($routeParams, $location, $scope) {
           href : '#/association/' + id + '/revenue',
         },
     ];
-    vm.goToDetail = goToDetail;
-    vm.goToLoans = goToLoans;
-    vm.goToMonthlyResume = goToMonthlyResume;
-    vm.goToRevenue = goToRevenue;
+    vm.general_loading = false;
+    vm.showLoader = showLoader;
 
     // INIT
     $scope.master.updateSideNav();
 
     // PUBLIC FUNCTIONS
-    function goToDetail() {
-      var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/members');
+    function showLoader() {
+      vm.general_loading = true
     }
-
-    function goToLoans() {
-      var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/loans');
-    }
-
-    function goToMonthlyResume() {
-      var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/monthly_resume');
-    }
-
-    function goToRevenue() {
-      var id = $routeParams.associationId;
-      $location.path('/association/' + id + '/revenue');
-    }
-
-    // PRIVATE FUNCTIONS
 }
