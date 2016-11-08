@@ -16,7 +16,7 @@
       </div>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
-          <label>Nombre*</label>
+          <label>Nombre</label>
           <input ng-model="vm2.selected_investor.first_name" name="first_name" required md-maxlength="30" ng-readonly="true">
           <div ng-messages="investorDetailForm.first_name.$error">
             <div ng-message="required">Se requiere el nombre.</div>
@@ -24,7 +24,7 @@
           </div>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
-          <label>Apellido*</label>
+          <label>Apellido</label>
           <input ng-model="vm2.selected_investor.last_name" name="last_name" required md-maxlength="30" ng-readonly="true">
           <div ng-messages="investorDetailForm.last_name.$error">
             <div ng-message="required">Se requiere el apellido.</div>
