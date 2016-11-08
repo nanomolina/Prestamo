@@ -20,16 +20,15 @@ class InvestorSerializer(serializers.ModelSerializer):
     gender_display = serializers.ReadOnlyField(
         source='get_gender_display'
     )
-    birthdate = serializers.DateField(
-        format=settings.DATE_FORMAT,
-        input_formats=settings.DATE_INPUT_FORMATS
-    )
+    # birthdate = serializers.DateField(
+    #     format=settings.DATE_FORMAT,
+    #     input_formats=settings.DATE_INPUT_FORMATS
+    # )
     class Meta:
         model = Investor
         fields = (
             'association', 'id', 'first_name', 'last_name',
-            'alias', 'dni', 'phone', 'email', 'birthdate',
-            'gender', 'image_url',
+            'alias', 'gender', 'image_url',
             'date_created', 'gender_display'
         )
 
