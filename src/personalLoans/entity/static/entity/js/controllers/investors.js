@@ -7,15 +7,11 @@ InvestorCtrl.$inject = ['investorService', '$scope', '$mdToast', '$mdDialog', '$
 function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams) {
     var vm = this;
 
+    $scope.master.toolbar = {title: 'Inversores', icon: 'static/img/business/diagram.svg'}
     vm.data = {
       first_name: '',
       last_name: '',
       alias: '',
-      dni: undefined,
-      phone: '',
-      email: '',
-      birthdate: undefined,
-      birthdate_partial: undefined,
       gender: '1',
       image_url: '',
     }
@@ -38,6 +34,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     // INIT FUNCTIONS
     getInvestors();
     getAvatars();
+    $scope.master.updateSideNav();
 
 
     // PUBLIC FUNCTIONS
@@ -62,11 +59,6 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
         first_name: '',
         last_name: '',
         alias: '',
-        dni: undefined,
-        phone: '',
-        email: '',
-        birthdate: undefined,
-        birthdate_partial: undefined,
         gender: '1',
         image_url: '',
       }
@@ -76,7 +68,6 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       if ($scope.investorForm.$valid) {
         vm.create_loading = true;
         var id = $routeParams.associationId;
-        vm.data.birthdate = formatDate(vm.data.birthdate_partial);
         investorService.create(id, vm.data)
         .then(function(response) {
           vm.investors.push(response.data);
