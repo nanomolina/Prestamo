@@ -11,9 +11,9 @@ def handler_new_investment(sender, instance, **kwargs):
     for fee_month in range(instance.fee + 1):
         revenue, created = Revenue.objects.get_or_create(
             investor=instance.investor,
-            investment=instance,
             period=add_months(instance.date, fee_month),
         )
+        revenue.investment = instance
         if fee_month == 0:
             revenue.capital = Decimal(revenue.capital) + Decimal(instance.capital)
         else:
