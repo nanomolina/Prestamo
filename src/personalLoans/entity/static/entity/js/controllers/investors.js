@@ -40,12 +40,11 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     // PUBLIC FUNCTIONS
     function showDialogCreate($event) {
       $mdDialog.show({
+        contentElement: '#investor-dialog-create',
+        parent: angular.element(document.body),
         targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/members/_add_investor.html',
       });
     }
 

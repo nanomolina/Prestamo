@@ -1,5 +1,5 @@
-{% verbatim %}
 <div ng-controller="InvestorCtrl as vm">
+  {% verbatim %}
   <md-toolbar class="md-table-toolbar md-default">
     <div class="md-toolbar-tools md-whiteframe-1dp">
       <h2>Grupo de Inversores</h2>
@@ -25,5 +25,10 @@
       </div>
     </div>
   </md-content>
+  {% endverbatim %}
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="investor-dialog-create">
+      {% include "entity/members/_add_investor.html" %}
+    </div>
+  </div>
 </div>
-{% endverbatim %}
