@@ -30,6 +30,11 @@ function ConsoleCtrl($routeParams, $location, $scope) {
           icon: 'static/img/business/get-money.svg',
           href : '#/association/' + id + '/revenue',
         },
+        {
+          title: 'Configuración',
+          icon: 'static/img/business/justice.svg',
+          href : '#/association/' + id + '/config',
+        },
     ];
     vm.general_loading = false;
     vm.showLoader = showLoader;

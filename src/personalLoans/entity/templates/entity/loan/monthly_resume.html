@@ -93,6 +93,11 @@
                 <span class="chips chips-future" ng-if="investment.fee_time == 'future'">Futuro</span>
               </td>
             </tr>
+            <tr ng-show="!vm.investments.count" class="color-bkg">
+              <td colspan="9">
+                <span layout="row" layout-align="center center" style="height: 90px;">No hay resultados</span>
+              </td>
+            </tr>
           </tbody>
         </table>
       </md-table-container>
