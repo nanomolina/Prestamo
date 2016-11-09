@@ -21,6 +21,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.women_avatars = [];
     vm.is_selected_investor = false;
     vm.selected_investor = {};
+    vm.index_selected_investor = undefined;
     vm.create_loading = false;
     vm.form_readonly = true;
     vm.showDialogCreate = showDialogCreate;
@@ -118,6 +119,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function selectInvestor(index, event) {
       vm.selected_investor = vm.investors[index];
+      vm.index_selected_investor = index;
       vm.is_selected_investor = true;
       vm.form_readonly = true;
       showDialogInvestorDetail(event);
@@ -145,6 +147,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       .then(function(response) {
         vm.selected_investor = response.data;
         vm.form_readonly = true;
+        vm.investors[vm.index_selected_investor] = response.data;
         $mdToast.showSimple('Inversor editado exitosamente.');
       })
       .catch(function(response) {
@@ -180,12 +183,11 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function showDialogInvestorDetail($event) {
       $mdDialog.show({
+        contentElement: '#investor-dialog-update',
+        parent: angular.element(document.body),
         targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/members/_investor_detail.html',
       });
     }
 }
