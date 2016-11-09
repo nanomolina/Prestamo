@@ -72,6 +72,13 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function createInvestor() {
       if ($scope.investorForm.$valid) {
+        if (vm.data.image_url == '') {
+          if (is_male(vm.data.gender)) {
+            vm.data.image_url = vm.men_avatars[2];
+          } else {
+            vm.data.image_url = vm.women_avatars[1];
+          }
+        }
         vm.create_loading = true;
         var id = $routeParams.associationId;
         investorService.create(id, vm.data)
