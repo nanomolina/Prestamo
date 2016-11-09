@@ -58,6 +58,14 @@ class InvestorList(ListCreateAPIView):
         return response
 
 
+class InvestorDetail(RetrieveUpdateDestroyAPIView):
+    serializer_class = InvestorSerializer
+
+    def get_queryset(self):
+        assoc_id = self.kwargs['assoc_id']
+        return Investor.objects.filter(association__id=assoc_id)
+
+
 class SetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'limit'

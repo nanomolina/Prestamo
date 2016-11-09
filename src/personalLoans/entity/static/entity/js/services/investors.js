@@ -9,6 +9,7 @@ function investorService($http, $cookies) {
     getList: getList,
     create: create,
     getAvatars: getAvatars,
+    update: update,
   }
 
   return service
@@ -40,4 +41,15 @@ function investorService($http, $cookies) {
     )
   }
 
+  // PUT - UPDATE
+  function update(id, data) {
+    return $http.put(
+      "entity/investor/"+id+"/",
+      data,
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
+  }
 }

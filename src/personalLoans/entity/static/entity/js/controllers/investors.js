@@ -33,6 +33,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.selectInvestor = selectInvestor;
     vm.editEnabled = editEnabled;
     vm.editDisabled = editDisabled;
+    vm.editInvestor = editInvestor;
 
 
     // INIT FUNCTIONS
@@ -135,6 +136,19 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function editDisabled() {
       vm.form_readonly = true;
+    }
+
+    function editInvestor() {
+      var id = vm.selected_investor.id;
+      investorService.update(id, vm.data_edit)
+      .then(function(response) {
+        vm.selected_investor = response.data;
+        $mdToast.showSimple('Inversor editado exitosamente.');
+      })
+      .catch(function(response) {
+        vm.form_readonly = true;
+        $mdToast.showSimple('Error al añadir inversor.');
+      });
     }
 
     // PRIVATE FUNCTIONS
