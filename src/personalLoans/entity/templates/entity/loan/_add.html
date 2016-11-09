@@ -126,8 +126,8 @@
     <md-dialog-actions layout="row">
       <md-button ng-click="vm.clearDialogCreate()" ng-if="!vm.create_loading">Limpiar</md-button>
       <span flex></span>
-      <md-button class="md-raised md-primary" ng-click="vm.createInvestment()" ng-if="investmentForm.$valid && !vm.create_loading">Guardar</md-button>
-      <md-button class="md-raised md-primary" ng-disabled="true" ng-if="investmentForm.$invalid || vm.create_loading">Guardar</md-button>
+      <md-button class="md-raised md-accent" ng-click="vm.createInvestment()" ng-if="investmentForm.$valid && !vm.create_loading">Guardar</md-button>
+      <md-button class="md-raised md-accent" ng-disabled="true" ng-if="investmentForm.$invalid || vm.create_loading">Guardar</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

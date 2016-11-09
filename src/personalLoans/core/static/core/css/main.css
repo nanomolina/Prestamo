@@ -5,7 +5,7 @@
 }
 
 .color-bkg {
-  background-color: #F5F5F5;
+  /*background-color: #F5F5F5;*/
 }
 
 .chips {
@@ -44,11 +44,11 @@
 /* TABLE MATERIAL */
 
 /* thead*/
-table.md-table thead.md-head>tr.md-row  {
+/*table.md-table thead.md-head>tr.md-row  {
   background-color: #F5F5F5;
-}
+}*/
 /*tbody*/
-table.md-table.md-row-select tbody.md-body>tr.md-row,
+/*table.md-table.md-row-select tbody.md-body>tr.md-row,
 table.md-table tbody.md-body>tr.md-row {
   background-color: #F5F5F5;
 }
@@ -57,20 +57,20 @@ table.md-table.md-row-select tbody.md-body>tr.md-row.md-selected {
 }
 table.md-table.md-row-select tbody.md-body>tr.md-row:not([disabled]):hover {
   background-color: #E0E0E0 !important;
-}
+}*/
 /*tfoot*/
-table.md-table tfoot.md-foot>tr.md-row {
+/*table.md-table tfoot.md-foot>tr.md-row {
   background-color: #c62828;
 }
 table.md-table tfoot.md-foot>tr.md-row td.md-cell {
   color: #fff;
-}
+}*/
 /*pagination*/
-.md-table-pagination {
+/*.md-table-pagination {
   background-color: #F5F5F5;
-}
+}*/
 
 /* TOOLBAR */
-md-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default {
+/*md-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default {
   background-color: #F5F5F5;
-}
+}*/

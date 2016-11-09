@@ -2,8 +2,10 @@
 
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('red')
-    .accentPalette('blue');
+    .primaryPalette('blue')
+    .accentPalette('green')
+    .warnPalette('red')
+    .backgroundPalette('blue-grey');
 });
 
 app.config(function($mdDateLocaleProvider) {
