@@ -23,6 +23,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.selected_investor = {};
     vm.index_selected_investor = undefined;
     vm.create_loading = false;
+    vm.update_loading = false;
     vm.form_readonly = true;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
@@ -141,19 +142,24 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     }
 
     function editInvestor() {
-      var assoc_id = $routeParams.associationId;
-      var inv_id = vm.selected_investor.id;
-      investorService.update(assoc_id, inv_id, vm.data_edit)
-      .then(function(response) {
-        vm.selected_investor = response.data;
-        vm.form_readonly = true;
-        vm.investors[vm.index_selected_investor] = response.data;
-        $mdToast.showSimple('Inversor editado exitosamente.');
-      })
-      .catch(function(response) {
-        vm.form_readonly = true;
-        $mdToast.showSimple('Error al añadir inversor.');
-      });
+      if ($scope.investorDetailForm.$valid) {
+        vm.update_loading = true;
+        var assoc_id = $routeParams.associationId;
+        var inv_id = vm.selected_investor.id;
+        investorService.update(assoc_id, inv_id, vm.data_edit)
+        .then(function(response) {
+          vm.update_loading = false;
+          vm.selected_investor = response.data;
+          vm.form_readonly = true;
+          vm.investors[vm.index_selected_investor] = response.data;
+          $mdToast.showSimple('Inversor editado exitosamente.');
+        })
+        .catch(function(response) {
+          vm.update_loading = false;
+          vm.form_readonly = true;
+          $mdToast.showSimple('Error al añadir inversor.');
+        });
+      }
     }
 
     // PRIVATE FUNCTIONS
