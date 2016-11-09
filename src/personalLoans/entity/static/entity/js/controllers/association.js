@@ -96,6 +96,7 @@ function AssociationCtrl(associationService, $location, $mdDialog, $scope, $mdTo
     function removeAssociation(id) {
       associationService.remove(id)
       .then(function(response) {
+        $mdToast.showSimple('Asociación borrada.');
         getAssociations();
       });
     }
