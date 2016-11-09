@@ -36,6 +36,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.editEnabled = editEnabled;
     vm.editDisabled = editDisabled;
     vm.editInvestor = editInvestor;
+    vm.showDialogRemove = showDialogRemove;
 
 
     // INIT FUNCTIONS
@@ -169,6 +170,20 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       }
     }
 
+    function showDialogRemove($event) {
+      var dialogR = $mdDialog.confirm()
+          .title('Borrar Inversor')
+          .textContent('Estás seguro de querer borrar este inversor?')
+          .ariaLabel('Lucky day')
+          .targetEvent($event)
+          .ok('Borrar')
+          .cancel('Cancelar')
+          .clickOutsideToClose(true);
+      $mdDialog.show(dialogR).then(function() {
+        removeInvestor();
+      });
+    };
+
     // PRIVATE FUNCTIONS
     function getInvestors() {
       var id = $routeParams.associationId;
@@ -201,6 +216,16 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
         targetEvent: $event,
         clickOutsideToClose: true,
         fullscreen: true,
+      });
+    }
+
+    function removeInvestor() {
+      var assoc_id = $routeParams.associationId;
+      var inv_id = vm.selected_investor.id;
+      investorService.remove(assoc_id, inv_id)
+      .then(function(response) {
+        $mdToast.showSimple('Inversor ' + vm.selected_investor.first_name + ' ' + vm.selected_investor.last_name + ' ah sido borrado.');
+        getInvestors();
       });
     }
 }

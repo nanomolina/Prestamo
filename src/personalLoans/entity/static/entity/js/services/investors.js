@@ -10,6 +10,7 @@ function investorService($http, $cookies) {
     create: create,
     getAvatars: getAvatars,
     update: update,
+    remove: remove,
   }
 
   return service
@@ -52,4 +53,16 @@ function investorService($http, $cookies) {
       }
     )
   }
+
+  // DELETE - DESTROY
+  function remove(assoc_id, inv_id) {
+    return $http.delete(
+      "entity/associations/"+assoc_id+"/investor/"+inv_id+"/",
+      {
+        withCredentials: true,
+        headers: {'X-CSRFToken': $cookies.get('csrftoken')},
+      }
+    )
+  }
+
 }

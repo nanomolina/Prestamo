@@ -85,6 +85,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
+      <md-button class="md-raised md-warn" ng-click="vm.showDialogRemove()" ng-if="vm.form_readonly">Borrar</md-button>
       <md-button class="md-raised md-default" ng-click="vm.editDisabled()" ng-if="!vm.form_readonly && !vm.update_loading">Cancelar</md-button>
       <span flex></span>
       <md-button class="md-raised md-accent" ng-click="vm.editEnabled()" ng-if="vm.form_readonly">Editar</md-button>
