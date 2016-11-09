@@ -42,9 +42,9 @@ function investorService($http, $cookies) {
   }
 
   // PUT - UPDATE
-  function update(id, data) {
+  function update(assoc_id, inv_id, data) {
     return $http.put(
-      "entity/investor/"+id+"/",
+      "entity/associations/"+assoc_id+"/investor/"+inv_id+"/",
       data,
       {
         withCredentials: true,
