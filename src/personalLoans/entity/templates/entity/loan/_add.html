@@ -124,14 +124,10 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
+      <md-button ng-click="vm.clearDialogCreate()" ng-if="!vm.create_loading">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="investmentForm.$valid && !vm.create_loading">
-        <md-button class="md-raised md-primary" ng-click="vm.createInvestment()">Guardar</md-button>
-      </div>
-      <div ng-if="investmentForm.$invalid or vm.create_loading">
-        <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
-      </div>
+      <md-button class="md-raised md-primary" ng-click="vm.createInvestment()" ng-if="investmentForm.$valid && !vm.create_loading">Guardar</md-button>
+      <md-button class="md-raised md-primary" ng-disabled="true" ng-if="investmentForm.$invalid || vm.create_loading">Guardar</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
