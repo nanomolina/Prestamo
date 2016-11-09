@@ -16,28 +16,37 @@
         <img ng-src="{{vm.data_edit.image_url}}" height="200" style="border-radius: 50%; width: 100%;" ng-if="!vm.form_readonly"/>
       </div>
       <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form_readonly">
           <label>Nombre</label>
-          <input ng-model="vm.selected_investor.first_name" required md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
-          <input ng-model="vm.data_edit.first_name" name="first_name" required md-maxlength="30" ng-if="!vm.form_readonly">
+          <input ng-model="vm.selected_investor.first_name" required md-maxlength="30" ng-readonly="vm.form_readonly">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-if="!vm.form_readonly">
+          <label>Nombre</label>
+          <input ng-model="vm.data_edit.first_name" name="first_name" required md-maxlength="30">
           <div ng-messages="investorDetailForm.first_name.$error">
             <div ng-message="required">Se requiere el nombre.</div>
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
           </div>
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form_readonly">
           <label>Apellido</label>
-          <input ng-model="vm.selected_investor.last_name" required md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
-          <input ng-model="vm.data_edit.last_name" name="last_name" required md-maxlength="30" ng-if="!vm.form_readonly">
+          <input ng-model="vm.selected_investor.last_name" required md-maxlength="30" ng-readonly="vm.form_readonly">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-if="!vm.form_readonly">
+          <label>Apellido</label>
+          <input ng-model="vm.data_edit.last_name" name="last_name" required md-maxlength="30">
           <div ng-messages="investorDetailForm.last_name.$error">
             <div ng-message="required">Se requiere el apellido.</div>
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
           </div>
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form_readonly">
           <label>Alias</label>
-          <input ng-model="vm.selected_investor.alias" md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
-          <input ng-model="vm.data_edit.alias" name="alias" md-maxlength="30" ng-if="!vm.form_readonly">
+          <input ng-model="vm.selected_investor.alias" md-maxlength="30" ng-readonly="vm.form_readonly">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm ng-if="!vm.form_readonly">
+          <label>Alias</label>
+          <input ng-model="vm.data_edit.alias" name="alias" md-maxlength="30">
           <div ng-messages="investorDetailForm.alias.$error">
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
           </div>
