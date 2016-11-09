@@ -144,6 +144,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       investorService.update(assoc_id, inv_id, vm.data_edit)
       .then(function(response) {
         vm.selected_investor = response.data;
+        vm.form_readonly = true;
         $mdToast.showSimple('Inversor editado exitosamente.');
       })
       .catch(function(response) {
