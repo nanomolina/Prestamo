@@ -15,12 +15,14 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       gender: '1',
       image_url: '',
     }
+    vm.data_edit = {};
     vm.investors = [];
     vm.men_avatars = [];
     vm.women_avatars = [];
     vm.is_selected_investor = false;
-    vm.selected_investor;
+    vm.selected_investor = {};
     vm.create_loading = false;
+    vm.form_readonly = true;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -29,6 +31,8 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.is_female = is_female;
     vm.chooseAvatar = chooseAvatar;
     vm.selectInvestor = selectInvestor;
+    vm.editEnabled = editEnabled;
+    vm.editDisabled = editDisabled;
 
 
     // INIT FUNCTIONS
@@ -88,7 +92,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       return gender == '2';
     }
 
-    function chooseAvatar(index, event) {
+    function chooseAvatar(index, event, action) {
       var element = angular.element(document.querySelector('.avatar-selected'));
       var target = angular.element(event.target);
       if (!target.hasClass('md-button')){
@@ -96,10 +100,18 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       }
       element.removeClass('avatar-selected');
       target.addClass('avatar-selected');
-      if (is_male(vm.data.gender)) {
-        vm.data.image_url = vm.men_avatars[index];
+      if (action == "add") {
+        if (is_male(vm.data.gender)) {
+          vm.data.image_url = vm.men_avatars[index];
+        } else {
+          vm.data.image_url = vm.women_avatars[index];
+        }
       } else {
-        vm.data.image_url = vm.women_avatars[index];
+        if (is_male(vm.data_edit.gender)) {
+          vm.data_edit.image_url = vm.men_avatars[index];
+        } else {
+          vm.data_edit.image_url = vm.women_avatars[index];
+        }
       }
     }
 
@@ -107,6 +119,21 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       vm.selected_investor = vm.investors[index];
       vm.is_selected_investor = true;
       showDialogInvestorDetail(event);
+    }
+
+    function editEnabled() {
+      vm.form_readonly = false;
+      vm.data_edit = {
+        first_name: vm.selected_investor.first_name,
+        last_name: vm.selected_investor.last_name,
+        alias: vm.selected_investor.alias,
+        gender: vm.selected_investor.gender,
+        image_url: vm.selected_investor.image_url,
+      }
+    }
+
+    function editDisabled() {
+      vm.form_readonly = true;
     }
 
     // PRIVATE FUNCTIONS

@@ -12,12 +12,14 @@
     </md-toolbar>
     <md-dialog-content layout-padding>
       <div layout-gt-sm="row" layout-align="center center">
-        <img ng-src="{{vm.selected_investor.image_url}}" height="200" style="border-radius: 50%; width: 100%;"/>
+        <img ng-src="{{vm.selected_investor.image_url}}" height="200" style="border-radius: 50%; width: 100%;" ng-if="vm.form_readonly"/>
+        <img ng-src="{{vm.data_edit.image_url}}" height="200" style="border-radius: 50%; width: 100%;" ng-if="!vm.form_readonly"/>
       </div>
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label>Nombre</label>
-          <input ng-model="vm.selected_investor.first_name" name="first_name" required md-maxlength="30" ng-readonly="true">
+          <input ng-model="vm.selected_investor.first_name" required md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
+          <input ng-model="vm.data_edit.first_name" name="first_name" required md-maxlength="30" ng-if="!vm.form_readonly">
           <div ng-messages="investorDetailForm.first_name.$error">
             <div ng-message="required">Se requiere el nombre.</div>
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
@@ -25,7 +27,8 @@
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
           <label>Apellido</label>
-          <input ng-model="vm.selected_investor.last_name" name="last_name" required md-maxlength="30" ng-readonly="true">
+          <input ng-model="vm.selected_investor.last_name" required md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
+          <input ng-model="vm.data_edit.last_name" name="last_name" required md-maxlength="30" ng-if="!vm.form_readonly">
           <div ng-messages="investorDetailForm.last_name.$error">
             <div ng-message="required">Se requiere el apellido.</div>
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
@@ -33,23 +36,50 @@
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
           <label>Alias</label>
-          <input ng-model="vm.selected_investor.alias" name="alias" md-maxlength="30" ng-readonly="true">
+          <input ng-model="vm.selected_investor.alias" md-maxlength="30" ng-readonly="vm.form_readonly" ng-if="vm.form_readonly">
+          <input ng-model="vm.data_edit.alias" name="alias" md-maxlength="30" ng-if="!vm.form_readonly">
           <div ng-messages="investorDetailForm.alias.$error">
             <div ng-message="md-maxlength">Debe tener menos de 30 caracteres.</div>
           </div>
         </md-input-container>
       </div>
       <div layout-gt-sm="row">
-        <md-input-container class="md-block" flex-gt-sm>
+        <md-input-container class="md-block" flex-gt-sm ng-if="vm.form_readonly">
           <label>Genero</label>
-          <input ng-model="vm.selected_investor.gender_display" name="gender" ng-readonly="true">
+          <input ng-model="vm.selected_investor.gender_display" ng-readonly="vm.form_readonly">
         </md-input-container>
+        <div class="md-block" flex-gt-sm ng-if="!vm.form_readonly">
+          <md-radio-group ng-model="vm.data_edit.gender">
+            <md-radio-button value="1" class="md-primary">Masculino</md-radio-button>
+            <md-radio-button value="2">Femenino</md-radio-button>
+          </md-radio-group>
+        </div>
+      </div>
+      <div layout-gt-sm="row" ng-if="!vm.form_readonly">
+        <md-grid-list
+              md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+              md-row-height-gt-md="1:1" md-row-height="4:3"
+              md-gutter="8px" md-gutter-gt-sm="4px">
+          <style media="screen">
+            .avatar-selected {
+              border: 1px solid rgb(198,40,40);
+            }
+          </style>
+          <a ng-repeat="man_avatar in vm.men_avatars" class="md-button" ng-if="vm.is_male(vm.data_edit.gender)" ng-click="vm.chooseAvatar($index, $event, 'edit')">
+            <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
+          </a>
+          <a ng-repeat="woman_avatar in vm.women_avatars" class="md-button" ng-if="vm.is_female(vm.data_edit.gender)" ng-click="vm.chooseAvatar($index, $event, 'edit')">
+            <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
+          </a>
+        </md-grid-list>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
+      <md-button class="md-raised md-default" ng-click="vm.editDisabled()" ng-if="!vm.form_readonly">Cancelar</md-button>
       <span flex></span>
       <div>
-        <md-button class="md-raised md-accent" ng-click="">Editar</md-button>
+        <md-button class="md-raised md-accent" ng-click="vm.editEnabled()" ng-if="vm.form_readonly">Editar</md-button>
+        <md-button class="md-raised md-primary" ng-click="" ng-if="!vm.form_readonly">Guardar</md-button>
       </div>
     </md-dialog-actions>
   </form>
