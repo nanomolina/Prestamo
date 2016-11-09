@@ -118,6 +118,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     function selectInvestor(index, event) {
       vm.selected_investor = vm.investors[index];
       vm.is_selected_investor = true;
+      vm.form_readonly = true;
       showDialogInvestorDetail(event);
     }
 
