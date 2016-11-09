@@ -98,6 +98,11 @@ function MasterCtrl(authService, associationService, $scope, $location, $mdSiden
               title: 'Ganancias',
               icon: 'static/img/business/get-money.svg'
             },
+            {
+              link : '#/association/'+id+'/config',
+              title: 'Configuración',
+              icon: 'static/img/business/justice.svg'
+            },
         ];
       }
     }
