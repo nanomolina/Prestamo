@@ -15,12 +15,16 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       gender: '1',
       image_url: '',
     }
+    vm.data_edit = {};
     vm.investors = [];
     vm.men_avatars = [];
     vm.women_avatars = [];
     vm.is_selected_investor = false;
-    vm.selected_investor;
+    vm.selected_investor = {};
+    vm.index_selected_investor = undefined;
     vm.create_loading = false;
+    vm.update_loading = false;
+    vm.form_readonly = true;
     vm.showDialogCreate = showDialogCreate;
     vm.hideDialogCreate = hideDialogCreate;
     vm.clearDialogCreate = clearDialogCreate;
@@ -29,6 +33,10 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
     vm.is_female = is_female;
     vm.chooseAvatar = chooseAvatar;
     vm.selectInvestor = selectInvestor;
+    vm.editEnabled = editEnabled;
+    vm.editDisabled = editDisabled;
+    vm.editInvestor = editInvestor;
+    vm.showDialogRemove = showDialogRemove;
 
 
     // INIT FUNCTIONS
@@ -65,6 +73,13 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function createInvestor() {
       if ($scope.investorForm.$valid) {
+        if (vm.data.image_url == '') {
+          if (is_male(vm.data.gender)) {
+            vm.data.image_url = vm.men_avatars[2];
+          } else {
+            vm.data.image_url = vm.women_avatars[1];
+          }
+        }
         vm.create_loading = true;
         var id = $routeParams.associationId;
         investorService.create(id, vm.data)
@@ -88,7 +103,7 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       return gender == '2';
     }
 
-    function chooseAvatar(index, event) {
+    function chooseAvatar(index, event, action) {
       var element = angular.element(document.querySelector('.avatar-selected'));
       var target = angular.element(event.target);
       if (!target.hasClass('md-button')){
@@ -96,18 +111,78 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
       }
       element.removeClass('avatar-selected');
       target.addClass('avatar-selected');
-      if (is_male(vm.data.gender)) {
-        vm.data.image_url = vm.men_avatars[index];
+      if (action == "add") {
+        if (is_male(vm.data.gender)) {
+          vm.data.image_url = vm.men_avatars[index];
+        } else {
+          vm.data.image_url = vm.women_avatars[index];
+        }
       } else {
-        vm.data.image_url = vm.women_avatars[index];
+        if (is_male(vm.data_edit.gender)) {
+          vm.data_edit.image_url = vm.men_avatars[index];
+        } else {
+          vm.data_edit.image_url = vm.women_avatars[index];
+        }
       }
     }
 
     function selectInvestor(index, event) {
       vm.selected_investor = vm.investors[index];
+      vm.index_selected_investor = index;
       vm.is_selected_investor = true;
+      vm.form_readonly = true;
       showDialogInvestorDetail(event);
     }
+
+    function editEnabled() {
+      vm.form_readonly = false;
+      vm.data_edit = {
+        first_name: vm.selected_investor.first_name,
+        last_name: vm.selected_investor.last_name,
+        alias: vm.selected_investor.alias,
+        gender: vm.selected_investor.gender,
+        image_url: vm.selected_investor.image_url,
+      }
+    }
+
+    function editDisabled() {
+      vm.form_readonly = true;
+    }
+
+    function editInvestor() {
+      if ($scope.investorDetailForm.$valid) {
+        vm.update_loading = true;
+        var assoc_id = $routeParams.associationId;
+        var inv_id = vm.selected_investor.id;
+        investorService.update(assoc_id, inv_id, vm.data_edit)
+        .then(function(response) {
+          vm.update_loading = false;
+          vm.selected_investor = response.data;
+          vm.form_readonly = true;
+          vm.investors[vm.index_selected_investor] = response.data;
+          $mdToast.showSimple('Inversor editado exitosamente.');
+        })
+        .catch(function(response) {
+          vm.update_loading = false;
+          vm.form_readonly = true;
+          $mdToast.showSimple('Error al añadir inversor.');
+        });
+      }
+    }
+
+    function showDialogRemove($event) {
+      var dialogR = $mdDialog.confirm()
+          .title('Borrar Inversor')
+          .textContent('Estás seguro de querer borrar este inversor?')
+          .ariaLabel('Lucky day')
+          .targetEvent($event)
+          .ok('Borrar')
+          .cancel('Cancelar')
+          .clickOutsideToClose(true);
+      $mdDialog.show(dialogR).then(function() {
+        removeInvestor();
+      });
+    };
 
     // PRIVATE FUNCTIONS
     function getInvestors() {
@@ -136,12 +211,21 @@ function InvestorCtrl(investorService, $scope, $mdToast, $mdDialog, $routeParams
 
     function showDialogInvestorDetail($event) {
       $mdDialog.show({
+        contentElement: '#investor-dialog-update',
+        parent: angular.element(document.body),
         targetEvent: $event,
-        scope: $scope,
-        preserveScope: true,
         clickOutsideToClose: true,
         fullscreen: true,
-        templateUrl: 'entity/members/_investor_detail.html',
+      });
+    }
+
+    function removeInvestor() {
+      var assoc_id = $routeParams.associationId;
+      var inv_id = vm.selected_investor.id;
+      investorService.remove(assoc_id, inv_id)
+      .then(function(response) {
+        $mdToast.showSimple('Inversor ' + vm.selected_investor.first_name + ' ' + vm.selected_investor.last_name + ' ah sido borrado.');
+        getInvestors();
       });
     }
 }

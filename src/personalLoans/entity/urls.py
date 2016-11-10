@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^associations/$', views.AssociationList.as_view()),
     url(r'^associations/(?P<pk>[0-9]+)/$', views.AssociationDetail.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investors/$', views.InvestorList.as_view()),
+    url(r'^associations/(?P<assoc_id>[0-9]+)/investor/(?P<pk>[0-9]+)/$', views.InvestorDetail.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investment/(?P<pk>[0-9]+)/$', views.InvestmentDetail.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investments/$', views.InvestmentList.as_view()),
     url(r'^associations/(?P<assoc_id>[0-9]+)/investments/export/$', views.investment_export),

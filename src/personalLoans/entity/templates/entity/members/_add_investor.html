@@ -56,24 +56,20 @@
               border: 1px solid rgb(198,40,40);
             }
           </style>
-          <a ng-repeat="man_avatar in vm.men_avatars" class="md-button" ng-if="vm.is_male(vm.data.gender)" ng-click="vm.chooseAvatar($index, $event)">
+          <a ng-repeat="man_avatar in vm.men_avatars" class="md-button" ng-if="vm.is_male(vm.data.gender)" ng-click="vm.chooseAvatar($index, $event, 'add')">
             <img ng-src="{{man_avatar}}" height="50" style="position:relative; top:6px;"/>
           </a>
-          <a ng-repeat="woman_avatar in vm.women_avatars" class="md-button" ng-if="vm.is_female(vm.data.gender)" ng-click="vm.chooseAvatar($index, $event)">
+          <a ng-repeat="woman_avatar in vm.women_avatars" class="md-button" ng-if="vm.is_female(vm.data.gender)" ng-click="vm.chooseAvatar($index, $event, 'add')">
             <img ng-src="{{woman_avatar}}" height="50" style="position:relative; top:6px;"/>
           </a>
         </md-grid-list>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="vm.clearDialogCreate()">Limpiar</md-button>
+      <md-button ng-click="vm.clearDialogCreate()" ng-if="!vm.create_loading">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="investorForm.$valid && !vm.create_loading">
-        <md-button class="md-raised md-primary" ng-click="vm.createInvestor()">Guardar</md-button>
-      </div>
-      <div ng-if="investorForm.$invalid || vm.create_loading">
-        <md-button class="md-raised md-primary" ng-disabled="true">Guardar</md-button>
-      </div>
+      <md-button class="md-raised md-primary" ng-click="vm.createInvestor()" ng-if="investorForm.$valid && !vm.create_loading">Guardar</md-button>
+      <md-button class="md-raised md-primary" ng-disabled="true" ng-if="investorForm.$invalid || vm.create_loading">Guardar</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
