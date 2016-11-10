@@ -2,9 +2,9 @@
 
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue')
-    .accentPalette('green')
-    .warnPalette('red')
+    .primaryPalette('red')
+    .accentPalette('amber')
+    .warnPalette('brown')
     .backgroundPalette('blue-grey');
 });
 
