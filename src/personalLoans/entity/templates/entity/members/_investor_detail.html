@@ -88,9 +88,9 @@
       <md-button class="md-raised md-warn" ng-click="vm.showDialogRemove()" ng-if="vm.form_readonly">Borrar</md-button>
       <md-button class="md-raised md-default" ng-click="vm.editDisabled()" ng-if="!vm.form_readonly && !vm.update_loading">Cancelar</md-button>
       <span flex></span>
-      <md-button class="md-raised md-accent" ng-click="vm.editEnabled()" ng-if="vm.form_readonly">Editar</md-button>
-      <md-button class="md-raised md-primary" ng-click="vm.editInvestor()" ng-if="!vm.form_readonly && investorDetailForm.$valid && !vm.update_loading">Guardar</md-button>
-      <md-button class="md-raised md-primary" ng-disabled="true" ng-if="!vm.form_readonly && investorDetailForm.$invalid || vm.update_loading">Guardar</md-button>
+      <md-button class="md-raised md-primary" ng-click="vm.editEnabled()" ng-if="vm.form_readonly">Editar</md-button>
+      <md-button class="md-raised md-accent" ng-click="vm.editInvestor()" ng-if="!vm.form_readonly && investorDetailForm.$valid && !vm.update_loading">Guardar</md-button>
+      <md-button class="md-raised md-accent" ng-disabled="true" ng-if="!vm.form_readonly && investorDetailForm.$invalid || vm.update_loading">Guardar</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
