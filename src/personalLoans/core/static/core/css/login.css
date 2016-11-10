@@ -27,7 +27,7 @@ body {
   left:0;
   right:0;
   /*background-image:url("http://material-admin-angular.strapui.com/images/login-cover.jpg");*/
-  background-color: rgb(198,40,40);
+  background-color: #1565c0;
   background-size:cover;
   background-repeat:no-repeat;
   background-position:center center;
