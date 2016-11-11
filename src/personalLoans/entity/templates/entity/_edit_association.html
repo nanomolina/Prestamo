@@ -9,11 +9,12 @@
         </md-button>
       </div>
     </md-toolbar>
+    <md-progress-linear md-mode="indeterminate" ng-show="vm.edit_loading"></md-progress-linear>
     <md-dialog-content layout-padding>
       <div layout="column">
         <md-input-container>
           <label>Nombre</label>
-          <input ng-model="vm.name" name="name" required md-maxlength="50" tabindex="1">
+          <input ng-model="vm.name" name="name" required md-maxlength="50">
           <div ng-messages="associationForm.name.$error">
             <div ng-message="required">Se requiere el nombre.</div>
             <div ng-message="md-maxlength">Debe tener menos de 50 caracteres.</div>
@@ -21,7 +22,7 @@
         </md-input-container>
         <md-input-container>
           <label>Descripción</label>
-          <input ng-model="vm.description" name="description" md-maxlength="250" tabindex="2">
+          <input ng-model="vm.description" name="description" md-maxlength="250">
           <div ng-messages="associationForm.description.$error">
             <div ng-message="md-maxlength">Debe tener menos de 250 caracteres.</div>
           </div>
@@ -29,14 +30,10 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button ng-click="vm.clearDialogEdit()">Limpiar</md-button>
+      <md-button ng-click="vm.clearDialogEdit()" ng-if="!vm.edit_loading">Limpiar</md-button>
       <span flex></span>
-      <div ng-if="associationForm.$valid">
-        <md-button class="md-raised md-accent" ng-click="vm.editAssociation()" tabindex="3">Guardar</md-button>
-      </div>
-      <div ng-if="associationForm.$invalid">
-        <md-button class="md-raised md-accent" ng-disabled="true" tabindex="3">Guardar</md-button>
-      </div>
+      <md-button class="md-raised md-accent" ng-click="vm.editAssociation()" ng-if="associationForm.$valid && !vm.edit_loading">Guardar</md-button>
+      <md-button class="md-raised md-accent" ng-disabled="true" ng-if="associationForm.$invalid || vm.edit_loading">Guardar</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

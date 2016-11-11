@@ -9,6 +9,7 @@ function ConfigCtrl(associationService, $scope, $routeParams, $mdToast, $mdDialo
     $scope.master.toolbar = {title: 'Configuración', icon: 'static/img/business/justice.svg'}
     vm.name;
     vm.description;
+    vm.edit_loading = false;
     vm.association = {};
     vm.showDialogEdit = showDialogEdit
     vm.clearDialogEdit = clearDialogEdit;
@@ -44,14 +45,17 @@ function ConfigCtrl(associationService, $scope, $routeParams, $mdToast, $mdDialo
 
     function editAssociation() {
       if ($scope.associationForm.$valid) {
+        vm.edit_loading = true;
         var id = $scope.params.associationId;
         var data = {name: vm.name, description: vm.description};
         associationService.update(id, data)
         .then(function(response) {
+          vm.edit_loading = false;
           vm.association = response.data;
           hideDialogCreate();
           showToastEdit();
         }).catch(function(response) {
+          vm.edit_loading = false;
           $mdToast.showSimple('Error al crear asociación!');
         });
       }
