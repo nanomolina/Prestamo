@@ -11,6 +11,17 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link href="{% static 'img/favicon.ico' %}" rel="icon" type="image/x-icon" />
+    <style media="screen">
+    .se-pre-con {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url(static/img/ripple-red.svg) center no-repeat #fff;
+    }
+    </style>
 
     <!-- Angular Material style sheet -->
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
@@ -25,17 +36,6 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <style media="screen">
-      .se-pre-con {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background: url(static/img/ripple-red.svg) center no-repeat #fff;
-      }
-    </style>
     <div class="se-pre-con" ng-if="master.loading"></div>
 
     <!-- Container #1 (see wireframe) -->
