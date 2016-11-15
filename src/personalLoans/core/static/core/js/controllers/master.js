@@ -8,6 +8,7 @@ function MasterCtrl(authService, associationService, $scope, $location, $mdSiden
     var vm = this;
 
     vm.loading = true;
+    vm.menu_loading = false;
     vm.menu = [];
     vm.admin = [
       {
@@ -71,6 +72,7 @@ function MasterCtrl(authService, associationService, $scope, $location, $mdSiden
     });
 
     function updateSideNav() {
+      vm.menu_loading = false;
       var id = $routeParams.associationId;
       if (id !== undefined) {
         associationService.get(id)

@@ -12,10 +12,11 @@
         </md-card-header-text>
       </div>
     </md-toolbar>
+    <md-progress-linear md-mode="indeterminate" ng-show="master.menu_loading"></md-progress-linear>
     <md-content>
       <md-list>
         <md-subheader class="md-no-sticky">General</md-subheader>
-        <md-list-item ng-repeat="item in master.static_menu" ng-href="{{item.link}}" >
+        <md-list-item ng-repeat="item in master.static_menu" ng-href="{{item.link}}" ng-click="master.menu_loading = true">
               <div class="inset">
                 <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
               </div>
@@ -23,7 +24,7 @@
         </md-list-item>
         <md-divider ></md-divider>
         <md-subheader class="md-no-sticky" ng-if="master.menu.length">{{master.association.name}}</md-subheader>
-        <md-list-item ng-repeat="item in master.menu" ng-href="{{item.link}}" >
+        <md-list-item ng-repeat="item in master.menu" ng-href="{{item.link}}" ng-click="master.menu_loading = true">
               <div class="inset">
                 <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
               </div>
@@ -32,7 +33,7 @@
       </md-list>
       <md-divider></md-divider>
       <md-list>
-        <md-list-item ng-repeat="item in master.admin" ng-href="{{item.link}}">
+        <md-list-item ng-repeat="item in master.admin" ng-href="{{item.link}}" ng-click="master.menu_loading = true">
           <div class="inset">
             <md-icon md-svg-src="{{item.icon}}" aria-hidden="true"></md-icon>
           </div>

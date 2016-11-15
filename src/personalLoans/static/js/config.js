@@ -5,7 +5,7 @@ app.config(function($mdThemingProvider) {
     .primaryPalette('red')
     .accentPalette('amber')
     .warnPalette('brown')
-    .backgroundPalette('blue-grey');
+    .backgroundPalette('grey');
 });
 
 app.config(function($mdDateLocaleProvider) {
